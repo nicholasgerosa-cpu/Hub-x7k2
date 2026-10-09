@@ -1,0 +1,7 @@
+# INDICAZIONI PER IL TEAM durante il weekend (facoltativo).
+# Scrivi qui sotto, anche mentre lo script è in esecuzione: dalla chiamata successiva
+# tutti gli agenti le leggono con priorità massima. Le righe con # vengono ignorate.
+# Esempi:
+#   Concentratevi su servizi per le aziende della nostra zona.
+#   Niente e-commerce con magazzino.
+#   Approfondite l'idea del chatbot per i B&B.

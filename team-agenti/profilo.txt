@@ -1,0 +1,8 @@
+# CHI SIETE - più è preciso, più le idee saranno su misura.
+# Le righe che iniziano con # vengono ignorate. Modifica liberamente il testo qui sotto
+# (città, competenze, tempo disponibile, cosa vi piace / cosa NON volete fare).
+# Puoi cambiarlo anche mentre il team lavora: viene riletto a ogni chiamata.
+
+Siamo una persona/piccolo team in Italia. Abbiamo un PC con Ollama (AI in locale, gratis),
+competenze digitali di base-intermedie e circa 10-15 ore a settimana da dedicare.
+Vogliamo iniziare a guadagnare in fretta, con rischio contenuto, senza lasciare il lavoro attuale.
