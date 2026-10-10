@@ -64,8 +64,9 @@ Regole del team:
 - Operare senza sede fiscale in Italia è ammesso solo se è legale: chi risiede fiscalmente in Italia paga le tasse in Italia su tutto il reddito, ovunque lo guadagni, e una società estera gestita di fatto dall'Italia è considerata italiana (esterovestizione). Niente società di comodo, prestanome o IVA non versata.
 - Il team non ha accesso a internet: cifre e norme sono stime da verificare, trattale come tali."""
 
-# Ogni agente ha un compito: un campo in cui cercare modi legali di monetizzare.
-# I 4 con valuta=True giudicano anche le idee degli altri, ciascuno dal proprio punto di vista.
+# Ogni agente ha un compito: un campo in cui cercare modi legali di monetizzare (fase 1, ricerca).
+# Quelli con valuta=True giudicano anche le idee degli altri dal proprio punto di vista e scrivono la loro
+# parte degli studi di fattibilità (fase 2). Roberto dirige, incrocia le idee e tira le somme.
 AGENTI = {
     "giulia": dict(nome="Giulia", ruolo="Cacciatrice di trend", temp=0.95, compito=(
         "monetizzare nicchie emergenti, in Italia e all'estero, prima che diventino affollate"), sistema=(
@@ -92,6 +93,12 @@ AGENTI = {
         "Sei Elena, ingegnera di AI e automazione. Sai cosa si può fare davvero con modelli AI locali (Ollama), "
         "automazioni (n8n, Make, script) e strumenti no-code. Proponi servizi e prodotti basati su AI che le "
         "persone pagano, senza promesse irrealistiche.")),
+    "matteo": dict(nome="Matteo", ruolo="Analista di mercato", temp=0.85, valuta=True, compito=(
+        "bisogni non soddisfatti e mercati poco serviti, scoperti analizzando domanda, concorrenza e prezzi"),
+        sistema=(
+        "Sei Matteo, analista di mercato. Ragioni su chi compra, quanto è grande la domanda, chi sono i "
+        "concorrenti, che prezzi praticano e cosa li distingue. Progetti test rapidi ed economici per verificare "
+        "la domanda con clienti veri (pagine di prenotazione, preordini, interviste) prima di investire.")),
     "paolo": dict(nome="Paolo", ruolo="CFO", temp=0.8, valuta=True, compito=(
         f"modelli a ricavi ricorrenti e alto margine (abbonamenti, contratti mensili, licenze) che rendono il "
         f"massimo dai {BUDGET_EURO} euro"), sistema=(
@@ -118,6 +125,18 @@ AGENTI = {
         "Sei Francesca, growth marketer. Ragioni su come trovare i primi 10 clienti paganti in modo concreto ed "
         "economico: canali, messaggi, costo di acquisizione, passaparola. Diffidi delle idee che 'si venderanno "
         "da sole'.")),
+    "valentina": dict(nome="Valentina", ruolo="Responsabile comunicazione", temp=0.9, valuta=True, compito=(
+        "attività in cui la comunicazione è il vantaggio: brand di contenuti, servizi di comunicazione per "
+        "aziende, personal branding, contenuti in più lingue"), sistema=(
+        "Sei Valentina, responsabile della comunicazione. Trasformi un'idea in un messaggio chiaro: nome, "
+        "posizionamento, promessa in una frase, tono di voce, contenuti e testi di lancio. Riconosci quando "
+        "un'offerta è difficile da spiegare e sai renderla immediata, senza promesse ingannevoli.")),
+    "giorgio": dict(nome="Giorgio", ruolo="Responsabile operativo", temp=0.85, valuta=True, compito=(
+        "attività semplici da gestire, con processi ripetibili, strumenti già pronti e fornitori esterni"),
+        sistema=(
+        "Sei Giorgio, responsabile operativo. Valuti cosa serve davvero per far funzionare un'attività ogni "
+        "settimana: attività, ore, strumenti, fornitori, competenze. Smascheri le idee che sembrano semplici ma "
+        "richiedono molto più tempo o lavoro di quanto si pensi.")),
     "roberto": dict(nome="Roberto", ruolo="CEO", temp=0.7, compito=(
         "affari B2B ad alto valore: partnership, intermediazione, rivendita di servizi di terzi con il proprio "
         "marchio (white label)"), sistema=(
@@ -130,29 +149,39 @@ TEMPERATURA_VALUTAZIONE = 0.3
 
 # chiave: (etichetta, peso, significato del voto per i valutatori)
 DIMENSIONI = {
-    "velocita": ("Velocità primo incasso", 0.18, "10 = primo incasso entro 1-2 settimane; 1 = oltre 6 mesi"),
-    "potenziale": ("Potenziale di guadagno", 0.18, "10 = può arrivare a migliaia di euro al mese entro un anno; 1 = poche decine di euro"),
-    "budget": ("Sostenibile col budget", 0.13, f"10 = si avvia con molto meno di {BUDGET_EURO} euro; 1 = il budget non basta"),
-    "rischio": ("Rischio basso", 0.13, "10 = si rischia poco e ci si può fermare senza perdite; 1 = alto rischio di perdere tutto"),
-    "domanda": ("Domanda reale", 0.13, "10 = la gente già cerca e paga per questo; 1 = domanda solo ipotetica"),
-    "facilita": ("Facilità di esecuzione", 0.09, "10 = fattibile da 1 persona part-time con competenze di base; 1 = serve un team esperto"),
-    "legale": ("Semplicità legale/fiscale", 0.06, "10 = nessun adempimento particolare; 1 = licenze o autorizzazioni complesse"),
-    "sede": ("Gestibile senza sede in Italia", 0.10, "10 = si gestisce legalmente da qualunque paese, con clienti internazionali; 1 = legata a un luogo o a licenze italiane"),
+    "velocita": ("Velocità primo incasso", 0.14, "10 = primo incasso entro 1-2 settimane; 1 = oltre 6 mesi"),
+    "potenziale": ("Potenziale di guadagno", 0.14, "10 = può arrivare a migliaia di euro al mese entro un anno; 1 = poche decine di euro"),
+    "budget": ("Sostenibile col budget", 0.10, f"10 = si avvia con molto meno di {BUDGET_EURO} euro; 1 = il budget non basta"),
+    "domanda": ("Domanda reale", 0.12, "10 = la gente già cerca e paga per questo; 1 = domanda solo ipotetica"),
+    "concorrenza": ("Spazio sul mercato", 0.06, "10 = pochi concorrenti forti o un vantaggio netto su di loro; 1 = mercato saturo e senza differenze"),
+    "rischio": ("Rischio basso", 0.10, "10 = si rischia poco e ci si può fermare senza perdite; 1 = alto rischio di perdere tutto"),
+    "acquisizione": ("Facilità a trovare clienti", 0.09, "10 = canali chiari ed economici per arrivare ai clienti; 1 = non si sa come raggiungerli"),
+    "comunicazione": ("Chiarezza del messaggio", 0.06, "10 = si spiega in una frase e il cliente capisce subito perché comprare; 1 = difficile da spiegare"),
+    "facilita": ("Fattibilità operativa", 0.08, "10 = gestibile da 1 persona part-time con strumenti già pronti; 1 = serve un team o moltissime ore"),
+    "legale": ("Semplicità legale/fiscale", 0.04, "10 = nessun adempimento particolare; 1 = licenze o autorizzazioni complesse"),
+    "sede": ("Gestibile senza sede in Italia", 0.07, "10 = si gestisce legalmente da qualunque paese, con clienti internazionali; 1 = legata a un luogo o a licenze italiane"),
 }
 COMPETENZE = {
+    "matteo": ["domanda", "concorrenza"],
     "paolo": ["velocita", "potenziale", "budget"],
     "chiara": ["rischio", "domanda"],
     "andrea": ["legale", "sede"],
-    "francesca": ["domanda", "facilita"],
+    "francesca": ["acquisizione"],
+    "valentina": ["comunicazione"],
+    "giorgio": ["facilita"],
 }
+LISTA = {"type": "array", "items": {"type": "string"}}
 EXTRA_VALUTAZIONE = {
+    "matteo": ({"concorrenti": LISTA, "come_validare": {"type": "string"}},
+               "- concorrenti: i principali concorrenti o le alternative che il cliente usa oggi, uno per voce\n"
+               "- come_validare: un test economico da fare in 7 giorni con clienti veri per capire se la domanda c'è"),
     "paolo": ({"investimento_iniziale_euro": {"type": "number"}, "utile_mese3_euro": {"type": "number"}},
               "- investimento_iniziale_euro: quanto serve davvero per partire (numero in euro)\n"
               "- utile_mese3_euro: utile netto realistico al mese, al terzo mese (numero, può essere 0)"),
-    "chiara": ({"rischi_principali": {"type": "array", "items": {"type": "string"}}},
+    "chiara": ({"rischi_principali": LISTA},
                "- rischi_principali: i 3 rischi più seri, uno per voce"),
     "andrea": ({"legale_ok": {"type": "boolean"}, "struttura_consigliata": {"type": "string"},
-                "adempimenti": {"type": "array", "items": {"type": "string"}}},
+                "adempimenti": LISTA},
                "- legale_ok: true se l'idea, fatta come descritta, è legale; false se è illegale o si regge su "
                "elusione o evasione\n"
                "- struttura_consigliata: forma giuridica e paese da cui operare in modo legale (es. partita IVA "
@@ -163,6 +192,11 @@ EXTRA_VALUTAZIONE = {
     "francesca": ({"canale_principale": {"type": "string"}, "primo_cliente": {"type": "string"}},
                   "- canale_principale: il canale migliore per vendere\n"
                   "- primo_cliente: come trovare concretamente il primo cliente pagante entro 2 settimane"),
+    "valentina": ({"messaggio": {"type": "string"}},
+                  "- messaggio: l'offerta spiegata al cliente in una frase, come la scriveresti in un annuncio"),
+    "giorgio": ({"ore_settimana": {"type": "number"}, "cosa_serve": LISTA},
+                "- ore_settimana: ore di lavoro a settimana necessarie a regime (numero)\n"
+                "- cosa_serve: strumenti, fornitori e competenze necessari, uno per voce"),
 }
 
 # Ogni agente riceve a ogni giro un segmento e un vincolo a caso: evita che il team giri in tondo.
@@ -214,27 +248,87 @@ SCHEMA_DIREZIONE = {
     },
     "required": ["commento", "direzione", "da_evitare"],
 }
-SCHEMA_PIANO = {
+# Fase 2: lo studio di fattibilità. Ogni specialista scrive la sua parte (nell'ordine), poi Roberto tira le
+# somme. Campi: nome -> (tipo, istruzione). Tipi: testo, numero, lista, budget.
+GIUDIZI = ["fattibile", "fattibile_con_condizioni", "non_fattibile"]
+SEZIONI_FATTIBILITA = [
+    ("mercato", "matteo", "Mercato e domanda", {
+        "clienti_tipo": ("testo", "chi compra esattamente e perché"),
+        "dimensione_mercato": ("testo", "stima di quanti potenziali clienti ci sono e quanto spendono"),
+        "concorrenti": ("lista", "concorrenti o alternative, ognuno con il suo punto debole"),
+        "differenziazione": ("testo", "perché dovrebbero scegliere noi"),
+        "test_di_validazione": ("lista", "test con clienti veri da fare nei primi 7 giorni, ognuno con la soglia "
+                                         "che dice se ha funzionato"),
+    }),
+    ("operativa", "giorgio", "Fattibilità operativa", {
+        "attivita_settimanali": ("lista", "cosa bisogna fare ogni settimana"),
+        "ore_settimana": ("numero", "ore di lavoro a settimana a regime"),
+        "strumenti": ("lista", "strumenti e servizi da usare, con il costo mensile"),
+        "competenze_mancanti": ("lista", "cosa bisogna imparare o affidare a qualcuno"),
+    }),
+    ("economica", "paolo", "Fattibilità economica", {
+        "allocazione_budget": ("budget", f"come spendere al massimo {BUDGET_EURO} euro, voce per voce, lasciando "
+                                         "una riserva"),
+        "costi_mensili_euro": ("numero", "costi fissi al mese"),
+        "prezzo_e_margine": ("testo", "prezzo di vendita e margine per ogni vendita"),
+        "utile_mese3_euro": ("numero", "utile netto realistico al mese, al terzo mese"),
+        "utile_mese12_euro": ("numero", "utile netto realistico al mese, dopo un anno"),
+        "pareggio": ("testo", "quando si recuperano i soldi investiti"),
+        "scenario_pessimistico": ("testo", "cosa succede se le vendite sono la metà del previsto"),
+    }),
+    ("legale", "andrea", "Fattibilità legale e fiscale", {
+        "forma_giuridica": ("testo", "forma giuridica consigliata e da quale paese operare"),
+        "adempimenti": ("lista", "adempimenti fiscali e legali, uno per voce"),
+        "costi_legali_euro": ("numero", "costi per aprire e gestire la forma giuridica il primo anno"),
+        "senza_sede_in_italia": ("testo", "se e a quali condizioni si può gestire legalmente senza sede fiscale "
+                                          "in Italia"),
+    }),
+    ("comunicazione", "valentina", "Comunicazione", {
+        "nomi_proposti": ("lista", "3 possibili nomi per il progetto"),
+        "messaggio_chiave": ("testo", "la promessa al cliente in una frase"),
+        "tono": ("testo", "tono di voce e stile"),
+        "contenuti_di_lancio": ("lista", "i contenuti da pubblicare nelle prime 2 settimane, con il canale"),
+        "testo_di_lancio": ("testo", "un breve testo pronto da usare per presentare l'offerta (post o pagina)"),
+    }),
+    ("clienti", "francesca", "Come trovare i clienti", {
+        "canali": ("lista", "canali per trovare clienti, in ordine di priorità"),
+        "primi_10_clienti": ("testo", "come trovare concretamente i primi 10 clienti paganti"),
+        "costo_acquisizione": ("testo", "quanto costa trovare un cliente"),
+        "offerta_di_lancio": ("testo", "l'offerta per convincere i primi clienti"),
+    }),
+    ("rischi", "chiara", "Rischi e piano B", {
+        "rischi": ("lista", "i rischi principali, ognuno con il modo di ridurlo"),
+        "criterio_di_stop": ("testo", "quando fermarsi senza spendere altro"),
+        "piano_b": ("testo", "cosa fare se non funziona"),
+    }),
+]
+CHIAMATE_STUDIO = len(SEZIONI_FATTIBILITA) + 1
+TIPI_SCHEMA = {
+    "testo": {"type": "string"}, "numero": {"type": "number"}, "lista": LISTA,
+    "budget": {"type": "array", "items": {"type": "object", "properties": {
+        "voce": {"type": "string"}, "euro": {"type": "number"}}, "required": ["voce", "euro"]}},
+}
+SCHEMA_SINTESI_STUDIO = {
     "type": "object",
     "properties": {
-        "sintesi": {"type": "string"},
-        "perche_funziona": {"type": "string"},
-        "allocazione_budget": {"type": "array", "items": {
-            "type": "object", "properties": {"voce": {"type": "string"}, "euro": {"type": "number"}},
-            "required": ["voce", "euro"]}},
+        "motivazione": {"type": "string"},
+        "condizioni": LISTA,
         "piano_4_settimane": {"type": "array", "items": {
             "type": "object", "properties": {"settimana": {"type": "integer"}, "obiettivo": {"type": "string"},
-                                             "azioni": {"type": "array", "items": {"type": "string"}}},
+                                             "azioni": LISTA},
             "required": ["settimana", "obiettivo", "azioni"]}},
-        "primi_passi": {"type": "array", "items": {"type": "string"}},
-        "kpi": {"type": "array", "items": {"type": "string"}},
-        "utile_atteso_mese3_euro": {"type": "number"},
-        "criterio_di_stop": {"type": "string"},
-        "struttura_legale": {"type": "string"},
-        "verifiche_da_fare": {"type": "array", "items": {"type": "string"}},
+        "primi_passi": LISTA,
+        "kpi": LISTA,
+        "verifiche_da_fare": LISTA,
+        "esito": {"type": "string", "enum": GIUDIZI},
     },
-    "required": ["sintesi", "perche_funziona", "allocazione_budget", "piano_4_settimane", "primi_passi", "kpi",
-                 "utile_atteso_mese3_euro", "criterio_di_stop", "struttura_legale", "verifiche_da_fare"],
+    "required": ["motivazione", "condizioni", "piano_4_settimane", "primi_passi", "kpi", "verifiche_da_fare",
+                 "esito"],
+}
+ETICHETTE = {
+    "utile_mese3_euro": "Utile al mese (3° mese)", "utile_mese12_euro": "Utile al mese (dopo un anno)",
+    "primi_10_clienti": "Primi 10 clienti", "senza_sede_in_italia": "Senza sede fiscale in Italia",
+    "legale_ok": "È legale", "investimento_iniziale_euro": "Investimento iniziale", "kpi": "KPI",
 }
 SCHEMA_VERDETTO = {
     "type": "object",
@@ -384,6 +478,59 @@ def booleano(x):
     return None
 
 
+def normalizza(x, schema):
+    """Porta una risposta del modello al tipo previsto dallo schema."""
+    tipo = schema.get("type")
+    if tipo in ("number", "integer"):
+        return numero(x)
+    if tipo == "boolean":
+        return booleano(x)
+    if tipo == "array":
+        if schema.get("items", {}).get("type") == "object":
+            return [{k: normalizza(v.get(k), s) for k, s in schema["items"]["properties"].items()}
+                    for v in (x if isinstance(x, list) else []) if isinstance(v, dict)]
+        return lista_testi(x)
+    return "" if x is None else str(x).strip()
+
+
+def giudizio(x):
+    testo = str(x or "").lower().replace(" ", "_")
+    if "non" in testo:
+        return "non_fattibile"
+    if "condizion" in testo:
+        return "fattibile_con_condizioni"
+    return "fattibile" if "fattibile" in testo else None
+
+
+def etichetta(campo):
+    if campo in ETICHETTE:
+        return ETICHETTE[campo]
+    euro_finale = campo.endswith("_euro")
+    testo = (campo[:-5] if euro_finale else campo).replace("_", " ").capitalize()
+    return testo + (" (€)" if euro_finale else "")
+
+
+def testo_campo(x):
+    if isinstance(x, bool):
+        return "sì" if x else "no"
+    if isinstance(x, float):
+        return f"{x:,.0f}".replace(",", ".")
+    if isinstance(x, list):
+        return "; ".join(testo_campo(v) for v in x)
+    if isinstance(x, dict):
+        return " ".join(testo_campo(v) for v in x.values())
+    return "" if x is None else str(x)
+
+
+def studio_aggiornato(idea):
+    f = idea.get("fattibilita")
+    return bool(f) and f.get("versione") == idea["versione"]
+
+
+def esito_studio(idea):
+    return idea["fattibilita"]["sintesi"].get("esito") if studio_aggiornato(idea) else None
+
+
 def pulisci_idea(d):
     return {c: str(d.get(c, "")).strip()[:1500] for c in CAMPI_IDEA}
 
@@ -430,6 +577,8 @@ def punteggio_da(valutazioni):
 def aggiorna_punteggio(idea):
     (idea["punteggio"], idea["voti"], idea["investimento"], idea["utile_mese3"],
      idea["dubbi_legali"]) = punteggio_da(idea["valutazioni"])
+    if esito_studio(idea) == "non_fattibile":  # bocciata dallo studio di fattibilità: lascia il posto alle altre
+        idea["punteggio"] = round(idea["punteggio"] * 0.5, 1)
 
 
 # ============================================================================
@@ -544,9 +693,6 @@ class Team:
         self.llm = llm
         self.stato = stato
         self.cartella = cartella
-        inizio = datetime.fromisoformat(stato["inizio_sessione"])
-        totale = self.scadenza() - inizio
-        self.margine = min(timedelta(minutes=20), totale * 0.1)
 
     # ---------------------------------------------------------------- utilità
     def log(self, messaggio, diario=False):
@@ -565,8 +711,20 @@ class Team:
     def scadenza(self):
         return datetime.fromisoformat(self.stato["scadenza"])
 
+    def margine(self):
+        """Tempo da tenere per la chiusura: completare gli studi della top 5 e il verdetto."""
+        totale = self.scadenza() - datetime.fromisoformat(self.stato["inizio_sessione"])
+        s = self.stato
+        secondi = s["secondi_ai"] / s["chiamate"] if s["chiamate"] else 30
+        mancanti = sum(1 for i in self.classifica()[:5] if not studio_aggiornato(i))
+        stima = timedelta(seconds=secondi * (CHIAMATE_STUDIO * mancanti + 2) * 1.2)
+        return min(totale * 0.15, max(timedelta(minutes=20), stima))
+
     def tempo_scaduto(self):
-        return datetime.now() >= self.scadenza() - self.margine
+        return datetime.now() >= self.scadenza() - self.margine()
+
+    def fase_fattibilita(self):
+        return self.progresso() >= 0.6
 
     def progresso(self):
         inizio = datetime.fromisoformat(self.stato["inizio_sessione"])
@@ -614,7 +772,7 @@ class Team:
             "creata": datetime.now().isoformat(timespec="minutes"), "versione": 1, "genitori": genitori or [],
             "stato": "da_valutare", "valutazioni": [], "punteggio": None, "voti": {}, "investimento": None,
             "utile_mese3": None, "dubbi_legali": False, "miglioramenti": 0, "tentativi_falliti": 0, "storia": [],
-            "piano": None, "piano_versione": None,
+            "fattibilita": None,
         }
         idea.update(pulisci_idea(dati))
         self.stato["idee"][idea["id"]] = idea
@@ -637,7 +795,7 @@ class Team:
         return {"type": "object", "properties": props, "required": list(props)}
 
     def valuta(self, idea, autore):
-        """Un giro di valutazione completo (4 valutatori) -> {chiave_valutatore: risposta normalizzata}.
+        """Un giro di valutazione completo (tutti i valutatori) -> {chiave_valutatore: risposta normalizzata}.
         Nessuno giudica le proprie idee: in quel caso il punto di vista lo prende Roberto."""
         risultato = {}
         for chiave in VALUTATORI:
@@ -647,18 +805,8 @@ class Team:
             v = {"analisi": str(r.get("analisi", "")).strip()}
             for d in COMPETENZE[chiave]:
                 v["voto_" + d] = voto(r.get("voto_" + d))
-            if chiave == "paolo":
-                v["investimento_iniziale_euro"] = numero(r.get("investimento_iniziale_euro"))
-                v["utile_mese3_euro"] = numero(r.get("utile_mese3_euro"))
-            elif chiave == "chiara":
-                v["rischi_principali"] = lista_testi(r.get("rischi_principali"))
-            elif chiave == "andrea":
-                v["legale_ok"] = booleano(r.get("legale_ok"))
-                v["struttura_consigliata"] = str(r.get("struttura_consigliata", "")).strip()
-                v["adempimenti"] = lista_testi(r.get("adempimenti"))
-            elif chiave == "francesca":
-                v["canale_principale"] = str(r.get("canale_principale", "")).strip()
-                v["primo_cliente"] = str(r.get("primo_cliente", "")).strip()
+            for campo, schema in EXTRA_VALUTAZIONE[chiave][0].items():
+                v[campo] = normalizza(r.get(campo), schema)
             if giudice != chiave:
                 v["giudice"] = giudice
             risultato[chiave] = v
@@ -667,18 +815,17 @@ class Team:
     def riassunto_valutazioni(self, idea):
         if not idea["valutazioni"]:
             return "(nessuna valutazione)"
-        v = idea["valutazioni"][-1]
-        p, c, a, f = (v.get(k, {}) for k in ("paolo", "chiara", "andrea", "francesca"))
+        ultima = idea["valutazioni"][-1]
         voti = ", ".join(f"{DIMENSIONI[d][0]} {x}" for d, x in idea.get("voti", {}).items())
-        return (f"Punteggio complessivo: {idea['punteggio']}/100. Voti: {voti}\n"
-                f"- Paolo (CFO): investimento ~{euro(p.get('investimento_iniziale_euro'))}, utile al mese 3 "
-                f"~{euro(p.get('utile_mese3_euro'))}. {p.get('analisi', '')}\n"
-                f"- Chiara (critica): rischi: {'; '.join(c.get('rischi_principali', []))}. {c.get('analisi', '')}\n"
-                f"- Andrea (legale): {'LEGALE' if a.get('legale_ok') is not False else 'DUBBI DI LEGALITÀ'}; "
-                f"struttura: {a.get('struttura_consigliata', '')}; adempimenti: "
-                f"{'; '.join(a.get('adempimenti', []))}. {a.get('analisi', '')}\n"
-                f"- Francesca (marketing): canale: {f.get('canale_principale', '')}; primo cliente: "
-                f"{f.get('primo_cliente', '')}. {f.get('analisi', '')}")
+        righe = [f"Punteggio complessivo: {idea['punteggio']}/100. Voti: {voti}"]
+        for chiave in VALUTATORI:
+            v = ultima.get(chiave)
+            if not v:
+                continue
+            extra = "; ".join(f"{etichetta(c)}: {testo_campo(v.get(c))}" for c in EXTRA_VALUTAZIONE[chiave][0]
+                              if v.get(c) not in (None, "", []))
+            righe.append(f"- {AGENTI[chiave]['nome']} ({AGENTI[chiave]['ruolo']}): {v.get('analisi', '')} [{extra}]")
+        return "\n".join(righe)
 
     def valuta_in_attesa(self):
         for idea in [i for i in self.stato["idee"].values() if i["stato"] == "da_valutare"]:
@@ -798,50 +945,85 @@ class Team:
         self.log(f"  Roberto incrocia '{a['titolo']}' + '{b['titolo']}' -> '{idea['titolo']}'", diario=True)
         self.valuta_in_attesa()
 
-    # ----------------------------------------------------------- piani e regia
-    def scrivi_piano(self, idea):
-        prompt = (f"{self.contesto()}\nIDEA SCELTA:\n{formatta_idea(idea)}\n\nVALUTAZIONI DEL TEAM:\n"
-                  f"{self.riassunto_valutazioni(idea)}\n\n"
-                  f"Scrivi il piano operativo per partire lunedì con al massimo {BUDGET_EURO} euro.\n"
-                  "- sintesi: l'idea in 2 frasi\n- perche_funziona: il vantaggio concreto\n"
-                  f"- allocazione_budget: voci concrete con importo in euro; la somma deve essere al massimo "
-                  f"{BUDGET_EURO} (lascia una riserva)\n"
+    # ------------------------------------------------- fase 2: studio di fattibilità
+    def studio_fattibilita(self, idea):
+        """Ogni specialista scrive la sua parte dello studio, poi Roberto decide: fattibile o no."""
+        self.log(f"Studio di fattibilità: '{idea['titolo']}'")
+        base = (f"{self.contesto()}\nIDEA DA STUDIARE:\n{formatta_idea(idea)}\n\nVALUTAZIONI DEL TEAM:\n"
+                f"{self.riassunto_valutazioni(idea)}\n")
+        sezioni, gia_scritte = {}, ""
+        for chiave, autore, titolo, campi in SEZIONI_FATTIBILITA:
+            giudice = "roberto" if autore == idea["autore"] else autore
+            props = {c: TIPI_SCHEMA[t] for c, (t, _) in campi.items()}
+            props.update({"sintesi": {"type": "string"}, "giudizio": {"type": "string", "enum": GIUDIZI}})
+            schema = {"type": "object", "properties": props, "required": list(props)}
+            prompt = (f"{base}{gia_scritte}\nScrivi la tua parte dello studio di fattibilità: {titolo.upper()}. "
+                      "Sii concreto e realistico; dove servono numeri, stimali.\n"
+                      + "\n".join(f"- {c}: {istruzione}" for c, (_, istruzione) in campi.items()) +
+                      "\n- sintesi: la tua conclusione in 2-3 frasi\n"
+                      "- giudizio: fattibile, fattibile_con_condizioni oppure non_fattibile")
+            r = self.chiedi(giudice, prompt, schema, 2500, temperatura=0.4)
+            if chiave == "economica":
+                totale = sum(v.get("euro") or 0 for v in normalizza(r.get("allocazione_budget"), TIPI_SCHEMA["budget"]))
+                if totale > BUDGET_EURO:
+                    r = self.chiedi(giudice, prompt + f"\n\nATTENZIONE: nella bozza precedente il budget sommava "
+                                    f"{totale:.0f} euro, oltre il massimo di {BUDGET_EURO}. Riduci le voci.",
+                                    schema, 2500, temperatura=0.4)
+            sezione = {c: normalizza(r.get(c), s) for c, s in props.items()}
+            sezione["giudizio"] = giudizio(r.get("giudizio")) or "fattibile_con_condizioni"
+            sezione["autore"] = giudice
+            if chiave == "economica":
+                righe = sezione["allocazione_budget"]
+                totale = sum(v.get("euro") or 0 for v in righe)
+                if totale > BUDGET_EURO:  # ultimo rimedio: riscala in proporzione
+                    for v in righe:
+                        v["euro"] = round((v.get("euro") or 0) * BUDGET_EURO / totale)
+            sezioni[chiave] = sezione
+            gia_scritte += f"\nPARTE '{titolo}' ({sezione['giudizio']}): {sezione['sintesi']}"
+            self.salva()
+        dettagli = "\n\n".join(
+            f"{titolo.upper()} - {AGENTI[sezioni[chiave]['autore']]['nome']} ({sezioni[chiave]['giudizio']}):\n"
+            + "\n".join(f"- {etichetta(c)}: {testo_campo(sezioni[chiave][c])[:400]}" for c in campi)
+            + f"\n- Conclusione: {sezioni[chiave]['sintesi']}"
+            for chiave, _, titolo, campi in SEZIONI_FATTIBILITA)
+        prompt = (f"{base}\nSTUDIO DI FATTIBILITÀ SCRITTO DAL TEAM:\n{dettagli}\n\n"
+                  "Tira le somme come CEO. Sii onesto: se una parte è non fattibile e non si può risolvere, "
+                  "l'idea è non fattibile.\n"
+                  "- motivazione: perché, in 3-4 frasi\n"
+                  "- condizioni: cosa deve essere vero perché funzioni (vuoto se non ce ne sono)\n"
                   "- piano_4_settimane: per le settimane 1-4 un obiettivo misurabile e le azioni\n"
                   "- primi_passi: le prime 5 azioni da fare lunedì, in ordine\n"
                   "- kpi: i numeri da misurare per capire se funziona\n"
-                  "- utile_atteso_mese3_euro: stima realistica dell'utile mensile al terzo mese\n"
-                  "- criterio_di_stop: quando fermarsi senza spendere altro\n"
-                  "- struttura_legale: come operare in modo legale (forma giuridica, paese, adempimenti fiscali); "
-                  "se l'attività può essere gestita senza sede fiscale in Italia, spiega a quali condizioni è "
-                  "legale (residenza fiscale reale all'estero, gestione effettiva fuori dall'Italia)\n"
                   "- verifiche_da_fare: cosa controllare nel mondo reale prima di spendere (prezzi, concorrenti, "
-                  "regole), visto che il team non ha accesso a internet")
-        piano = self.chiedi("roberto", prompt, SCHEMA_PIANO, 3500, temperatura=0.4)
-        totale = sum(numero(v.get("euro")) or 0 for v in piano.get("allocazione_budget", []))
-        if totale > BUDGET_EURO:
-            prompt += (f"\n\nATTENZIONE: nella bozza precedente l'allocazione sommava {totale:.0f} euro, oltre il "
-                       f"budget di {BUDGET_EURO}. Riduci le voci.")
-            piano = self.chiedi("roberto", prompt, SCHEMA_PIANO, 3500, temperatura=0.4)
-            totale = sum(numero(v.get("euro")) or 0 for v in piano.get("allocazione_budget", []))
-            if totale > BUDGET_EURO:  # ultimo rimedio: riscala in proporzione
-                for v in piano["allocazione_budget"]:
-                    v["euro"] = round((numero(v.get("euro")) or 0) * BUDGET_EURO / totale)
-        idea["piano"] = piano
-        idea["piano_versione"] = idea["versione"]
-        self.log(f"  Roberto ha scritto il piano operativo per '{idea['titolo']}'", diario=True)
+                  "norme), visto che il team non ha accesso a internet\n"
+                  "- esito: fattibile, fattibile_con_condizioni oppure non_fattibile")
+        r = self.chiedi("roberto", prompt, SCHEMA_SINTESI_STUDIO, 3000, temperatura=0.4)
+        sintesi = {c: normalizza(r.get(c), s) for c, s in SCHEMA_SINTESI_STUDIO["properties"].items()}
+        sintesi["esito"] = giudizio(r.get("esito")) or "fattibile_con_condizioni"
+        idea["fattibilita"] = {"versione": idea["versione"], "data": datetime.now().isoformat(timespec="minutes"),
+                               "sezioni": sezioni, "sintesi": sintesi}
+        prima = idea["punteggio"]
+        aggiorna_punteggio(idea)
+        esito = sintesi["esito"].replace("_", " ").upper()
+        self.log(f"  -> {esito}: '{idea['titolo']}'" +
+                 (f" (punteggio {prima:.0f} -> {idea['punteggio']:.0f})" if idea["punteggio"] != prima else ""),
+                 diario=True)
         self.salva()
 
+    # ------------------------------------------------------------------ regia
     def direzione(self, nuove_del_giro):
         classifica = self.classifica()
         if not classifica:
             return
         top = "\n".join(f"{n}. {i['titolo']} - {i['punteggio']:.0f}/100 ({AGENTI[i['autore']]['nome']})"
+                        + (f" - studio di fattibilità: {esito_studio(i)}" if esito_studio(i) else "")
                         for n, i in enumerate(classifica[:8], 1))
         peggiori = sorted(nuove_del_giro, key=lambda i: i["punteggio"] or 0)[:3]
         flop = "\n".join(f"- {i['titolo']} - {i['punteggio']:.0f}/100: "
                          f"{i['valutazioni'][-1].get('chiara', {}).get('analisi', '')[:200]}"
                          for i in peggiori if i["valutazioni"]) or "- nessuna"
-        fase = "esplorazione (cercare idee nuove)" if self.progresso() < 0.6 else "consolidamento (rafforzare le migliori)"
+        fase = ("2, valutazione di fattibilità (approfondire e rafforzare le migliori)" if self.fase_fattibilita()
+                else "1, ricerca del business (trovare idee nuove e promettenti)")
         precedente = (self.stato.get("direzione") or {}).get("direzione", "nessuna")
         prompt = (f"{self.contesto()}\nGiro {self.stato['giro']} concluso. Fase attuale: {fase}. "
                   f"Idee valutate finora: {len(classifica)}.\n\nCLASSIFICA ATTUALE:\n{top}\n\n"
@@ -858,9 +1040,10 @@ class Team:
     # ------------------------------------------------------------- ciclo
     def giro(self):
         self.stato["giro"] += 1
-        consolidamento = self.progresso() >= 0.6
-        fase = "consolidamento" if consolidamento else "esplorazione"
-        self.log(f"===== GIRO {self.stato['giro']} ({fase}) - scadenza {data_estesa(self.scadenza())} =====")
+        consolidamento = self.fase_fattibilita()
+        self.stato["fase"] = "2 - valutazione di fattibilità" if consolidamento else "1 - ricerca del business"
+        self.log(f"===== GIRO {self.stato['giro']} - fase {self.stato['fase']} - scadenza "
+                 f"{data_estesa(self.scadenza())} =====")
         prima = set(self.stato["idee"])
 
         self.valuta_in_attesa()  # idee rimaste a metà da una sessione interrotta
@@ -868,10 +1051,11 @@ class Team:
             self.ideazione(random.sample(IDEATORI, 4), 1)
         else:
             self.ideazione(IDEATORI, 1)
-        self.log("Valutazione delle nuove idee (Paolo, Chiara, Andrea, Francesca):")
+        self.log(f"Valutazione delle nuove idee ({', '.join(AGENTI[k]['nome'] for k in VALUTATORI)}):")
         self.valuta_in_attesa()
 
         quanti = 3 if consolidamento else 2
+        da_studiare = 2 if consolidamento else 1  # in fase 1 si studia solo la prima della classifica
         if not self.tempo_scaduto():
             da_verificare = [i for i in self.classifica()[:10] if len(i["valutazioni"]) < 3][:quanti]
             for idea in da_verificare:
@@ -890,10 +1074,11 @@ class Team:
         if not self.tempo_scaduto() and len(self.classifica()) >= 4:
             self.incrocio()
             self.salva()
-        if not self.tempo_scaduto():
-            senza_piano = [i for i in self.classifica()[:5] if i["piano_versione"] != i["versione"]]
-            if senza_piano:
-                self.scrivi_piano(senza_piano[0])
+        for _ in range(da_studiare):
+            candidate = [i for i in self.classifica()[:5 if consolidamento else 1] if not studio_aggiornato(i)]
+            if not candidate or self.tempo_scaduto():
+                break
+            self.studio_fattibilita(candidate[0])
         if not self.tempo_scaduto():
             self.direzione([self.stato["idee"][k] for k in set(self.stato["idee"]) - prima
                             if self.stato["idee"][k]["stato"] == "valutata"])
@@ -913,17 +1098,25 @@ class Team:
 
     def chiusura(self):
         self.log("===== TEMPO SCADUTO: chiusura dei lavori =====", diario=True)
-        for idea in [i for i in self.classifica()[:5] if i["piano_versione"] != i["versione"]]:
+        for _ in range(10):  # un'idea bocciata scende e ne entra un'altra nella top 5
+            candidate = [i for i in self.classifica()[:5] if not studio_aggiornato(i)]
+            if not candidate:
+                break
             try:
-                self.scrivi_piano(idea)
+                self.studio_fattibilita(candidate[0])
             except ErroreOllama as e:
-                self.log(f"  piano per '{idea['titolo']}' non riuscito: {e}")
+                self.log(f"  studio di '{candidate[0]['titolo']}' non riuscito: {e}")
+                break
         classifica = self.classifica()
         if classifica:
-            podio = "\n\n".join(f"#{n} ({i['punteggio']:.0f}/100)\n{formatta_idea(i)}\n{self.riassunto_valutazioni(i)}"
-                                for n, i in enumerate(classifica[:5], 1))
+            podio = "\n\n".join(
+                f"#{n} ({i['punteggio']:.0f}/100)\n{formatta_idea(i)}\n{self.riassunto_valutazioni(i)}"
+                + (f"\nSTUDIO DI FATTIBILITÀ: {esito_studio(i)} - {i['fattibilita']['sintesi'].get('motivazione', '')}"
+                   if esito_studio(i) else "")
+                for n, i in enumerate(classifica[:5], 1))
             prompt = (f"{self.contesto()}\nIl team ha lavorato per tutto il weekend. Ecco le 5 idee migliori:\n\n"
-                      f"{podio}\n\nDai il verdetto finale: quale idea avviare lunedì e perché, le prime azioni da "
+                      f"{podio}\n\nDai il verdetto finale: quale idea avviare lunedì (scegli tra quelle risultate "
+                      "fattibili) e perché, le prime azioni da "
                       "fare, come operare legalmente, un piano B e le avvertenze importanti.\n"
                       "- idea_consigliata: il titolo dell'idea\n"
                       "- perche: 3-5 frasi\n- cosa_fare_lunedi: azioni concrete in ordine\n"
@@ -960,13 +1153,17 @@ def nuovo_stato(modello, scadenza):
     return {"versione_formato": 1, "creato": adesso, "inizio_sessione": adesso, "scadenza": scadenza.isoformat(),
             "modello": modello, "budget": BUDGET_EURO, "giro": 0, "contatore": 0, "chiamate": 0, "secondi_ai": 0.0,
             "token": 0, "doppioni_scartati": 0, "idee": {}, "diario": [], "direzione": None, "verdetto": None,
-            "concluso": False}
+            "fase": "1 - ricerca del business", "concluso": False}
 
 
 def migra_stato(stato):
     """Aggiunge i campi nuovi alle idee salvate da versioni precedenti dello script."""
+    stato.setdefault("fase", "1 - ricerca del business")
     for idea in stato["idee"].values():
         idea.setdefault("mercato", "")
+        idea.pop("piano", None)  # i vecchi piani operativi sono sostituiti dagli studi di fattibilità
+        idea.pop("piano_versione", None)
+        idea.setdefault("fattibilita", None)
         if idea["autore"] not in AGENTI:
             idea["autore"] = "roberto"
         if idea["valutazioni"]:
@@ -1001,15 +1198,20 @@ def scrivi_report(stato, cartella, finale=False):
     (cartella / "report.html").write_text(_report_html(stato, classifica, finale), encoding="utf-8")
 
 
+ESITI = {"fattibile": ("Fattibile", "ok"), "fattibile_con_condizioni": ("Fattibile con condizioni", "cond"),
+         "non_fattibile": ("Non fattibile", "no")}
+SEZIONE_DI = {autore: titolo for _, autore, titolo, _ in SEZIONI_FATTIBILITA}
+
+
 def _scrivi_csv(classifica, percorso):
     with open(percorso, "w", newline="", encoding="utf-8-sig") as f:
         w = csv.writer(f, delimiter=";")
         w.writerow(["posizione", "punteggio", "titolo", "proposta da", "giro", "versione", "valutazioni",
-                    "investimento €", "utile/mese al 3° mese €", "legalità", "struttura consigliata", "cliente",
-                    "mercato", "come guadagna", "prezzo", "descrizione"])
+                    "fattibilità", "investimento €", "utile/mese al 3° mese €", "legalità", "struttura consigliata",
+                    "cliente", "mercato", "come guadagna", "prezzo", "descrizione"])
         for n, i in enumerate(classifica, 1):
             w.writerow([n, i["punteggio"], i["titolo"], AGENTI.get(i["autore"], {}).get("nome", i["autore"]),
-                        i["giro"], i["versione"], len(i["valutazioni"]),
+                        i["giro"], i["versione"], len(i["valutazioni"]), _esito(i),
                         "" if i["investimento"] is None else round(i["investimento"]),
                         "" if i["utile_mese3"] is None else round(i["utile_mese3"]),
                         "DUBBI" if i.get("dubbi_legali") else "ok", _andrea(i).get("struttura_consigliata", ""),
@@ -1025,6 +1227,10 @@ def _titolo(idea):
     return idea["titolo"] + (" [dubbi di legalità]" if idea.get("dubbi_legali") else "")
 
 
+def _esito(idea):
+    return ESITI[esito_studio(idea)][0] if esito_studio(idea) else ""
+
+
 def _per_agente(classifica):
     """Per ogni agente: (chiave, dati, numero di idee valutate, idea migliore o None)."""
     righe = []
@@ -1034,17 +1240,39 @@ def _per_agente(classifica):
     return righe
 
 
+def _ruolo_fase2(chiave):
+    if chiave in SEZIONE_DI:
+        valuta = ", ".join(DIMENSIONI[d][0] for d in COMPETENZE.get(chiave, []))
+        return f"valuta {valuta}; nello studio di fattibilità scrive «{SEZIONE_DI[chiave]}»"
+    if chiave == "roberto":
+        return "dirige il team, incrocia le idee e decide gli esiti degli studi"
+    return "migliora le proprie idee in base alle critiche del team"
+
+
+def _bocciate(classifica):
+    return [i for i in classifica if esito_studio(i) == "non_fattibile"]
+
+
 def _riassunto_numeri(stato, classifica):
     inizio = datetime.fromisoformat(stato["creato"])
     ore = (datetime.now() - inizio).total_seconds() / 3600
-    return (f"{len(classifica)} idee valutate · {stato['giro']} giri · {stato['chiamate']} chiamate all'AI · "
-            f"{ore:.1f} ore di lavoro · modello {stato['modello']}")
+    studiate = [i for i in classifica if esito_studio(i)]
+    fattibili = len(studiate) - len(_bocciate(classifica))
+    return (f"{len(classifica)} idee valutate · {len(studiate)} studi di fattibilità ({fattibili} fattibili) · "
+            f"{stato['giro']} giri · {stato['chiamate']} chiamate all'AI · {ore:.1f} ore di lavoro · "
+            f"modello {stato['modello']}")
+
+
+def _valore(campo, tipo, valore):
+    if tipo == "numero" and campo.endswith("_euro"):
+        return euro(valore)
+    return testo_campo(valore)
 
 
 def _report_md(stato, classifica, finale):
     r = [f"# Team agenti: idee per monetizzare con {euro(stato['budget'])}", "",
-         f"{'**REPORT FINALE**' if finale else 'Report intermedio'} · aggiornato {data_estesa(datetime.now())}  ",
-         _riassunto_numeri(stato, classifica) + "  ",
+         f"{'**REPORT FINALE**' if finale else 'Report intermedio, fase ' + stato.get('fase', '')} · aggiornato "
+         f"{data_estesa(datetime.now())}  ", _riassunto_numeri(stato, classifica) + "  ",
          f"Scadenza: {data_estesa(datetime.fromisoformat(stato['scadenza']))}", ""]
     v = stato.get("verdetto")
     if finale and v:
@@ -1054,57 +1282,82 @@ def _report_md(stato, classifica, finale):
         r += ["", f"**Come operare legalmente:** {v.get('come_operare_legalmente', '')}", "",
               f"**Piano B:** {v.get('piano_b', '')}", "", "**Avvertenze:**"]
         r += [f"- {x}" for x in lista_testi(v.get("avvertenze"))] + [""]
-    r += ["## Classifica", "", "| # | Punti | Idea | Da | Investimento | Utile/mese (mese 3) | Versione |",
+    r += ["## Classifica", "", "| # | Punti | Idea | Da | Fattibilità | Investimento | Utile/mese (mese 3) |",
           "|---|---|---|---|---|---|---|"]
     for n, i in enumerate(classifica[:25], 1):
         r.append(f"| {n} | {i['punteggio']:.0f} | {_titolo(i).replace('|', '/')} | "
-                 f"{AGENTI.get(i['autore'], {}).get('nome', '')} | {euro(i['investimento'])} | "
-                 f"{euro(i['utile_mese3'])} | v{i['versione']} ({len(i['valutazioni'])} val.) |")
-    r += ["", "## Il lavoro di ciascun agente", "", "| Agente | Compito | Idee | La sua idea migliore |",
-          "|---|---|---|---|"]
+                 f"{AGENTI.get(i['autore'], {}).get('nome', '')} | {_esito(i) or '-'} | {euro(i['investimento'])} | "
+                 f"{euro(i['utile_mese3'])} |")
+    if _bocciate(classifica):
+        r += ["", "## Bocciate dallo studio di fattibilità", ""]
+        r += [f"- **{i['titolo']}**: {i['fattibilita']['sintesi'].get('motivazione', '')}"
+              for i in _bocciate(classifica)[:10]]
+    r += ["", "## Il lavoro di ciascun agente", "", "| Agente | Compito (fase 1) | Ruolo nella fase 2 | Idee | "
+          "La sua idea migliore |", "|---|---|---|---|---|"]
     for chiave, a, quante, migliore in _per_agente(classifica):
         top = f"{migliore['titolo']} ({migliore['punteggio']:.0f})" if migliore else "-"
-        r.append(f"| {a['nome']} ({a['ruolo']}) | {a['compito']} | {quante} | {top.replace('|', '/')} |")
+        r.append(f"| {a['nome']} ({a['ruolo']}) | {a['compito']} | {_ruolo_fase2(chiave)} | {quante} | "
+                 f"{top.replace('|', '/')} |")
     r += ["", "## Le 5 migliori in dettaglio", ""]
     for n, i in enumerate(classifica[:5], 1):
         ult = i["valutazioni"][-1] if i["valutazioni"] else {}
-        p, c, a, f = (ult.get(k, {}) for k in ("paolo", "chiara", "andrea", "francesca"))
         r += [f"### {n}. {_titolo(i)} ({i['punteggio']:.0f}/100)", "", i["descrizione"], "",
               f"- **Cliente:** {i['cliente_target']}", f"- **Mercato:** {i.get('mercato', '')}",
-              f"- **Come guadagna:** {i['modello_ricavi']}",
-              f"- **Prezzo:** {i['prezzo_indicativo']}", f"- **Primo passo:** {i['primo_passo']}",
-              f"- **Voti:** " + " · ".join(f"{DIMENSIONI[d][0]} {x}" for d, x in i["voti"].items()), "",
-              f"**Paolo (CFO):** {p.get('analisi', '')}", "",
-              f"**Chiara (rischi):** {'; '.join(c.get('rischi_principali', []))}. {c.get('analisi', '')}", "",
-              f"**Andrea (legale/fiscale):** {a.get('analisi', '')} *Struttura consigliata:* "
-              f"{a.get('struttura_consigliata', '')}. *Adempimenti:* {'; '.join(a.get('adempimenti', []))}", "",
-              f"**Francesca (marketing):** canale: {f.get('canale_principale', '')}. Primo cliente: "
-              f"{f.get('primo_cliente', '')}", ""]
-        piano = i.get("piano")
-        if piano:
-            r += ["#### Piano operativo", "", str(piano.get("sintesi", "")), "",
-                  f"*Perché funziona:* {piano.get('perche_funziona', '')}", "", "| Voce | Euro |", "|---|---|"]
-            r += [f"| {x.get('voce', '')} | {euro(numero(x.get('euro')))} |" for x in piano.get("allocazione_budget", [])]
-            r += [""]
-            for s in sorted(piano.get("piano_4_settimane", []), key=lambda s: numero(s.get("settimana")) or 0):
-                r.append(f"- **Settimana {s.get('settimana', '')}:** {s.get('obiettivo', '')} - "
-                         + "; ".join(lista_testi(s.get("azioni"))))
-            r += ["", "*Primi passi:*"] + [f"{k}. {x}" for k, x in enumerate(lista_testi(piano.get("primi_passi")), 1)]
-            r += ["", f"*KPI:* {'; '.join(lista_testi(piano.get('kpi')))}",
-                  f"*Utile atteso al mese 3:* {euro(numero(piano.get('utile_atteso_mese3_euro')))}",
-                  f"*Quando fermarsi:* {piano.get('criterio_di_stop', '')}",
-                  f"*Come operare legalmente:* {piano.get('struttura_legale', '')}",
-                  f"*Da verificare prima di spendere:* {'; '.join(lista_testi(piano.get('verifiche_da_fare')))}", ""]
+              f"- **Come guadagna:** {i['modello_ricavi']}", f"- **Prezzo:** {i['prezzo_indicativo']}",
+              f"- **Primo passo:** {i['primo_passo']}",
+              "- **Voti:** " + " · ".join(f"{DIMENSIONI[d][0]} {x}" for d, x in i["voti"].items()), ""]
+        for chiave in VALUTATORI:
+            val = ult.get(chiave)
+            if val:
+                extra = "; ".join(f"*{etichetta(c)}:* {testo_campo(val.get(c))}" for c in EXTRA_VALUTAZIONE[chiave][0]
+                                  if val.get(c) not in (None, "", []))
+                r += [f"**{AGENTI[chiave]['nome']} ({AGENTI[chiave]['ruolo']}):** {val.get('analisi', '')} {extra}", ""]
+        r += _studio_md(i)
     r += ["## Diario del team", ""]
     r += [f"- {d['ora'].replace('T', ' ')}: {d['testo']}" for d in reversed(stato["diario"][-30:])]
     return "\n".join(r) + "\n"
 
 
+def _studio_md(idea):
+    if not studio_aggiornato(idea):
+        return []
+    f = idea["fattibilita"]
+    s = f["sintesi"]
+    r = [f"#### Studio di fattibilità: {ESITI[s['esito']][0]}", "", f"**Roberto (CEO):** {s.get('motivazione', '')}", ""]
+    if s.get("condizioni"):
+        r += ["*Condizioni:*"] + [f"- {x}" for x in s["condizioni"]] + [""]
+    for chiave, _, titolo, campi in SEZIONI_FATTIBILITA:
+        sez = f["sezioni"].get(chiave)
+        if not sez:
+            continue
+        r += [f"**{titolo}** ({AGENTI[sez['autore']]['nome']}, {ESITI[sez['giudizio']][0].lower()}): "
+              f"{sez.get('sintesi', '')}", ""]
+        for c, (tipo, _) in campi.items():
+            valore = sez.get(c)
+            if tipo == "budget":
+                totale = sum(x.get("euro") or 0 for x in valore or [])
+                r += ["", "| Voce | Euro |", "|---|---|"]
+                r += [f"| {x.get('voce', '')} | {euro(x.get('euro'))} |" for x in valore or []]
+                r += [f"| **Totale** | {euro(totale)} |", ""]
+            elif valore not in (None, "", []):
+                r.append(f"- *{etichetta(c)}:* {_valore(c, tipo, valore)}")
+        r.append("")
+    r += ["**Prime 4 settimane:**", ""]
+    for w in sorted(s.get("piano_4_settimane", []), key=lambda w: w.get("settimana") or 0):
+        r.append(f"- Settimana {testo_campo(w.get('settimana'))}: {w.get('obiettivo', '')} - "
+                 + "; ".join(w.get("azioni") or []))
+    r += ["", "**Primi passi:**"] + [f"{k}. {x}" for k, x in enumerate(s.get("primi_passi", []), 1)]
+    r += ["", f"**KPI:** {'; '.join(s.get('kpi', []))}",
+          f"**Da verificare prima di spendere:** {'; '.join(s.get('verifiche_da_fare', []))}", ""]
+    return r
+
+
 CSS = """
 :root{--bg:#f6f4ef;--card:#fff;--ink:#1d1b18;--muted:#6b665d;--line:#e4dfd5;--accent:#a8563a;--good:#2f7d4f;
---bar:#ece7dd}
+--bar:#ece7dd;--ok-bg:#e3f1e8;--cond:#875800;--cond-bg:#fbefd6;--no:#a3322a;--no-bg:#f8e1df}
 @media (prefers-color-scheme:dark){:root{--bg:#161513;--card:#201f1c;--ink:#eeeae2;--muted:#a49e93;
---line:#34322d;--accent:#e08a66;--good:#5cc489;--bar:#2c2a26}}
+--line:#34322d;--accent:#e08a66;--good:#5cc489;--bar:#2c2a26;--ok-bg:#1d3326;--cond:#e7b54f;--cond-bg:#3a2f17;
+--no:#f08a80;--no-bg:#3d201d}}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);
 font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
 main{max-width:920px;margin:0 auto;padding:24px 16px 64px}h1{font-size:1.6rem;margin:0 0 4px}
@@ -1120,67 +1373,87 @@ text-align:left;vertical-align:top}th{color:var(--muted);font-weight:600}.num{te
 details{margin-top:10px}summary{cursor:pointer;color:var(--accent);font-weight:600}
 ul,ol{padding-left:22px}.tab{overflow-x:auto}.agenti{list-style:none;padding:0;margin:0}
 .agenti li{padding:9px 0;border-bottom:1px solid var(--line)}.agenti li:last-child{border-bottom:0}
+.esito{display:inline-block;font-size:.78rem;font-weight:600;padding:1px 8px;border-radius:10px;
+vertical-align:middle;white-space:nowrap}.esito.ok{background:var(--ok-bg);color:var(--good)}
+.esito.cond{background:var(--cond-bg);color:var(--cond)}.esito.no{background:var(--no-bg);color:var(--no)}
 """
+
+
+def _ul(voci, tag="ul"):
+    return f"<{tag}>" + "".join(f"<li>{html.escape(str(x))}</li>" for x in voci) + f"</{tag}>"
+
+
+def _chip(esito):
+    nome, classe = ESITI[esito]
+    return f"<span class='esito {classe}'>{html.escape(nome)}</span>"
 
 
 def _report_html(stato, classifica, finale):
     e = html.escape
+    stato_lavori = "<b>REPORT FINALE</b>" if finale else f"Fase {e(stato.get('fase', ''))} · si aggiorna da solo"
     out = [f"<!doctype html><html lang='it'><head><meta charset='utf-8'>"
            f"<meta name='viewport' content='width=device-width,initial-scale=1'>"
            f"{'' if finale else '<meta http-equiv=refresh content=300>'}"
            f"<title>Team agenti - idee</title><style>{CSS}</style></head><body><main>",
            f"<h1>Idee per monetizzare con {e(euro(stato['budget']))}</h1>",
-           f"<div class='meta'>{'<b>REPORT FINALE</b>' if finale else 'Report intermedio (si aggiorna da solo)'}"
-           f" · {e(data_estesa(datetime.now()))}<br>{e(_riassunto_numeri(stato, classifica))}<br>"
+           f"<div class='meta'>{stato_lavori} · {e(data_estesa(datetime.now()))}<br>"
+           f"{e(_riassunto_numeri(stato, classifica))}<br>"
            f"Scadenza: {e(data_estesa(datetime.fromisoformat(stato['scadenza'])))}</div>"]
     v = stato.get("verdetto")
     if finale and v:
         out.append(f"<div class='card verdetto'><h2 style='margin-top:0'>Verdetto del CEO</h2>"
                    f"<h3>{e(str(v.get('idea_consigliata', '')))}</h3><p>{e(str(v.get('perche', '')))}</p>"
-                   f"<b>Cosa fare lunedì</b><ol>{''.join(f'<li>{e(x)}</li>' for x in lista_testi(v.get('cosa_fare_lunedi')))}</ol>"
+                   f"<b>Cosa fare lunedì</b>{_ul(lista_testi(v.get('cosa_fare_lunedi')), 'ol')}"
                    f"<p><b>Come operare legalmente:</b> {e(str(v.get('come_operare_legalmente', '')))}</p>"
-                   f"<p><b>Piano B:</b> {e(str(v.get('piano_b', '')))}</p><b>Avvertenze</b>"
-                   f"<ul>{''.join(f'<li>{e(x)}</li>' for x in lista_testi(v.get('avvertenze')))}</ul></div>")
+                   f"<p><b>Piano B:</b> {e(str(v.get('piano_b', '')))}</p>"
+                   f"<b>Avvertenze</b>{_ul(lista_testi(v.get('avvertenze')))}</div>")
     if not classifica:
         out.append("<p>Nessuna idea valutata per ora: il team è al lavoro.</p>")
     out.append("<h2>Le migliori</h2>")
     for n, i in enumerate(classifica[:5], 1):
         ult = i["valutazioni"][-1] if i["valutazioni"] else {}
-        p, c, a, f = (ult.get(k, {}) for k in ("paolo", "chiara", "andrea", "francesca"))
         voti = "".join(f"<div class='voto'>{e(DIMENSIONI[d][0])} <b>{x}</b><div class='barra'>"
                        f"<i style='width:{x * 10:.0f}%'></i></div></div>" for d, x in i["voti"].items())
+        pareri = ""
+        for chiave in VALUTATORI:
+            val = ult.get(chiave)
+            if not val:
+                continue
+            extra = "".join(f"<br><b>{e(etichetta(c))}:</b> {e(testo_campo(val.get(c)))}"
+                            for c in EXTRA_VALUTAZIONE[chiave][0] if val.get(c) not in (None, "", []))
+            pareri += (f"<p><b>{e(AGENTI[chiave]['nome'])}</b> <span class='small'>{e(AGENTI[chiave]['ruolo'])}"
+                       f"</span><br>{e(val.get('analisi', ''))}<span class='small'>{extra}</span></p>")
+        chip = (" " + _chip(esito_studio(i))) if esito_studio(i) else ""
         out.append(
-            f"<div class='card'><span class='score'>{i['punteggio']:.0f}</span><h3>{n}. {e(_titolo(i))}</h3>"
+            f"<div class='card'><span class='score'>{i['punteggio']:.0f}</span><h3>{n}. {e(_titolo(i))}{chip}</h3>"
             f"<div class='small'>proposta da {e(AGENTI.get(i['autore'], {}).get('nome', ''))} · v{i['versione']} · "
             f"{len(i['valutazioni'])} valutazioni · investimento {e(euro(i['investimento']))} · utile/mese al 3° mese "
             f"{e(euro(i['utile_mese3']))}</div><p>{e(i['descrizione'])}</p>"
             f"<p class='small'><b>Cliente:</b> {e(i['cliente_target'])}<br><b>Mercato:</b> "
-            f"{e(i.get('mercato', ''))}<br><b>Come guadagna:</b> "
-            f"{e(i['modello_ricavi'])}<br><b>Prezzo:</b> {e(i['prezzo_indicativo'])}<br><b>Primo passo:</b> "
-            f"{e(i['primo_passo'])}<br><b>Struttura legale (Andrea):</b> "
-            f"{e(a.get('struttura_consigliata', '') or '-')}</p><div class='voti'>{voti}</div>"
-            f"<details><summary>Cosa ne pensa il team</summary>"
-            f"<p><b>Paolo (CFO):</b> {e(p.get('analisi', ''))}</p>"
-            f"<p><b>Chiara (rischi):</b> {e(c.get('analisi', ''))}</p>"
-            f"<ul>{''.join(f'<li>{e(x)}</li>' for x in c.get('rischi_principali', []))}</ul>"
-            f"<p><b>Andrea (legale/fiscale):</b> {e(a.get('analisi', ''))}</p>"
-            f"<ul>{''.join(f'<li>{e(x)}</li>' for x in a.get('adempimenti', []))}</ul>"
-            f"<p><b>Francesca (marketing):</b> {e(f.get('analisi', ''))}<br><b>Canale:</b> "
-            f"{e(f.get('canale_principale', ''))}<br><b>Primo cliente:</b> {e(f.get('primo_cliente', ''))}</p>"
-            f"</details>{_piano_html(i.get('piano'))}</div>")
+            f"{e(i.get('mercato', ''))}<br><b>Come guadagna:</b> {e(i['modello_ricavi'])}<br><b>Prezzo:</b> "
+            f"{e(i['prezzo_indicativo'])}<br><b>Primo passo:</b> {e(i['primo_passo'])}<br><b>Struttura legale "
+            f"(Andrea):</b> {e(_andrea(i).get('struttura_consigliata', '') or '-')}</p><div class='voti'>{voti}</div>"
+            f"<details><summary>Cosa ne pensa il team</summary>{pareri}</details>{_studio_html(i)}</div>")
     if len(classifica) > 5:
         out.append("<h2>Classifica completa</h2><div class='tab'><table><tr><th>#</th><th class='num'>Punti</th>"
                    "<th>Idea</th><th class='num'>Investim.</th><th class='num'>Utile/mese</th></tr>")
         for n, i in enumerate(classifica[5:60], 6):
+            chip = (_chip(esito_studio(i)) + " ") if esito_studio(i) else ""
             out.append(f"<tr><td>{n}</td><td class='num'>{i['punteggio']:.0f}</td><td>{e(_titolo(i))}"
-                       f"<div class='small'>{e(i['cliente_target'][:140])}</div></td>"
+                       f"<div class='small'>{chip}{e(i['cliente_target'][:140])}</div></td>"
                        f"<td class='num'>{e(euro(i['investimento']))}</td><td class='num'>{e(euro(i['utile_mese3']))}</td></tr>")
         out.append("</table></div>")
+    if _bocciate(classifica):
+        out.append("<h2>Bocciate dallo studio di fattibilità</h2><div class='card'><ul class='agenti'>")
+        out += [f"<li><b>{e(i['titolo'])}</b><div class='small'>{e(i['fattibilita']['sintesi'].get('motivazione', ''))}"
+                f"</div></li>" for i in _bocciate(classifica)[:10]]
+        out.append("</ul></div>")
     out.append("<h2>Il lavoro di ciascun agente</h2><div class='card'><ul class='agenti'>")
     for chiave, a, quante, migliore in _per_agente(classifica):
         top = (f"{e(migliore['titolo'])} <b>{migliore['punteggio']:.0f}</b>" if migliore else "nessuna idea valutata")
-        out.append(f"<li><b>{e(a['nome'])}</b> · {e(a['ruolo'])}<div class='small'>Compito: {e(a['compito'])}</div>"
-                   f"<div>Migliore: {top} <span class='small'>({quante} idee)</span></div></li>")
+        out.append(f"<li><b>{e(a['nome'])}</b> · {e(a['ruolo'])}<div class='small'>Fase 1, compito: "
+                   f"{e(a['compito'])}<br>Fase 2: {e(_ruolo_fase2(chiave))}"
+                   f"</div><div>Migliore: {top} <span class='small'>({quante} idee)</span></div></li>")
     out.append("</ul></div>")
     if stato["diario"]:
         out.append("<h2>Diario del team</h2><div class='card'><ul>")
@@ -1192,26 +1465,40 @@ def _report_html(stato, classifica, finale):
     return "\n".join(out)
 
 
-def _piano_html(piano):
-    if not piano:
+def _studio_html(idea):
+    if not studio_aggiornato(idea):
         return ""
     e = html.escape
-    righe = "".join(f"<tr><td>{e(str(x.get('voce', '')))}</td><td class='num'>{e(euro(numero(x.get('euro'))))}</td></tr>"
-                    for x in piano.get("allocazione_budget", []))
-    totale = sum(numero(x.get("euro")) or 0 for x in piano.get("allocazione_budget", []))
-    settimane = "".join(f"<li><b>Settimana {e(str(s.get('settimana', '')))}:</b> {e(str(s.get('obiettivo', '')))}"
-                        f"<ul>{''.join(f'<li>{e(a)}</li>' for a in lista_testi(s.get('azioni')))}</ul></li>"
-                        for s in sorted(piano.get("piano_4_settimane", []), key=lambda s: numero(s.get("settimana")) or 0))
-    return (f"<details open><summary>Piano operativo</summary><p>{e(str(piano.get('sintesi', '')))}</p>"
-            f"<p><b>Perché funziona:</b> {e(str(piano.get('perche_funziona', '')))}</p>"
-            f"<h4>Come spendere il budget</h4><table>{righe}<tr><th>Totale</th><th class='num'>{e(euro(totale))}</th></tr></table>"
-            f"<h4>Prime 4 settimane</h4><ul>{settimane}</ul>"
-            f"<h4>Primi passi lunedì</h4><ol>{''.join(f'<li>{e(x)}</li>' for x in lista_testi(piano.get('primi_passi')))}</ol>"
-            f"<p><b>KPI:</b> {e('; '.join(lista_testi(piano.get('kpi'))))}<br><b>Utile atteso al 3° mese:</b> "
-            f"{e(euro(numero(piano.get('utile_atteso_mese3_euro'))))}<br><b>Quando fermarsi:</b> "
-            f"{e(str(piano.get('criterio_di_stop', '')))}<br><b>Come operare legalmente:</b> "
-            f"{e(str(piano.get('struttura_legale', '')))}</p><b>Da verificare prima di spendere</b>"
-            f"<ul>{''.join(f'<li>{e(x)}</li>' for x in lista_testi(piano.get('verifiche_da_fare')))}</ul></details>")
+    f = idea["fattibilita"]
+    s = f["sintesi"]
+    parti = [f"<details open><summary>Studio di fattibilità</summary><p>{_chip(s['esito'])}</p>"
+             f"<p><b>Roberto (CEO):</b> {e(s.get('motivazione', ''))}</p>"]
+    if s.get("condizioni"):
+        parti.append("<b>Condizioni</b>" + _ul(s["condizioni"]))
+    for chiave, _, titolo, campi in SEZIONI_FATTIBILITA:
+        sez = f["sezioni"].get(chiave)
+        if not sez:
+            continue
+        parti.append(f"<h4>{e(titolo)} {_chip(sez['giudizio'])} <span class='small'>"
+                     f"{e(AGENTI[sez['autore']]['nome'])}</span></h4><p>{e(sez.get('sintesi', ''))}</p>")
+        for c, (tipo, _) in campi.items():
+            valore = sez.get(c)
+            if tipo == "budget":
+                totale = sum(x.get("euro") or 0 for x in valore or [])
+                parti.append("<table>" + "".join(f"<tr><td>{e(x.get('voce', ''))}</td><td class='num'>"
+                                                 f"{e(euro(x.get('euro')))}</td></tr>" for x in valore or [])
+                             + f"<tr><th>Totale</th><th class='num'>{e(euro(totale))}</th></tr></table>")
+            elif tipo == "lista" and valore:
+                parti.append(f"<b>{e(etichetta(c))}</b>{_ul(valore)}")
+            elif valore not in (None, "", []):
+                parti.append(f"<p><b>{e(etichetta(c))}:</b> {e(_valore(c, tipo, valore))}</p>")
+    settimane = "".join(f"<li><b>Settimana {e(testo_campo(w.get('settimana')))}:</b> {e(w.get('obiettivo', ''))}"
+                        f"{_ul(w.get('azioni') or [])}</li>"
+                        for w in sorted(s.get("piano_4_settimane", []), key=lambda w: w.get("settimana") or 0))
+    parti.append(f"<h4>Prime 4 settimane</h4><ul>{settimane}</ul><h4>Primi passi lunedì</h4>"
+                 f"{_ul(s.get('primi_passi', []), 'ol')}<p><b>KPI:</b> {e('; '.join(s.get('kpi', [])))}</p>"
+                 f"<b>Da verificare prima di spendere</b>{_ul(s.get('verifiche_da_fare', []))}</details>")
+    return "".join(parti)
 
 
 # ============================================================================
@@ -1330,10 +1617,13 @@ def main():
     salva_stato(cartella, stato)
 
     print("=" * 72)
-    print(f" TEAM AGENTI - budget {euro(BUDGET_EURO)} - modello {llm.modello}")
+    print(f" TEAM AGENTI - {len(AGENTI)} agenti - budget {euro(BUDGET_EURO)} - modello {llm.modello}")
     print("=" * 72)
     for chiave, a in AGENTI.items():
         print(f"  {a['nome']:<10} {a['ruolo']:<32} {a['compito'][:60]}")
+    print(f"\n Fase 1:        ricerca del business (60% del tempo): tutti propongono idee nel proprio campo,\n"
+          f"                {len(VALUTATORI)} specialisti le valutano, le migliori vengono migliorate e incrociate")
+    print(" Fase 2:        valutazione di fattibilità: studi completi sulle migliori, poi il verdetto")
     print(f"\n Lavora fino a: {data_estesa(scadenza)}")
     print(f" Risultati in:  {cartella}")
     print(f" Standby:       {impedisci_standby()}")

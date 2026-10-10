@@ -1,42 +1,62 @@
-# Team agenti: 10 AI che cercano idee per guadagnare con 1000 €
+# Team agenti: 13 AI che cercano il business giusto da avviare con 1000 €
 
-Un team di 10 agenti AI che gira sul vostro PC con **Ollama** (gratis, in locale) e lavora
-da solo **fino a lunedì alle 09:00**. Propone idee di business, le critica, le migliora e alla fine
-consegna una classifica con i piani operativi e un verdetto su quale avviare.
+Un team di 13 agenti AI che gira sul vostro PC con **Ollama** (gratis, in locale) e lavora
+da solo **fino a lunedì alle 09:00**, in due fasi:
+
+1. **Ricerca del business**: tutti propongono idee nel proprio campo, gli specialisti le valutano,
+   le migliori vengono migliorate e incrociate.
+2. **Valutazione di fattibilità**: sulle idee migliori il team scrive uno studio di fattibilità
+   completo (mercato, operatività, economia, aspetti legali, comunicazione, clienti, rischi) e il CEO
+   decide se sono fattibili.
+
+Alla fine consegna una classifica, gli studi di fattibilità e un verdetto su quale idea avviare.
 
 Il **budget di 1000 €** è il capitale di partenza per l'idea: ogni proposta deve stare dentro
 quella cifra. Far lavorare il team non costa nulla, a parte la corrente del PC.
 
-## Il team: ognuno ha un compito per monetizzare
+## Il team
 
-| Agente | Ruolo | Il suo compito: modi legali di monetizzare con... | Giudica anche |
+Ogni agente ha un **compito per monetizzare** (il campo in cui cerca idee nella fase 1). Sette di loro
+sono anche **specialisti**: valutano le idee degli altri e scrivono la loro parte degli studi di fattibilità.
+
+| Agente | Ruolo | Fase 1: cerca modi legali di monetizzare con... | Fase 2: valuta e scrive |
 |---|---|---|---|
-| Giulia | Cacciatrice di trend | nicchie emergenti, in Italia e all'estero | |
-| Marco | Prodotti digitali | template, guide, mini-corsi, micro-SaaS venduti nel mondo tramite piattaforme che gestiscono pagamenti e IVA | |
-| Sara | Servizi B2B a distanza | servizi da remoto per aziende italiane ed estere | |
-| Luca | E-commerce internazionale | marketplace internazionali, print-on-demand, logistica affidata a terzi | |
-| Elena | AI e automazione | servizi e strumenti AI vendibili ovunque, anche con l'AI locale | |
-| Paolo | CFO | abbonamenti, contratti mensili, licenze ad alto margine | costi e guadagni |
-| Chiara | Avvocata del diavolo | modelli già collaudati portati in nuovi paesi o lingue | rischi e domanda |
-| Andrea | Legale e fiscale internazionale | attività gestibili legalmente anche senza sede fiscale in Italia | legalità e struttura |
-| Francesca | Growth marketer | contenuti, newsletter, community, affiliazioni, in più lingue | marketing |
-| Roberto | CEO | partnership, intermediazione, rivendita di servizi di terzi con il proprio marchio | direzione, incroci, piani |
+| Giulia | Cacciatrice di trend | nicchie emergenti, in Italia e all'estero | migliora le proprie idee |
+| Marco | Prodotti digitali | template, guide, mini-corsi, micro-SaaS venduti nel mondo tramite piattaforme che gestiscono pagamenti e IVA | migliora le proprie idee |
+| Sara | Servizi B2B a distanza | servizi da remoto per aziende italiane ed estere | migliora le proprie idee |
+| Luca | E-commerce internazionale | marketplace internazionali, print-on-demand, logistica affidata a terzi | migliora le proprie idee |
+| Elena | AI e automazione | servizi e strumenti AI vendibili ovunque, anche con l'AI locale | migliora le proprie idee |
+| **Matteo** | Analista di mercato | bisogni non soddisfatti e mercati poco serviti | domanda e concorrenza · *Mercato e domanda* (con i test per verificare la domanda in 7 giorni) |
+| Paolo | CFO | abbonamenti, contratti mensili, licenze ad alto margine | velocità, potenziale, budget · *Fattibilità economica* |
+| Chiara | Avvocata del diavolo | modelli già collaudati portati in nuovi paesi o lingue | rischio e domanda · *Rischi e piano B* |
+| Andrea | Legale e fiscale internazionale | attività gestibili legalmente anche senza sede fiscale in Italia | legalità e sede · *Fattibilità legale e fiscale* |
+| Francesca | Growth marketer | contenuti, newsletter, community, affiliazioni, in più lingue | facilità a trovare clienti · *Come trovare i clienti* |
+| **Valentina** | Responsabile comunicazione | brand di contenuti, servizi di comunicazione, personal branding | chiarezza del messaggio · *Comunicazione* (nomi, messaggio chiave, tono, contenuti e testo di lancio) |
+| **Giorgio** | Responsabile operativo | attività semplici da gestire con processi ripetibili e fornitori esterni | fattibilità operativa · *Fattibilità operativa* (attività, ore a settimana, strumenti) |
+| Roberto | CEO | partnership, intermediazione, rivendita di servizi di terzi con il proprio marchio | dirige, incrocia le idee, decide gli esiti degli studi e il verdetto |
 
-**Come lavorano.** A ogni giro **tutti e 10** propongono un'idea nel proprio campo, ognuno con un
-focus estratto a caso (tipo di cliente + vincolo, ad esempio "italiani all'estero" + "gestibile da
-qualunque paese"). Paolo, Chiara, Andrea e Francesca valutano le idee su 8 criteri: velocità del primo
-incasso, potenziale, budget, rischio, domanda, facilità, semplicità legale e **gestibilità senza sede
-in Italia**. Nessuno giudica le proprie idee: in quel caso il voto lo dà Roberto. Le idee migliori
-vengono rivalutate per ridurre il "rumore" dei voti, poi migliorate dal loro autore e incrociate dal
-CEO. Una versione migliorata sostituisce l'originale solo se prende un voto più alto. Il CEO commenta
-ogni giro e orienta il successivo. Nell'ultimo 40% del tempo il team esplora meno e consolida di più.
+**Fase 1, ricerca (primo 60% del tempo).** A ogni giro **tutti e 13** propongono un'idea nel proprio
+campo, ognuno con un focus estratto a caso (tipo di cliente + vincolo, ad esempio "italiani all'estero"
++ "gestibile da qualunque paese"). I 7 specialisti valutano ogni idea su 11 criteri: velocità del primo
+incasso, potenziale, budget, domanda, spazio sul mercato, rischio, facilità a trovare clienti, chiarezza
+del messaggio, fattibilità operativa, semplicità legale e **gestibilità senza sede in Italia**. Nessuno
+giudica le proprie idee: in quel caso il voto lo dà Roberto. Le idee migliori vengono rivalutate per
+ridurre il "rumore" dei voti, poi migliorate dal loro autore e incrociate dal CEO. Una versione
+migliorata sostituisce l'originale solo se prende un voto più alto. Il CEO commenta ogni giro e orienta
+il successivo. Già in questa fase la prima della classifica riceve uno studio di fattibilità.
+
+**Fase 2, fattibilità (ultimo 40%).** Si cercano meno idee nuove e si approfondiscono le migliori: per
+ogni idea della top 5 i 7 specialisti scrivono, uno dopo l'altro, la loro parte dello studio di
+fattibilità, e Roberto decide: **fattibile**, **fattibile con condizioni** o **non fattibile**, con il
+piano delle prime 4 settimane. Un'idea non fattibile perde metà del punteggio e lascia il posto alla
+successiva, che viene studiata a sua volta. Prima della scadenza tutta la top 5 ha il suo studio.
 
 ## Legalità e "senza sede fiscale in Italia"
 
 Solo idee legali: per ogni idea Andrea dice se è legale, quale forma giuridica usare e da quale paese.
 Un'idea che giudica illegale, o basata su elusione o evasione, perde il 60% del punteggio e nel report
-è segnata con "[dubbi di legalità]". Ogni piano operativo e il verdetto finale spiegano come operare
-in modo legale.
+è segnata con "[dubbi di legalità]". Ogni studio di fattibilità ha una parte legale e fiscale, e il
+verdetto finale spiega come operare in modo legale.
 
 La regola di fondo che il team applica (e che conviene verificare con un commercialista):
 
@@ -102,7 +122,7 @@ In `risultati_team/` trovate:
 
 | File | Contenuto |
 |---|---|
-| `report.html` | report finale: verdetto del CEO, top 5 con voti, critiche, struttura legale e piano operativo (budget voce per voce, 4 settimane, primi passi, KPI, quando fermarsi, come operare legalmente), il lavoro di ciascun agente, classifica completa |
+| `report.html` | report finale: verdetto del CEO, top 5 con voti, pareri dei 7 specialisti e studio di fattibilità completo (mercato, operatività, budget voce per voce, aspetti legali, comunicazione, clienti, rischi, prime 4 settimane), idee bocciate e perché, il lavoro di ciascun agente, classifica completa |
 | `report.md` | lo stesso in Markdown |
 | `idee.csv` | tutte le idee valutate, da aprire con Excel |
 | `diario.log` | tutto quello che è successo, minuto per minuto |
@@ -128,5 +148,6 @@ Ogni piano include una sezione "Da verificare prima di spendere": fatelo davvero
 anche un euro. Il team serve a generare e filtrare molte idee in poco tempo, non a sostituire
 una verifica sul campo con clienti veri.
 
-La velocità dipende dal PC. Con una GPU e un modello da 7-12B un giro dura 5-15 minuti; solo con la
-CPU anche un'ora. In entrambi i casi entro lunedì il team avrà fatto decine o centinaia di giri.
+La velocità dipende dal PC. Ogni giro fa circa 150 chiamate all'AI (13 idee valutate da 7 specialisti,
+più miglioramenti e studi): con una GPU e un modello da 7-12B un giro dura 15-30 minuti, solo con la CPU
+anche 2-3 ore. In entrambi i casi entro lunedì il team avrà valutato decine o centinaia di idee.
