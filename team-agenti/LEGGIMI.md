@@ -7,28 +7,50 @@ consegna una classifica con i piani operativi e un verdetto su quale avviare.
 Il **budget di 1000 €** è il capitale di partenza per l'idea: ogni proposta deve stare dentro
 quella cifra. Far lavorare il team non costa nulla, a parte la corrente del PC.
 
-## Il team
+## Il team: ognuno ha un compito per monetizzare
 
-| Agente | Ruolo | Cosa fa |
-|---|---|---|
-| Giulia | Cacciatrice di trend | nicchie emergenti, bisogni nuovi |
-| Marco | Prodotti digitali | template, mini-corsi, micro-SaaS, community |
-| Sara | Servizi locali e B2B | servizi per negozi, artigiani, studi, B&B |
-| Luca | E-commerce e commercio | marketplace, print-on-demand, vintage, margini |
-| Elena | AI e automazione | servizi basati su AI locale e automazioni |
-| Paolo | CFO | costi, investimento, utile realistico, budget |
-| Chiara | Avvocata del diavolo | rischi, concorrenza, domanda reale |
-| Andrea | Legale e fiscale | partita IVA, licenze, GDPR, regole |
-| Francesca | Growth marketer | canali, primi 10 clienti |
-| Roberto | CEO | incrocia le idee migliori, dà la direzione, scrive i piani |
+| Agente | Ruolo | Il suo compito: modi legali di monetizzare con... | Giudica anche |
+|---|---|---|---|
+| Giulia | Cacciatrice di trend | nicchie emergenti, in Italia e all'estero | |
+| Marco | Prodotti digitali | template, guide, mini-corsi, micro-SaaS venduti nel mondo tramite piattaforme che gestiscono pagamenti e IVA | |
+| Sara | Servizi B2B a distanza | servizi da remoto per aziende italiane ed estere | |
+| Luca | E-commerce internazionale | marketplace internazionali, print-on-demand, logistica affidata a terzi | |
+| Elena | AI e automazione | servizi e strumenti AI vendibili ovunque, anche con l'AI locale | |
+| Paolo | CFO | abbonamenti, contratti mensili, licenze ad alto margine | costi e guadagni |
+| Chiara | Avvocata del diavolo | modelli già collaudati portati in nuovi paesi o lingue | rischi e domanda |
+| Andrea | Legale e fiscale internazionale | attività gestibili legalmente anche senza sede fiscale in Italia | legalità e struttura |
+| Francesca | Growth marketer | contenuti, newsletter, community, affiliazioni, in più lingue | marketing |
+| Roberto | CEO | partnership, intermediazione, rivendita di servizi di terzi con il proprio marchio | direzione, incroci, piani |
 
-**Come lavorano.** A ogni giro i 5 ideatori propongono idee nuove, ognuno con un focus diverso
-estratto a caso (tipo di cliente + vincolo, ad esempio "B&B" + "zero magazzino"). I 4 valutatori
-danno i voti su 7 criteri: velocità del primo incasso, potenziale, budget, rischio, domanda,
-facilità, aspetti legali. Le idee migliori vengono rivalutate per ridurre il "rumore" dei voti,
-poi migliorate dal loro autore e incrociate tra loro dal CEO. Una versione migliorata sostituisce
-l'originale solo se prende un voto più alto. Il CEO commenta ogni giro e orienta il successivo.
-Nell'ultimo 40% del tempo il team esplora meno e consolida di più le idee migliori.
+**Come lavorano.** A ogni giro **tutti e 10** propongono un'idea nel proprio campo, ognuno con un
+focus estratto a caso (tipo di cliente + vincolo, ad esempio "italiani all'estero" + "gestibile da
+qualunque paese"). Paolo, Chiara, Andrea e Francesca valutano le idee su 8 criteri: velocità del primo
+incasso, potenziale, budget, rischio, domanda, facilità, semplicità legale e **gestibilità senza sede
+in Italia**. Nessuno giudica le proprie idee: in quel caso il voto lo dà Roberto. Le idee migliori
+vengono rivalutate per ridurre il "rumore" dei voti, poi migliorate dal loro autore e incrociate dal
+CEO. Una versione migliorata sostituisce l'originale solo se prende un voto più alto. Il CEO commenta
+ogni giro e orienta il successivo. Nell'ultimo 40% del tempo il team esplora meno e consolida di più.
+
+## Legalità e "senza sede fiscale in Italia"
+
+Solo idee legali: per ogni idea Andrea dice se è legale, quale forma giuridica usare e da quale paese.
+Un'idea che giudica illegale, o basata su elusione o evasione, perde il 60% del punteggio e nel report
+è segnata con "[dubbi di legalità]". Ogni piano operativo e il verdetto finale spiegano come operare
+in modo legale.
+
+La regola di fondo che il team applica (e che conviene verificare con un commercialista):
+
+- **Se vivete in Italia** (residenza fiscale italiana) pagate le tasse in Italia su tutto quello che
+  guadagnate, anche da clienti esteri o con una società all'estero. Una società estera gestita di
+  fatto dall'Italia è considerata italiana dal fisco: si chiama **esterovestizione** ed è illegale.
+- **Operare legalmente senza sede fiscale in Italia** è possibile se vi **trasferite davvero**
+  all'estero (residenza reale e iscrizione AIRE), oppure se la società è gestita davvero da fuori
+  Italia.
+- Vendere in tutto il mondo tramite piattaforme che incassano e versano l'IVA per voi
+  (merchant of record) semplifica molto gli adempimenti, ovunque risiediate.
+
+Per questo è importante scrivere in `profilo.txt` dove avete la residenza oggi e se siete
+disposti a trasferirvi.
 
 ## Cosa serve
 
@@ -43,8 +65,8 @@ Non serve installare nient'altro (niente `pip install`).
 
 ## Avvio in 3 passi
 
-1. **Personalizzate `profilo.txt`**: città, competenze, ore disponibili, cosa vi piace e cosa no.
-   Più è preciso, più le idee saranno su misura.
+1. **Personalizzate `profilo.txt`**: città, competenze, lingue, ore disponibili, residenza fiscale,
+   cosa vi piace e cosa no. Più è preciso, più le idee saranno su misura.
 2. **Fate una prova di 10 minuti** per verificare che tutto funzioni:
    ```
    python team_agenti.py --minuti 10
@@ -64,6 +86,8 @@ Non serve installare nient'altro (niente `pip install`).
   La pagina si aggiorna da sola ogni 5 minuti.
 - **Orientare il team**: scrivete in `direttive.txt`, ad esempio "niente e-commerce" oppure
   "approfondite i servizi per i B&B". Gli agenti lo leggono dalla chiamata successiva, senza riavviare.
+- **Aggiornare lo script a metà lavoro**: fermatelo con Ctrl+C, sostituite i file e rilanciatelo.
+  Le idee già trovate restano; per ripartire da zero con il team nuovo aggiungete `--nuovo`.
 - **Fermare e riprendere**: Ctrl+C salva tutto. Rilanciando lo stesso comando riprende da dove era
   rimasto, con la stessa scadenza. Vale anche dopo un riavvio o un blackout.
 - **Sospensione del PC**: su Windows e Mac lo script impedisce lo standby finché è acceso. Su un
@@ -78,7 +102,7 @@ In `risultati_team/` trovate:
 
 | File | Contenuto |
 |---|---|
-| `report.html` | report finale: verdetto del CEO, top 5 con voti, critiche e piano operativo (budget voce per voce, 4 settimane, primi passi, KPI, quando fermarsi), classifica completa |
+| `report.html` | report finale: verdetto del CEO, top 5 con voti, critiche, struttura legale e piano operativo (budget voce per voce, 4 settimane, primi passi, KPI, quando fermarsi, come operare legalmente), il lavoro di ciascun agente, classifica completa |
 | `report.md` | lo stesso in Markdown |
 | `idee.csv` | tutte le idee valutate, da aprire con Excel |
 | `diario.log` | tutto quello che è successo, minuto per minuto |

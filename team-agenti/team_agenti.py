@@ -49,75 +49,100 @@ CARTELLA_SCRIPT = Path(__file__).resolve().parent
 
 # Usato se manca profilo.txt accanto allo script.
 PROFILO_PREDEFINITO = """\
-Siamo una persona/piccolo team in Italia. Abbiamo un PC con Ollama (AI in locale, gratis),
+Siamo una persona/piccolo team che oggi vive in Italia. Abbiamo un PC con Ollama (AI in locale, gratis),
 competenze digitali di base-intermedie e circa 10-15 ore a settimana da dedicare.
 Vogliamo iniziare a guadagnare in fretta, con rischio contenuto, senza lasciare il lavoro attuale.
+Siamo aperti anche a operare senza sede fiscale in Italia (clienti internazionali, attività gestibile da
+qualunque paese, eventuale trasferimento all'estero), ma solo in modo pienamente legale.
 """
 
 REGOLE_COMUNI = """\
 Regole del team:
 - Rispondi sempre in italiano, SOLO con un oggetto JSON valido che rispetta lo schema richiesto, senza testo prima o dopo.
-- Sii concreto e specifico: numeri, prezzi in euro, canali e strumenti reali. Niente frasi generiche.
+- Sii concreto e specifico: numeri, prezzi in euro, canali, piattaforme e strumenti reali. Niente frasi generiche.
 - Solo idee legali, etiche e realistiche: niente schemi piramidali/MLM, trading o scommesse, cripto speculative, contenuti ingannevoli o promesse di guadagno facile.
-- Il team non ha accesso a internet: le cifre sono stime, trattale come tali."""
+- Operare senza sede fiscale in Italia è ammesso solo se è legale: chi risiede fiscalmente in Italia paga le tasse in Italia su tutto il reddito, ovunque lo guadagni, e una società estera gestita di fatto dall'Italia è considerata italiana (esterovestizione). Niente società di comodo, prestanome o IVA non versata.
+- Il team non ha accesso a internet: cifre e norme sono stime da verificare, trattale come tali."""
 
+# Ogni agente ha un compito: un campo in cui cercare modi legali di monetizzare.
+# I 4 con valuta=True giudicano anche le idee degli altri, ciascuno dal proprio punto di vista.
 AGENTI = {
-    # --- 5 ideatori
-    "giulia": dict(nome="Giulia", ruolo="Cacciatrice di trend", tipo="ideatore", temp=0.95, sistema=(
-        "Sei Giulia, cacciatrice di trend. Individui nicchie emergenti, bisogni nuovi e abitudini in crescita "
-        "in Italia e in Europa prima che diventino affollate. Proponi idee specifiche, mai generiche.")),
-    "marco": dict(nome="Marco", ruolo="Creatore di prodotti digitali", tipo="ideatore", temp=0.9, sistema=(
+    "giulia": dict(nome="Giulia", ruolo="Cacciatrice di trend", temp=0.95, compito=(
+        "monetizzare nicchie emergenti, in Italia e all'estero, prima che diventino affollate"), sistema=(
+        "Sei Giulia, cacciatrice di trend. Individui nicchie emergenti, bisogni nuovi e abitudini in crescita, "
+        "in Italia e nel resto del mondo, prima che diventino affollate.")),
+    "marco": dict(nome="Marco", ruolo="Prodotti digitali", temp=0.9, compito=(
+        "prodotti digitali (template, guide, mini-corsi, micro-SaaS) venduti in tutto il mondo tramite "
+        "piattaforme che incassano e gestiscono l'IVA per conto tuo (merchant of record)"), sistema=(
         "Sei Marco, esperto di prodotti digitali: template, guide, mini-corsi, micro-SaaS, app no-code, "
-        "newsletter a pagamento, community. Pensi a prodotti che si creano una volta e si vendono molte volte.")),
-    "sara": dict(nome="Sara", ruolo="Esperta di servizi locali e B2B", tipo="ideatore", temp=0.9, sistema=(
-        "Sei Sara, conosci benissimo le piccole imprese italiane (negozi, artigiani, studi professionali, "
-        "ristoranti, B&B). Proponi servizi concreti che risolvono problemi reali per cui pagano subito.")),
-    "luca": dict(nome="Luca", ruolo="Esperto di e-commerce e commercio", tipo="ideatore", temp=0.9, sistema=(
-        "Sei Luca, esperto di commercio online e offline: e-commerce di nicchia, marketplace (Vinted, eBay, "
-        "Etsy, Amazon, Subito), print-on-demand, ricondizionato, vintage, import. Ragioni sempre su margini, "
-        "logistica e magazzino.")),
-    "elena": dict(nome="Elena", ruolo="Ingegnera AI e automazione", tipo="ideatore", temp=0.9, sistema=(
+        "newsletter a pagamento. Pensi a prodotti che si creano una volta e si vendono molte volte, anche in "
+        "inglese e in altri mercati.")),
+    "sara": dict(nome="Sara", ruolo="Servizi B2B a distanza", temp=0.9, compito=(
+        "servizi alle aziende erogabili da remoto, a clienti italiani ed esteri"), sistema=(
+        "Sei Sara, esperta di servizi per piccole e medie imprese in Italia e in Europa. Proponi servizi concreti, "
+        "erogabili anche da remoto, che risolvono problemi reali per cui le aziende pagano subito.")),
+    "luca": dict(nome="Luca", ruolo="E-commerce internazionale", temp=0.9, compito=(
+        "commercio online senza magazzino in casa: marketplace internazionali (Etsy, Amazon, eBay), "
+        "print-on-demand, prodotti di nicchia con logistica affidata a terzi"), sistema=(
+        "Sei Luca, esperto di commercio online: marketplace internazionali, print-on-demand, logistica affidata "
+        "a terzi, prodotti di nicchia. Ragioni sempre su margini, resi, logistica e regole delle piattaforme.")),
+    "elena": dict(nome="Elena", ruolo="AI e automazione", temp=0.9, compito=(
+        "servizi e strumenti basati su AI e automazione vendibili ovunque, sfruttando anche l'AI locale (Ollama)"),
+        sistema=(
         "Sei Elena, ingegnera di AI e automazione. Sai cosa si può fare davvero con modelli AI locali (Ollama), "
         "automazioni (n8n, Make, script) e strumenti no-code. Proponi servizi e prodotti basati su AI che le "
         "persone pagano, senza promesse irrealistiche.")),
-    # --- 4 valutatori
-    "paolo": dict(nome="Paolo", ruolo="CFO", tipo="valutatore", temp=0.3, sistema=(
+    "paolo": dict(nome="Paolo", ruolo="CFO", temp=0.8, valuta=True, compito=(
+        f"modelli a ricavi ricorrenti e alto margine (abbonamenti, contratti mensili, licenze) che rendono il "
+        f"massimo dai {BUDGET_EURO} euro"), sistema=(
         "Sei Paolo, CFO prudente e concreto. Stimi costi, ricavi, margini e tempi con numeri realistici "
-        "(spesso più bassi di quanto sperano gli ideatori). Il budget massimo è vincolante.")),
-    "chiara": dict(nome="Chiara", ruolo="Avvocata del diavolo", tipo="valutatore", temp=0.4, sistema=(
+        "(spesso più bassi di quanto sperano gli altri). Il budget massimo è vincolante.")),
+    "chiara": dict(nome="Chiara", ruolo="Avvocata del diavolo", temp=0.85, valuta=True, compito=(
+        "monetizzazione a basso rischio: portare in nuovi paesi o lingue modelli di business già collaudati altrove"),
+        sistema=(
         "Sei Chiara, l'avvocata del diavolo del team. Trovi i punti deboli: concorrenza, domanda inesistente, "
         "dipendenza da piattaforme, rischi nascosti, ipotesi ottimistiche. Sei severa ma giusta: riconosci "
         "anche quando un'idea è solida.")),
-    "andrea": dict(nome="Andrea", ruolo="Consulente legale e fiscale", tipo="valutatore", temp=0.3, sistema=(
-        "Sei Andrea, consulente legale e fiscale per l'Italia. Conosci partita IVA, regime forfettario, "
-        "prestazione occasionale, licenze, SCIA, HACCP, GDPR, diritto d'autore, regole dei marketplace e della "
-        "pubblicità. Segnali in modo pratico gli adempimenti necessari e i rischi legali.")),
-    "francesca": dict(nome="Francesca", ruolo="Growth marketer", tipo="valutatore", temp=0.4, sistema=(
+    "andrea": dict(nome="Andrea", ruolo="Legale e fiscale internazionale", temp=0.8, valuta=True, compito=(
+        "attività pensate per essere gestite legalmente anche senza sede fiscale in Italia (da remoto, clienti "
+        "internazionali), con la forma giuridica corretta e le condizioni perché sia legale"), sistema=(
+        "Sei Andrea, consulente legale e fiscale con esperienza italiana e internazionale. Conosci partita IVA e "
+        "regime forfettario, residenza fiscale delle persone (iscrizione AIRE, giorni di presenza, centro degli "
+        "interessi), residenza delle società ed esterovestizione, società estere (es. Estonia, Irlanda, Regno "
+        "Unito, USA), convenzioni contro le doppie imposizioni, IVA OSS per i servizi digitali in UE, piattaforme "
+        "merchant of record, GDPR, diritto d'autore e regole dei marketplace. Distingui sempre ciò che è legale "
+        "da ciò che è elusione o evasione.")),
+    "francesca": dict(nome="Francesca", ruolo="Growth marketer", temp=0.9, valuta=True, compito=(
+        "monetizzare un pubblico online: contenuti, newsletter, community, affiliazioni e sponsorizzazioni, "
+        "anche in più lingue"), sistema=(
         "Sei Francesca, growth marketer. Ragioni su come trovare i primi 10 clienti paganti in modo concreto ed "
         "economico: canali, messaggi, costo di acquisizione, passaparola. Diffidi delle idee che 'si venderanno "
         "da sole'.")),
-    # --- 1 direttore
-    "roberto": dict(nome="Roberto", ruolo="CEO", tipo="direttore", temp=0.5, sistema=(
+    "roberto": dict(nome="Roberto", ruolo="CEO", temp=0.7, compito=(
+        "affari B2B ad alto valore: partnership, intermediazione, rivendita di servizi di terzi con il proprio "
+        "marchio (white label)"), sistema=(
         "Sei Roberto, CEO del team. Hai visione d'insieme, decidi su cosa puntare, combini le idee migliori e "
         "trasformi le idee in piani operativi eseguibili da subito. Sei pragmatico e orientato al primo incasso.")),
 }
-IDEATORI = [k for k, a in AGENTI.items() if a["tipo"] == "ideatore"]
-VALUTATORI = [k for k, a in AGENTI.items() if a["tipo"] == "valutatore"]
+IDEATORI = list(AGENTI)
+VALUTATORI = [k for k, a in AGENTI.items() if a.get("valuta")]
+TEMPERATURA_VALUTAZIONE = 0.3
 
 # chiave: (etichetta, peso, significato del voto per i valutatori)
 DIMENSIONI = {
-    "velocita": ("Velocità primo incasso", 0.20, "10 = primo incasso entro 1-2 settimane; 1 = oltre 6 mesi"),
-    "potenziale": ("Potenziale di guadagno", 0.20, "10 = può arrivare a migliaia di euro al mese entro un anno; 1 = poche decine di euro"),
-    "budget": ("Sostenibile col budget", 0.15, f"10 = si avvia con molto meno di {BUDGET_EURO} euro; 1 = il budget non basta"),
-    "rischio": ("Rischio basso", 0.15, "10 = si rischia poco e ci si può fermare senza perdite; 1 = alto rischio di perdere tutto"),
-    "domanda": ("Domanda reale", 0.15, "10 = la gente già cerca e paga per questo; 1 = domanda solo ipotetica"),
-    "facilita": ("Facilità di esecuzione", 0.10, "10 = fattibile da 1 persona part-time con competenze di base; 1 = serve un team esperto"),
-    "legale": ("Semplicità legale/fiscale", 0.05, "10 = nessun adempimento particolare; 1 = licenze o autorizzazioni complesse"),
+    "velocita": ("Velocità primo incasso", 0.18, "10 = primo incasso entro 1-2 settimane; 1 = oltre 6 mesi"),
+    "potenziale": ("Potenziale di guadagno", 0.18, "10 = può arrivare a migliaia di euro al mese entro un anno; 1 = poche decine di euro"),
+    "budget": ("Sostenibile col budget", 0.13, f"10 = si avvia con molto meno di {BUDGET_EURO} euro; 1 = il budget non basta"),
+    "rischio": ("Rischio basso", 0.13, "10 = si rischia poco e ci si può fermare senza perdite; 1 = alto rischio di perdere tutto"),
+    "domanda": ("Domanda reale", 0.13, "10 = la gente già cerca e paga per questo; 1 = domanda solo ipotetica"),
+    "facilita": ("Facilità di esecuzione", 0.09, "10 = fattibile da 1 persona part-time con competenze di base; 1 = serve un team esperto"),
+    "legale": ("Semplicità legale/fiscale", 0.06, "10 = nessun adempimento particolare; 1 = licenze o autorizzazioni complesse"),
+    "sede": ("Gestibile senza sede in Italia", 0.10, "10 = si gestisce legalmente da qualunque paese, con clienti internazionali; 1 = legata a un luogo o a licenze italiane"),
 }
 COMPETENZE = {
     "paolo": ["velocita", "potenziale", "budget"],
     "chiara": ["rischio", "domanda"],
-    "andrea": ["legale"],
+    "andrea": ["legale", "sede"],
     "francesca": ["domanda", "facilita"],
 }
 EXTRA_VALUTAZIONE = {
@@ -126,35 +151,44 @@ EXTRA_VALUTAZIONE = {
               "- utile_mese3_euro: utile netto realistico al mese, al terzo mese (numero, può essere 0)"),
     "chiara": ({"rischi_principali": {"type": "array", "items": {"type": "string"}}},
                "- rischi_principali: i 3 rischi più seri, uno per voce"),
-    "andrea": ({"adempimenti": {"type": "array", "items": {"type": "string"}}},
-               "- adempimenti: cosa serve dal punto di vista legale e fiscale (es. partita IVA forfettaria, SCIA, privacy), uno per voce"),
+    "andrea": ({"legale_ok": {"type": "boolean"}, "struttura_consigliata": {"type": "string"},
+                "adempimenti": {"type": "array", "items": {"type": "string"}}},
+               "- legale_ok: true se l'idea, fatta come descritta, è legale; false se è illegale o si regge su "
+               "elusione o evasione\n"
+               "- struttura_consigliata: forma giuridica e paese da cui operare in modo legale (es. partita IVA "
+               "forfettaria in Italia; oppure, solo con residenza fiscale reale all'estero, ditta o società nel "
+               "paese di residenza) e le condizioni perché resti legale\n"
+               "- adempimenti: cosa serve dal punto di vista legale e fiscale (es. partita IVA, IVA OSS, privacy, "
+               "licenze), uno per voce"),
     "francesca": ({"canale_principale": {"type": "string"}, "primo_cliente": {"type": "string"}},
                   "- canale_principale: il canale migliore per vendere\n"
                   "- primo_cliente: come trovare concretamente il primo cliente pagante entro 2 settimane"),
 }
 
-# Ogni ideatore riceve a ogni giro un segmento e un vincolo a caso: evita che il team giri in tondo.
+# Ogni agente riceve a ogni giro un segmento e un vincolo a caso: evita che il team giri in tondo.
 SEGMENTI = [
-    "bar, ristoranti e pizzerie", "parrucchieri, estetiste e centri benessere",
-    "studi professionali (commercialisti, avvocati, dentisti)", "artigiani ed edilizia",
-    "agriturismi, cantine e produttori locali", "B&B e affitti brevi", "turisti stranieri in Italia",
-    "studenti universitari", "genitori con figli piccoli", "anziani e le loro famiglie",
-    "proprietari di cani e gatti", "appassionati di sport e outdoor", "gamer e appassionati di tecnologia",
-    "creator, streamer e piccoli brand", "piccoli e-commerce già avviati", "associazioni sportive e culturali",
-    "condomini e amministratori", "chi organizza matrimoni ed eventi", "stranieri che vivono in Italia",
-    "freelance e lavoratori da remoto", "collezionisti (carte, vinili, vintage)", "scuole, insegnanti e formazione",
-    "chi cerca lavoro o vuole cambiare carriera", "piccole aziende manifatturiere", "palestre e personal trainer",
-    "negozi di quartiere che vogliono vendere online",
+    "bar, ristoranti e B&B", "studi professionali (commercialisti, avvocati, dentisti)",
+    "artigiani e produttori locali", "piccole aziende europee che vendono online", "clienti negli Stati Uniti",
+    "nomadi digitali e lavoratori da remoto", "italiani che vivono all'estero",
+    "aziende straniere che vogliono vendere in Italia", "chi all'estero ama il made in Italy (cucina, moda, design)",
+    "chi studia l'italiano o ama la cultura italiana", "turisti stranieri in Italia", "studenti universitari",
+    "genitori con figli piccoli", "anziani e le loro famiglie", "proprietari di cani e gatti",
+    "appassionati di sport e outdoor", "gamer e appassionati di tecnologia", "creator e piccoli brand internazionali",
+    "piccoli e-commerce già avviati", "startup e software house", "freelance di tutta Europa",
+    "collezionisti (carte, vinili, vintage)", "insegnanti e formazione online", "chi cerca lavoro o cambia carriera",
+    "piccole aziende manifatturiere che esportano", "professionisti in Svizzera, Germania o Regno Unito",
 ]
 VINCOLI = [
     "primo incasso entro 7 giorni", "zero magazzino", "ricavi ricorrenti (abbonamento o contratto mensile)",
     "testabile spendendo meno di 100 euro", "sfrutta come vantaggio un PC con AI locale (Ollama)",
-    "vendibile online in tutta Italia", "si gestisce in 10 ore a settimana", "scalabile senza assumere",
-    "si basa su competenze che si imparano in 2 settimane", "margine lordo sopra il 60%",
+    "vendibile online in tutto il mondo", "gestibile da qualunque paese con un portatile",
+    "incassi tramite piattaforme che gestiscono pagamenti e IVA", "si gestisce in 10 ore a settimana",
+    "scalabile senza assumere", "si basa su competenze che si imparano in 2 settimane", "margine lordo sopra il 60%",
     "sfrutta una ricorrenza o stagionalità dei prossimi 3 mesi",
 ]
 
-CAMPI_IDEA = ["titolo", "descrizione", "cliente_target", "modello_ricavi", "prezzo_indicativo", "primo_passo"]
+CAMPI_IDEA = ["titolo", "descrizione", "cliente_target", "mercato", "modello_ricavi", "prezzo_indicativo",
+              "primo_passo"]
 SCHEMA_IDEA = {
     "type": "object",
     "properties": {c: {"type": "string"} for c in CAMPI_IDEA},
@@ -166,6 +200,7 @@ Per ogni idea:
 - titolo: nome breve e specifico (massimo 10 parole)
 - descrizione: cosa si vende, come funziona e perché ora (3-5 frasi)
 - cliente_target: chi paga, descritto in modo preciso
+- mercato: in quali paesi si vende e se si può gestire da qualunque paese o solo dall'Italia
 - modello_ricavi: come entrano i soldi (una tantum, abbonamento, commissione...)
 - prezzo_indicativo: prezzo al cliente in euro
 - primo_passo: la prima azione concreta da fare lunedì"""
@@ -195,10 +230,11 @@ SCHEMA_PIANO = {
         "kpi": {"type": "array", "items": {"type": "string"}},
         "utile_atteso_mese3_euro": {"type": "number"},
         "criterio_di_stop": {"type": "string"},
+        "struttura_legale": {"type": "string"},
         "verifiche_da_fare": {"type": "array", "items": {"type": "string"}},
     },
     "required": ["sintesi", "perche_funziona", "allocazione_budget", "piano_4_settimane", "primi_passi", "kpi",
-                 "utile_atteso_mese3_euro", "criterio_di_stop", "verifiche_da_fare"],
+                 "utile_atteso_mese3_euro", "criterio_di_stop", "struttura_legale", "verifiche_da_fare"],
 }
 SCHEMA_VERDETTO = {
     "type": "object",
@@ -206,10 +242,12 @@ SCHEMA_VERDETTO = {
         "idea_consigliata": {"type": "string"},
         "perche": {"type": "string"},
         "cosa_fare_lunedi": {"type": "array", "items": {"type": "string"}},
+        "come_operare_legalmente": {"type": "string"},
         "piano_b": {"type": "string"},
         "avvertenze": {"type": "array", "items": {"type": "string"}},
     },
-    "required": ["idea_consigliata", "perche", "cosa_fare_lunedi", "piano_b", "avvertenze"],
+    "required": ["idea_consigliata", "perche", "cosa_fare_lunedi", "come_operare_legalmente", "piano_b",
+                 "avvertenze"],
 }
 
 GIORNI = ["lunedì", "martedì", "mercoledì", "giovedì", "venerdì", "sabato", "domenica"]
@@ -335,6 +373,17 @@ def conforme(dati, schema):
     return not isinstance(dati, (dict, list)) or tipo is None
 
 
+def booleano(x):
+    if isinstance(x, bool):
+        return x
+    testo = str(x).strip().lower()
+    if testo in ("true", "si", "sì", "yes", "vero", "1"):
+        return True
+    if testo in ("false", "no", "falso", "0"):
+        return False
+    return None
+
+
 def pulisci_idea(d):
     return {c: str(d.get(c, "")).strip()[:1500] for c in CAMPI_IDEA}
 
@@ -343,13 +392,15 @@ def formatta_idea(idea):
     return (f"Titolo: {idea['titolo']}\n"
             f"Descrizione: {idea['descrizione']}\n"
             f"Cliente target: {idea['cliente_target']}\n"
+            f"Mercato: {idea.get('mercato', '')}\n"
             f"Come guadagna: {idea['modello_ricavi']}\n"
             f"Prezzo indicativo: {idea['prezzo_indicativo']}\n"
             f"Primo passo: {idea['primo_passo']}")
 
 
 def punteggio_da(valutazioni):
-    """Media pesata dei voti di tutte le valutazioni -> (punteggio 0-100, voti medi, investimento, utile)."""
+    """Media pesata dei voti di tutte le valutazioni.
+    -> (punteggio 0-100, voti medi, investimento, utile, dubbi_legali)"""
     raccolti = {d: [] for d in DIMENSIONI}
     investimenti, utili = [], []
     for giro in valutazioni:
@@ -363,15 +414,22 @@ def punteggio_da(valutazioni):
     investimento = media(investimenti)
     if investimento is not None and investimento > BUDGET_EURO:
         medie["budget"] = min(medie.get("budget", 1.0), 2.0)
+    giudizi = [g.get("andrea", {}).get("legale_ok") for g in valutazioni]
+    giudizi = [g for g in giudizi if g is not None]
+    dubbi_legali = bool(giudizi) and 2 * giudizi.count(False) >= len(giudizi)
     if not medie:
-        return 0.0, {}, investimento, media(utili)
+        return 0.0, {}, investimento, media(utili), dubbi_legali
     peso = sum(DIMENSIONI[d][1] for d in medie)
     su_dieci = sum(medie[d] * DIMENSIONI[d][1] for d in medie) / peso
-    return round((su_dieci - 1) / 9 * 100, 1), {d: round(v, 1) for d, v in medie.items()}, investimento, media(utili)
+    punteggio = (su_dieci - 1) / 9 * 100
+    if dubbi_legali:
+        punteggio *= 0.4
+    return round(punteggio, 1), {d: round(v, 1) for d, v in medie.items()}, investimento, media(utili), dubbi_legali
 
 
 def aggiorna_punteggio(idea):
-    idea["punteggio"], idea["voti"], idea["investimento"], idea["utile_mese3"] = punteggio_da(idea["valutazioni"])
+    (idea["punteggio"], idea["voti"], idea["investimento"], idea["utile_mese3"],
+     idea["dubbi_legali"]) = punteggio_da(idea["valutazioni"])
 
 
 # ============================================================================
@@ -527,7 +585,8 @@ class Team:
         testo = (f"OGGI: {data_estesa(datetime.now())}\n"
                  f"CHI SIAMO:\n{leggi_testo('profilo.txt', PROFILO_PREDEFINITO)}\n"
                  f"BUDGET MASSIMO DI PARTENZA: {BUDGET_EURO} euro (tutto compreso: strumenti, pubblicità, materiali).\n"
-                 "OBIETTIVO: guadagnare soldi veri e legali in Italia il prima possibile, poi crescere.\n")
+                 "OBIETTIVO: guadagnare soldi veri e legali il prima possibile, poi crescere. Va bene vendere in "
+                 "Italia o all'estero; sono un vantaggio le attività gestibili legalmente da qualunque paese.\n")
         direttive = leggi_testo("direttive.txt")
         if direttive:
             testo += f"INDICAZIONI DEL CAPO (priorità massima):\n{direttive}\n"
@@ -554,7 +613,7 @@ class Team:
             "id": f"I{self.stato['contatore']:04d}", "autore": autore, "giro": self.stato["giro"],
             "creata": datetime.now().isoformat(timespec="minutes"), "versione": 1, "genitori": genitori or [],
             "stato": "da_valutare", "valutazioni": [], "punteggio": None, "voti": {}, "investimento": None,
-            "utile_mese3": None, "miglioramenti": 0, "tentativi_falliti": 0, "storia": [],
+            "utile_mese3": None, "dubbi_legali": False, "miglioramenti": 0, "tentativi_falliti": 0, "storia": [],
             "piano": None, "piano_versione": None,
         }
         idea.update(pulisci_idea(dati))
@@ -566,7 +625,7 @@ class Team:
         campi, istruzioni = EXTRA_VALUTAZIONE[chiave]
         criteri = "\n".join(f"- voto_{d} (da 1 a 10): {DIMENSIONI[d][2]}" for d in COMPETENZE[chiave])
         return (f"{self.contesto()}\nIDEA DA VALUTARE:\n{formatta_idea(idea)}\n\n"
-                f"Valuta l'idea dal tuo punto di vista ({AGENTI[chiave]['ruolo']}). Sii realistico e severo: "
+                f"Valuta l'idea dal punto di vista di: {AGENTI[chiave]['ruolo']}. Sii realistico e severo: "
                 "usa tutta la scala da 1 a 10 (5 = nella media, 8 o più solo se davvero convincente).\n"
                 f"- analisi: il tuo giudizio in 2-4 frasi\n{istruzioni}\n{criteri}")
 
@@ -577,11 +636,14 @@ class Team:
         props.update({"voto_" + d: {"type": "integer"} for d in COMPETENZE[chiave]})
         return {"type": "object", "properties": props, "required": list(props)}
 
-    def valuta(self, idea):
-        """Un giro di valutazione completo (4 valutatori) -> {chiave_valutatore: risposta normalizzata}."""
+    def valuta(self, idea, autore):
+        """Un giro di valutazione completo (4 valutatori) -> {chiave_valutatore: risposta normalizzata}.
+        Nessuno giudica le proprie idee: in quel caso il punto di vista lo prende Roberto."""
         risultato = {}
         for chiave in VALUTATORI:
-            r = self.chiedi(chiave, self.prompt_valutazione(idea, chiave), self.schema_valutazione(chiave), 1200)
+            giudice = "roberto" if chiave == autore else chiave
+            r = self.chiedi(giudice, self.prompt_valutazione(idea, chiave), self.schema_valutazione(chiave), 1200,
+                            temperatura=TEMPERATURA_VALUTAZIONE)
             v = {"analisi": str(r.get("analisi", "")).strip()}
             for d in COMPETENZE[chiave]:
                 v["voto_" + d] = voto(r.get("voto_" + d))
@@ -591,10 +653,14 @@ class Team:
             elif chiave == "chiara":
                 v["rischi_principali"] = lista_testi(r.get("rischi_principali"))
             elif chiave == "andrea":
+                v["legale_ok"] = booleano(r.get("legale_ok"))
+                v["struttura_consigliata"] = str(r.get("struttura_consigliata", "")).strip()
                 v["adempimenti"] = lista_testi(r.get("adempimenti"))
             elif chiave == "francesca":
                 v["canale_principale"] = str(r.get("canale_principale", "")).strip()
                 v["primo_cliente"] = str(r.get("primo_cliente", "")).strip()
+            if giudice != chiave:
+                v["giudice"] = giudice
             risultato[chiave] = v
         return risultato
 
@@ -608,7 +674,9 @@ class Team:
                 f"- Paolo (CFO): investimento ~{euro(p.get('investimento_iniziale_euro'))}, utile al mese 3 "
                 f"~{euro(p.get('utile_mese3_euro'))}. {p.get('analisi', '')}\n"
                 f"- Chiara (critica): rischi: {'; '.join(c.get('rischi_principali', []))}. {c.get('analisi', '')}\n"
-                f"- Andrea (legale): adempimenti: {'; '.join(a.get('adempimenti', []))}. {a.get('analisi', '')}\n"
+                f"- Andrea (legale): {'LEGALE' if a.get('legale_ok') is not False else 'DUBBI DI LEGALITÀ'}; "
+                f"struttura: {a.get('struttura_consigliata', '')}; adempimenti: "
+                f"{'; '.join(a.get('adempimenti', []))}. {a.get('analisi', '')}\n"
                 f"- Francesca (marketing): canale: {f.get('canale_principale', '')}; primo cliente: "
                 f"{f.get('primo_cliente', '')}. {f.get('analisi', '')}")
 
@@ -616,10 +684,11 @@ class Team:
         for idea in [i for i in self.stato["idee"].values() if i["stato"] == "da_valutare"]:
             if self.tempo_scaduto():
                 return
-            idea["valutazioni"].append(self.valuta(idea))
+            idea["valutazioni"].append(self.valuta(idea, idea["autore"]))
             aggiorna_punteggio(idea)
             idea["stato"] = "valutata"
-            self.log(f"  {idea['punteggio']:5.1f}/100  {idea['titolo']}  ({AGENTI[idea['autore']]['nome']})")
+            avviso = "  [dubbi di legalità]" if idea["dubbi_legali"] else ""
+            self.log(f"  {idea['punteggio']:5.1f}/100  {idea['titolo']}  ({AGENTI[idea['autore']]['nome']}){avviso}")
             self.salva()
 
     # --------------------------------------------------------------- ideazione
@@ -630,7 +699,7 @@ class Team:
         gia = {i["titolo"] for i in classifica[:15]} | {i["titolo"] for i in recenti}
         bocciate = ""
         if len(classifica) > 8:
-            bocciate = "\nPERCHE' SONO STATE BOCCIATE LE IDEE PEGGIORI (impara dagli errori):\n" + "\n".join(
+            bocciate = "\nPERCHÉ SONO STATE BOCCIATE LE IDEE PEGGIORI (impara dagli errori):\n" + "\n".join(
                 f"- {i['titolo']}: {i['valutazioni'][-1].get('chiara', {}).get('analisi', '')[:200]}"
                 for i in classifica[-3:])
         direzione = self.stato.get("direzione") or {}
@@ -643,8 +712,10 @@ class Team:
                 return
             segmento, vincolo = random.choice(SEGMENTI), random.choice(VINCOLI)
             prompt = (f"{self.contesto()}{guida}\n"
+                      f"IL TUO COMPITO NEL TEAM: trovare modi legali di monetizzare in questo campo: "
+                      f"{AGENTI[chiave]['compito']}.\n"
                       f"FOCUS DI QUESTO GIRO PER TE: clienti = {segmento}; vincolo = {vincolo}.\n"
-                      "Puoi allontanarti dal focus solo se hai un'idea nettamente migliore.\n\n"
+                      "Resta nel tuo campo; puoi allontanarti dal focus solo se hai un'idea nettamente migliore.\n\n"
                       f"IDEE MIGLIORI FINORA (non ripeterle, ma impara da cosa funziona):\n{migliori}\n"
                       f"{bocciate}\n\nIDEE GIÀ PROPOSTE (NON riproporre idee uguali o simili):\n"
                       + "\n".join(f"- {t}" for t in sorted(gia)) +
@@ -667,7 +738,7 @@ class Team:
 
     # --------------------------------------------------------------- evoluzione
     def migliora(self, idea):
-        autore = idea["autore"] if AGENTI[idea["autore"]]["tipo"] != "valutatore" else "roberto"
+        autore = idea["autore"] if idea["autore"] in AGENTI else "roberto"
         prompt = (f"{self.contesto()}\nECCO UN'IDEA DEL TEAM E LE VALUTAZIONI RICEVUTE:\n{formatta_idea(idea)}\n\n"
                   f"{self.riassunto_valutazioni(idea)}\n\n"
                   "Riscrivi l'idea migliorandola: risolvi i rischi principali, rendila più concreta, più veloce da "
@@ -679,7 +750,7 @@ class Team:
             idea["tentativi_falliti"] += 1
             self.log(f"  versione migliorata di '{idea['titolo']}' scartata (uguale a '{doppione['titolo']}')")
             return
-        valutazioni = [self.valuta(candidata)]
+        valutazioni = [self.valuta(candidata, autore)]
         nuovo = punteggio_da(valutazioni)[0]
         if nuovo > idea["punteggio"] + 1.5:
             idea["storia"].append({"versione": idea["versione"], "titolo": idea["titolo"],
@@ -701,7 +772,7 @@ class Team:
     def verifica(self, idea):
         """Seconda (e terza) opinione: i voti di un LLM oscillano, la media rende la classifica affidabile."""
         prima = idea["punteggio"]
-        idea["valutazioni"].append(self.valuta(idea))
+        idea["valutazioni"].append(self.valuta(idea, idea["autore"]))
         aggiorna_punteggio(idea)
         self.log(f"  riverificata '{idea['titolo']}': {prima:.0f} -> {idea['punteggio']:.0f} "
                  f"({len(idea['valutazioni'])} valutazioni)")
@@ -740,6 +811,9 @@ class Team:
                   "- kpi: i numeri da misurare per capire se funziona\n"
                   "- utile_atteso_mese3_euro: stima realistica dell'utile mensile al terzo mese\n"
                   "- criterio_di_stop: quando fermarsi senza spendere altro\n"
+                  "- struttura_legale: come operare in modo legale (forma giuridica, paese, adempimenti fiscali); "
+                  "se l'attività può essere gestita senza sede fiscale in Italia, spiega a quali condizioni è "
+                  "legale (residenza fiscale reale all'estero, gestione effettiva fuori dall'Italia)\n"
                   "- verifiche_da_fare: cosa controllare nel mondo reale prima di spendere (prezzi, concorrenti, "
                   "regole), visto che il team non ha accesso a internet")
         piano = self.chiedi("roberto", prompt, SCHEMA_PIANO, 3500, temperatura=0.4)
@@ -775,7 +849,7 @@ class Team:
                   "Scrivi:\n- commento: 2-3 frasi su come sta andando e cosa sta emergendo\n"
                   "- direzione: istruzioni concrete per gli ideatori per il prossimo giro (su cosa puntare, quali "
                   "territori nuovi esplorare)\n- da_evitare: temi o tipi di idee da non proporre più")
-        d = self.chiedi("roberto", prompt, SCHEMA_DIREZIONE, 1200)
+        d = self.chiedi("roberto", prompt, SCHEMA_DIREZIONE, 1200, temperatura=0.5)
         self.stato["direzione"] = {"commento": str(d.get("commento", "")), "direzione": str(d.get("direzione", "")),
                                    "da_evitare": lista_testi(d.get("da_evitare"))}
         self.log(f"Roberto (CEO), giro {self.stato['giro']}: {self.stato['direzione']['commento']}", diario=True)
@@ -791,9 +865,9 @@ class Team:
 
         self.valuta_in_attesa()  # idee rimaste a metà da una sessione interrotta
         if consolidamento:
-            self.ideazione(random.sample(IDEATORI, 3), 1)
+            self.ideazione(random.sample(IDEATORI, 4), 1)
         else:
-            self.ideazione(IDEATORI, 2)
+            self.ideazione(IDEATORI, 1)
         self.log("Valutazione delle nuove idee (Paolo, Chiara, Andrea, Francesca):")
         self.valuta_in_attesa()
 
@@ -850,8 +924,11 @@ class Team:
                                 for n, i in enumerate(classifica[:5], 1))
             prompt = (f"{self.contesto()}\nIl team ha lavorato per tutto il weekend. Ecco le 5 idee migliori:\n\n"
                       f"{podio}\n\nDai il verdetto finale: quale idea avviare lunedì e perché, le prime azioni da "
-                      "fare, un piano B e le avvertenze importanti.\n- idea_consigliata: il titolo dell'idea\n"
+                      "fare, come operare legalmente, un piano B e le avvertenze importanti.\n"
+                      "- idea_consigliata: il titolo dell'idea\n"
                       "- perche: 3-5 frasi\n- cosa_fare_lunedi: azioni concrete in ordine\n"
+                      "- come_operare_legalmente: forma giuridica e paese, e se e a quali condizioni si può "
+                      "operare legalmente senza sede fiscale in Italia\n"
                       "- piano_b: cosa fare se l'idea consigliata non funziona entro 30 giorni\n"
                       "- avvertenze: rischi e cose da verificare")
             try:
@@ -886,6 +963,19 @@ def nuovo_stato(modello, scadenza):
             "concluso": False}
 
 
+def migra_stato(stato):
+    """Aggiunge i campi nuovi alle idee salvate da versioni precedenti dello script."""
+    for idea in stato["idee"].values():
+        idea.setdefault("mercato", "")
+        if idea["autore"] not in AGENTI:
+            idea["autore"] = "roberto"
+        if idea["valutazioni"]:
+            aggiorna_punteggio(idea)
+        else:
+            idea.setdefault("dubbi_legali", False)
+    return stato
+
+
 def carica_stato(cartella):
     try:
         return json.loads((cartella / "stato.json").read_text(encoding="utf-8"))
@@ -915,13 +1005,33 @@ def _scrivi_csv(classifica, percorso):
     with open(percorso, "w", newline="", encoding="utf-8-sig") as f:
         w = csv.writer(f, delimiter=";")
         w.writerow(["posizione", "punteggio", "titolo", "proposta da", "giro", "versione", "valutazioni",
-                    "investimento €", "utile/mese al 3° mese €", "cliente", "come guadagna", "prezzo", "descrizione"])
+                    "investimento €", "utile/mese al 3° mese €", "legalità", "struttura consigliata", "cliente",
+                    "mercato", "come guadagna", "prezzo", "descrizione"])
         for n, i in enumerate(classifica, 1):
             w.writerow([n, i["punteggio"], i["titolo"], AGENTI.get(i["autore"], {}).get("nome", i["autore"]),
                         i["giro"], i["versione"], len(i["valutazioni"]),
                         "" if i["investimento"] is None else round(i["investimento"]),
                         "" if i["utile_mese3"] is None else round(i["utile_mese3"]),
-                        i["cliente_target"], i["modello_ricavi"], i["prezzo_indicativo"], i["descrizione"]])
+                        "DUBBI" if i.get("dubbi_legali") else "ok", _andrea(i).get("struttura_consigliata", ""),
+                        i["cliente_target"], i.get("mercato", ""), i["modello_ricavi"], i["prezzo_indicativo"],
+                        i["descrizione"]])
+
+
+def _andrea(idea):
+    return idea["valutazioni"][-1].get("andrea", {}) if idea["valutazioni"] else {}
+
+
+def _titolo(idea):
+    return idea["titolo"] + (" [dubbi di legalità]" if idea.get("dubbi_legali") else "")
+
+
+def _per_agente(classifica):
+    """Per ogni agente: (chiave, dati, numero di idee valutate, idea migliore o None)."""
+    righe = []
+    for chiave, a in AGENTI.items():
+        sue = [i for i in classifica if i["autore"] == chiave]
+        righe.append((chiave, a, len(sue), sue[0] if sue else None))
+    return righe
 
 
 def _riassunto_numeri(stato, classifica):
@@ -941,25 +1051,33 @@ def _report_md(stato, classifica, finale):
         r += ["## Verdetto del CEO", "", f"**Idea consigliata: {v.get('idea_consigliata', '')}**", "",
               str(v.get("perche", "")), "", "**Cosa fare lunedì:**"]
         r += [f"{n}. {x}" for n, x in enumerate(lista_testi(v.get("cosa_fare_lunedi")), 1)]
-        r += ["", f"**Piano B:** {v.get('piano_b', '')}", "", "**Avvertenze:**"]
+        r += ["", f"**Come operare legalmente:** {v.get('come_operare_legalmente', '')}", "",
+              f"**Piano B:** {v.get('piano_b', '')}", "", "**Avvertenze:**"]
         r += [f"- {x}" for x in lista_testi(v.get("avvertenze"))] + [""]
     r += ["## Classifica", "", "| # | Punti | Idea | Da | Investimento | Utile/mese (mese 3) | Versione |",
           "|---|---|---|---|---|---|---|"]
     for n, i in enumerate(classifica[:25], 1):
-        r.append(f"| {n} | {i['punteggio']:.0f} | {i['titolo'].replace('|', '/')} | "
+        r.append(f"| {n} | {i['punteggio']:.0f} | {_titolo(i).replace('|', '/')} | "
                  f"{AGENTI.get(i['autore'], {}).get('nome', '')} | {euro(i['investimento'])} | "
                  f"{euro(i['utile_mese3'])} | v{i['versione']} ({len(i['valutazioni'])} val.) |")
+    r += ["", "## Il lavoro di ciascun agente", "", "| Agente | Compito | Idee | La sua idea migliore |",
+          "|---|---|---|---|"]
+    for chiave, a, quante, migliore in _per_agente(classifica):
+        top = f"{migliore['titolo']} ({migliore['punteggio']:.0f})" if migliore else "-"
+        r.append(f"| {a['nome']} ({a['ruolo']}) | {a['compito']} | {quante} | {top.replace('|', '/')} |")
     r += ["", "## Le 5 migliori in dettaglio", ""]
     for n, i in enumerate(classifica[:5], 1):
         ult = i["valutazioni"][-1] if i["valutazioni"] else {}
         p, c, a, f = (ult.get(k, {}) for k in ("paolo", "chiara", "andrea", "francesca"))
-        r += [f"### {n}. {i['titolo']} ({i['punteggio']:.0f}/100)", "", i["descrizione"], "",
-              f"- **Cliente:** {i['cliente_target']}", f"- **Come guadagna:** {i['modello_ricavi']}",
+        r += [f"### {n}. {_titolo(i)} ({i['punteggio']:.0f}/100)", "", i["descrizione"], "",
+              f"- **Cliente:** {i['cliente_target']}", f"- **Mercato:** {i.get('mercato', '')}",
+              f"- **Come guadagna:** {i['modello_ricavi']}",
               f"- **Prezzo:** {i['prezzo_indicativo']}", f"- **Primo passo:** {i['primo_passo']}",
               f"- **Voti:** " + " · ".join(f"{DIMENSIONI[d][0]} {x}" for d, x in i["voti"].items()), "",
               f"**Paolo (CFO):** {p.get('analisi', '')}", "",
               f"**Chiara (rischi):** {'; '.join(c.get('rischi_principali', []))}. {c.get('analisi', '')}", "",
-              f"**Andrea (legale/fiscale):** {'; '.join(a.get('adempimenti', []))}. {a.get('analisi', '')}", "",
+              f"**Andrea (legale/fiscale):** {a.get('analisi', '')} *Struttura consigliata:* "
+              f"{a.get('struttura_consigliata', '')}. *Adempimenti:* {'; '.join(a.get('adempimenti', []))}", "",
               f"**Francesca (marketing):** canale: {f.get('canale_principale', '')}. Primo cliente: "
               f"{f.get('primo_cliente', '')}", ""]
         piano = i.get("piano")
@@ -975,6 +1093,7 @@ def _report_md(stato, classifica, finale):
             r += ["", f"*KPI:* {'; '.join(lista_testi(piano.get('kpi')))}",
                   f"*Utile atteso al mese 3:* {euro(numero(piano.get('utile_atteso_mese3_euro')))}",
                   f"*Quando fermarsi:* {piano.get('criterio_di_stop', '')}",
+                  f"*Come operare legalmente:* {piano.get('struttura_legale', '')}",
                   f"*Da verificare prima di spendere:* {'; '.join(lista_testi(piano.get('verifiche_da_fare')))}", ""]
     r += ["## Diario del team", ""]
     r += [f"- {d['ora'].replace('T', ' ')}: {d['testo']}" for d in reversed(stato["diario"][-30:])]
@@ -999,7 +1118,8 @@ text-align:left;vertical-align:top}th{color:var(--muted);font-weight:600}.num{te
 .voto{font-size:.85rem}.barra{height:6px;background:var(--bar);border-radius:3px}
 .barra i{display:block;height:6px;border-radius:3px;background:var(--good)}
 details{margin-top:10px}summary{cursor:pointer;color:var(--accent);font-weight:600}
-ul,ol{padding-left:22px}.tab{overflow-x:auto}
+ul,ol{padding-left:22px}.tab{overflow-x:auto}.agenti{list-style:none;padding:0;margin:0}
+.agenti li{padding:9px 0;border-bottom:1px solid var(--line)}.agenti li:last-child{border-bottom:0}
 """
 
 
@@ -1010,7 +1130,7 @@ def _report_html(stato, classifica, finale):
            f"{'' if finale else '<meta http-equiv=refresh content=300>'}"
            f"<title>Team agenti - idee</title><style>{CSS}</style></head><body><main>",
            f"<h1>Idee per monetizzare con {e(euro(stato['budget']))}</h1>",
-           f"<div class='metà>{'<b>REPORT FINALE</b>' if finale else 'Report intermedio (si aggiorna da solo)'}"
+           f"<div class='meta'>{'<b>REPORT FINALE</b>' if finale else 'Report intermedio (si aggiorna da solo)'}"
            f" · {e(data_estesa(datetime.now()))}<br>{e(_riassunto_numeri(stato, classifica))}<br>"
            f"Scadenza: {e(data_estesa(datetime.fromisoformat(stato['scadenza'])))}</div>"]
     v = stato.get("verdetto")
@@ -1018,6 +1138,7 @@ def _report_html(stato, classifica, finale):
         out.append(f"<div class='card verdetto'><h2 style='margin-top:0'>Verdetto del CEO</h2>"
                    f"<h3>{e(str(v.get('idea_consigliata', '')))}</h3><p>{e(str(v.get('perche', '')))}</p>"
                    f"<b>Cosa fare lunedì</b><ol>{''.join(f'<li>{e(x)}</li>' for x in lista_testi(v.get('cosa_fare_lunedi')))}</ol>"
+                   f"<p><b>Come operare legalmente:</b> {e(str(v.get('come_operare_legalmente', '')))}</p>"
                    f"<p><b>Piano B:</b> {e(str(v.get('piano_b', '')))}</p><b>Avvertenze</b>"
                    f"<ul>{''.join(f'<li>{e(x)}</li>' for x in lista_testi(v.get('avvertenze')))}</ul></div>")
     if not classifica:
@@ -1029,13 +1150,15 @@ def _report_html(stato, classifica, finale):
         voti = "".join(f"<div class='voto'>{e(DIMENSIONI[d][0])} <b>{x}</b><div class='barra'>"
                        f"<i style='width:{x * 10:.0f}%'></i></div></div>" for d, x in i["voti"].items())
         out.append(
-            f"<div class='card'><span class='score'>{i['punteggio']:.0f}</span><h3>{n}. {e(i['titolo'])}</h3>"
+            f"<div class='card'><span class='score'>{i['punteggio']:.0f}</span><h3>{n}. {e(_titolo(i))}</h3>"
             f"<div class='small'>proposta da {e(AGENTI.get(i['autore'], {}).get('nome', ''))} · v{i['versione']} · "
             f"{len(i['valutazioni'])} valutazioni · investimento {e(euro(i['investimento']))} · utile/mese al 3° mese "
             f"{e(euro(i['utile_mese3']))}</div><p>{e(i['descrizione'])}</p>"
-            f"<p class='small'><b>Cliente:</b> {e(i['cliente_target'])}<br><b>Come guadagna:</b> "
+            f"<p class='small'><b>Cliente:</b> {e(i['cliente_target'])}<br><b>Mercato:</b> "
+            f"{e(i.get('mercato', ''))}<br><b>Come guadagna:</b> "
             f"{e(i['modello_ricavi'])}<br><b>Prezzo:</b> {e(i['prezzo_indicativo'])}<br><b>Primo passo:</b> "
-            f"{e(i['primo_passo'])}</p><div class='voti'>{voti}</div>"
+            f"{e(i['primo_passo'])}<br><b>Struttura legale (Andrea):</b> "
+            f"{e(a.get('struttura_consigliata', '') or '-')}</p><div class='voti'>{voti}</div>"
             f"<details><summary>Cosa ne pensa il team</summary>"
             f"<p><b>Paolo (CFO):</b> {e(p.get('analisi', ''))}</p>"
             f"<p><b>Chiara (rischi):</b> {e(c.get('analisi', ''))}</p>"
@@ -1049,10 +1172,16 @@ def _report_html(stato, classifica, finale):
         out.append("<h2>Classifica completa</h2><div class='tab'><table><tr><th>#</th><th class='num'>Punti</th>"
                    "<th>Idea</th><th class='num'>Investim.</th><th class='num'>Utile/mese</th></tr>")
         for n, i in enumerate(classifica[5:60], 6):
-            out.append(f"<tr><td>{n}</td><td class='num'>{i['punteggio']:.0f}</td><td>{e(i['titolo'])}"
+            out.append(f"<tr><td>{n}</td><td class='num'>{i['punteggio']:.0f}</td><td>{e(_titolo(i))}"
                        f"<div class='small'>{e(i['cliente_target'][:140])}</div></td>"
                        f"<td class='num'>{e(euro(i['investimento']))}</td><td class='num'>{e(euro(i['utile_mese3']))}</td></tr>")
         out.append("</table></div>")
+    out.append("<h2>Il lavoro di ciascun agente</h2><div class='card'><ul class='agenti'>")
+    for chiave, a, quante, migliore in _per_agente(classifica):
+        top = (f"{e(migliore['titolo'])} <b>{migliore['punteggio']:.0f}</b>" if migliore else "nessuna idea valutata")
+        out.append(f"<li><b>{e(a['nome'])}</b> · {e(a['ruolo'])}<div class='small'>Compito: {e(a['compito'])}</div>"
+                   f"<div>Migliore: {top} <span class='small'>({quante} idee)</span></div></li>")
+    out.append("</ul></div>")
     if stato["diario"]:
         out.append("<h2>Diario del team</h2><div class='card'><ul>")
         out += [f"<li><span class='small'>{e(d['ora'].replace('T', ' '))}</span> {e(d['testo'])}</li>"
@@ -1080,7 +1209,8 @@ def _piano_html(piano):
             f"<h4>Primi passi lunedì</h4><ol>{''.join(f'<li>{e(x)}</li>' for x in lista_testi(piano.get('primi_passi')))}</ol>"
             f"<p><b>KPI:</b> {e('; '.join(lista_testi(piano.get('kpi'))))}<br><b>Utile atteso al 3° mese:</b> "
             f"{e(euro(numero(piano.get('utile_atteso_mese3_euro'))))}<br><b>Quando fermarsi:</b> "
-            f"{e(str(piano.get('criterio_di_stop', '')))}</p><b>Da verificare prima di spendere</b>"
+            f"{e(str(piano.get('criterio_di_stop', '')))}<br><b>Come operare legalmente:</b> "
+            f"{e(str(piano.get('struttura_legale', '')))}</p><b>Da verificare prima di spendere</b>"
             f"<ul>{''.join(f'<li>{e(x)}</li>' for x in lista_testi(piano.get('verifiche_da_fare')))}</ul></details>")
 
 
@@ -1145,6 +1275,8 @@ def main():
         cartella = CARTELLA_SCRIPT / ("risultati_prova" if args.minuti else "risultati_team")
     cartella.mkdir(parents=True, exist_ok=True)
     stato = carica_stato(cartella)
+    if stato:
+        migra_stato(stato)
 
     if args.solo_report:
         if not stato:
@@ -1201,7 +1333,7 @@ def main():
     print(f" TEAM AGENTI - budget {euro(BUDGET_EURO)} - modello {llm.modello}")
     print("=" * 72)
     for chiave, a in AGENTI.items():
-        print(f"  {a['nome']:<10} {a['ruolo']}")
+        print(f"  {a['nome']:<10} {a['ruolo']:<32} {a['compito'][:60]}")
     print(f"\n Lavora fino a: {data_estesa(scadenza)}")
     print(f" Risultati in:  {cartella}")
     print(f" Standby:       {impedisci_standby()}")

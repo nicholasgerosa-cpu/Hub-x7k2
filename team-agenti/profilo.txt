@@ -1,8 +1,12 @@
 # CHI SIETE - più è preciso, più le idee saranno su misura.
 # Le righe che iniziano con # vengono ignorate. Modifica liberamente il testo qui sotto
-# (città, competenze, tempo disponibile, cosa vi piace / cosa NON volete fare).
+# (città, competenze, lingue parlate, tempo disponibile, cosa vi piace / cosa NON volete fare).
+# Indica anche dove avete la RESIDENZA FISCALE oggi e se siete disposti a trasferirvi:
+# cambia molto cosa è legale fare "senza sede fiscale in Italia".
 # Puoi cambiarlo anche mentre il team lavora: viene riletto a ogni chiamata.
 
-Siamo una persona/piccolo team in Italia. Abbiamo un PC con Ollama (AI in locale, gratis),
+Siamo una persona/piccolo team che oggi vive in Italia. Abbiamo un PC con Ollama (AI in locale, gratis),
 competenze digitali di base-intermedie e circa 10-15 ore a settimana da dedicare.
 Vogliamo iniziare a guadagnare in fretta, con rischio contenuto, senza lasciare il lavoro attuale.
+Siamo aperti anche a operare senza sede fiscale in Italia (clienti internazionali, attività gestibile da
+qualunque paese, eventuale trasferimento all'estero), ma solo in modo pienamente legale.
