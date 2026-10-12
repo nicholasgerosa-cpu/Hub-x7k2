@@ -1,6 +1,6 @@
-# Team agenti: 13 AI che cercano il business giusto da avviare con 1000 €
+# Team agenti: 10 AI che cercano il business giusto da avviare con 1000 €
 
-Un team di 13 agenti AI che gira sul vostro PC con **Ollama** (gratis, in locale) e lavora
+Un team di 10 agenti AI che gira sul vostro PC con **Ollama** (gratis, in locale) e lavora
 da solo **fino a lunedì alle 09:00**, in due fasi:
 
 1. **Ricerca del business**: tutti propongono idee nel proprio campo, gli specialisti le valutano,
@@ -21,21 +21,18 @@ sono anche **specialisti**: valutano le idee degli altri e scrivono la loro part
 
 | Agente | Ruolo | Fase 1: cerca modi legali di monetizzare con... | Fase 2: valuta e scrive |
 |---|---|---|---|
-| Giulia | Cacciatrice di trend | nicchie emergenti, in Italia e all'estero | migliora le proprie idee |
-| Marco | Prodotti digitali | template, guide, mini-corsi, micro-SaaS venduti nel mondo tramite piattaforme che gestiscono pagamenti e IVA | migliora le proprie idee |
-| Sara | Servizi B2B a distanza | servizi da remoto per aziende italiane ed estere | migliora le proprie idee |
+| Matteo | Ricerca di mercato e trend | nicchie emergenti e bisogni non soddisfatti, in Italia e all'estero | domanda e concorrenza · *Mercato e domanda* (con i test per verificare la domanda in 7 giorni) |
+| Marco | Prodotti digitali e AI | template, guide, mini-corsi, micro-SaaS e automazioni AI venduti nel mondo tramite piattaforme che gestiscono pagamenti e IVA | migliora le proprie idee |
 | Luca | E-commerce internazionale | marketplace internazionali, print-on-demand, logistica affidata a terzi | migliora le proprie idee |
-| Elena | AI e automazione | servizi e strumenti AI vendibili ovunque, anche con l'AI locale | migliora le proprie idee |
-| **Matteo** | Analista di mercato | bisogni non soddisfatti e mercati poco serviti | domanda e concorrenza · *Mercato e domanda* (con i test per verificare la domanda in 7 giorni) |
 | Paolo | CFO | abbonamenti, contratti mensili, licenze ad alto margine | velocità, potenziale, budget · *Fattibilità economica* |
 | Chiara | Avvocata del diavolo | modelli già collaudati portati in nuovi paesi o lingue | rischio e domanda · *Rischi e piano B* |
 | Andrea | Legale e fiscale internazionale | attività gestibili legalmente anche senza sede fiscale in Italia | legalità e sede · *Fattibilità legale e fiscale* |
 | Francesca | Growth marketer | contenuti, newsletter, community, affiliazioni, in più lingue | facilità a trovare clienti · *Come trovare i clienti* |
-| **Valentina** | Responsabile comunicazione | brand di contenuti, servizi di comunicazione, personal branding | chiarezza del messaggio · *Comunicazione* (nomi, messaggio chiave, tono, contenuti e testo di lancio) |
-| **Giorgio** | Responsabile operativo | attività semplici da gestire con processi ripetibili e fornitori esterni | fattibilità operativa · *Fattibilità operativa* (attività, ore a settimana, strumenti) |
-| Roberto | CEO | partnership, intermediazione, rivendita di servizi di terzi con il proprio marchio | dirige, incrocia le idee, decide gli esiti degli studi e il verdetto |
+| Valentina | Responsabile comunicazione | brand di contenuti, servizi di comunicazione, personal branding | chiarezza del messaggio · *Comunicazione* (nomi, messaggio chiave, tono, contenuti e testo di lancio) |
+| Giorgio | Responsabile operativo | attività semplici da gestire con processi ripetibili e fornitori esterni | fattibilità operativa · *Fattibilità operativa* (attività, ore a settimana, strumenti) |
+| Roberto | CEO | servizi e affari con le aziende: servizi da remoto, partnership, intermediazione, rivendita di servizi di terzi con il proprio marchio | dirige, incrocia le idee, decide gli esiti degli studi e il verdetto |
 
-**Fase 1, ricerca (primo 60% del tempo).** A ogni giro **tutti e 13** propongono un'idea nel proprio
+**Fase 1, ricerca (primo 60% del tempo).** A ogni giro **tutti e 10** propongono un'idea nel proprio
 campo, ognuno con un focus estratto a caso (tipo di cliente + vincolo, ad esempio "italiani all'estero"
 + "gestibile da qualunque paese"). I 7 specialisti valutano ogni idea su 11 criteri: velocità del primo
 incasso, potenziale, budget, domanda, spazio sul mercato, rischio, facilità a trovare clienti, chiarezza
@@ -71,6 +68,14 @@ La regola di fondo che il team applica (e che conviene verificare con un commerc
 
 Per questo è importante scrivere in `profilo.txt` dove avete la residenza oggi e se siete
 disposti a trasferirvi.
+
+## Dopo: la fase di esecuzione
+
+Questo team serve a **individuare il business** e a verificarne la fattibilità. Una volta scelta
+l'idea, servirà un team diverso, pensato per avviarla, con figure che adesso non servono:
+
+- **il cliente tipo**, che si immedesima nei clienti dell'idea scelta e solleva le loro obiezioni;
+- **il venditore**, che prepara i messaggi e gli script per contattare i primi clienti.
 
 ## Cosa serve
 
@@ -148,6 +153,6 @@ Ogni piano include una sezione "Da verificare prima di spendere": fatelo davvero
 anche un euro. Il team serve a generare e filtrare molte idee in poco tempo, non a sostituire
 una verifica sul campo con clienti veri.
 
-La velocità dipende dal PC. Ogni giro fa circa 150 chiamate all'AI (13 idee valutate da 7 specialisti,
+La velocità dipende dal PC. Ogni giro fa circa 130 chiamate all'AI (10 idee valutate da 7 specialisti,
 più miglioramenti e studi): con una GPU e un modello da 7-12B un giro dura 15-30 minuti, solo con la CPU
 anche 2-3 ore. In entrambi i casi entro lunedì il team avrà valutato decine o centinaia di idee.

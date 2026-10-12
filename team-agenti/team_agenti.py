@@ -68,37 +68,25 @@ Regole del team:
 # Quelli con valuta=True giudicano anche le idee degli altri dal proprio punto di vista e scrivono la loro
 # parte degli studi di fattibilità (fase 2). Roberto dirige, incrocia le idee e tira le somme.
 AGENTI = {
-    "giulia": dict(nome="Giulia", ruolo="Cacciatrice di trend", temp=0.95, compito=(
-        "monetizzare nicchie emergenti, in Italia e all'estero, prima che diventino affollate"), sistema=(
-        "Sei Giulia, cacciatrice di trend. Individui nicchie emergenti, bisogni nuovi e abitudini in crescita, "
-        "in Italia e nel resto del mondo, prima che diventino affollate.")),
-    "marco": dict(nome="Marco", ruolo="Prodotti digitali", temp=0.9, compito=(
-        "prodotti digitali (template, guide, mini-corsi, micro-SaaS) venduti in tutto il mondo tramite "
-        "piattaforme che incassano e gestiscono l'IVA per conto tuo (merchant of record)"), sistema=(
-        "Sei Marco, esperto di prodotti digitali: template, guide, mini-corsi, micro-SaaS, app no-code, "
-        "newsletter a pagamento. Pensi a prodotti che si creano una volta e si vendono molte volte, anche in "
-        "inglese e in altri mercati.")),
-    "sara": dict(nome="Sara", ruolo="Servizi B2B a distanza", temp=0.9, compito=(
-        "servizi alle aziende erogabili da remoto, a clienti italiani ed esteri"), sistema=(
-        "Sei Sara, esperta di servizi per piccole e medie imprese in Italia e in Europa. Proponi servizi concreti, "
-        "erogabili anche da remoto, che risolvono problemi reali per cui le aziende pagano subito.")),
+    "matteo": dict(nome="Matteo", ruolo="Ricerca di mercato e trend", temp=0.9, valuta=True, compito=(
+        "nicchie emergenti e bisogni non soddisfatti, in Italia e all'estero, scoperti analizzando trend, "
+        "domanda, concorrenza e prezzi"), sistema=(
+        "Sei Matteo, analista di mercato e cacciatore di trend. Individui nicchie emergenti e bisogni nuovi prima "
+        "che diventino affollati, e ragioni su chi compra, quanto è grande la domanda, chi sono i concorrenti, "
+        "che prezzi praticano e cosa li distingue. Progetti test rapidi ed economici per verificare la domanda "
+        "con clienti veri (pagine di prenotazione, preordini, interviste) prima di investire.")),
+    "marco": dict(nome="Marco", ruolo="Prodotti digitali e AI", temp=0.9, compito=(
+        "prodotti digitali e strumenti basati su AI e automazione (template, guide, mini-corsi, micro-SaaS, "
+        "automazioni) venduti in tutto il mondo tramite piattaforme che incassano e gestiscono l'IVA per conto "
+        "tuo (merchant of record), sfruttando anche l'AI locale (Ollama)"), sistema=(
+        "Sei Marco, esperto di prodotti digitali, AI e automazione: template, guide, mini-corsi, micro-SaaS, "
+        "app no-code, automazioni (n8n, Make, script) e modelli AI locali (Ollama). Pensi a prodotti che si creano "
+        "una volta e si vendono molte volte, anche in inglese e in altri mercati, senza promesse irrealistiche.")),
     "luca": dict(nome="Luca", ruolo="E-commerce internazionale", temp=0.9, compito=(
         "commercio online senza magazzino in casa: marketplace internazionali (Etsy, Amazon, eBay), "
         "print-on-demand, prodotti di nicchia con logistica affidata a terzi"), sistema=(
         "Sei Luca, esperto di commercio online: marketplace internazionali, print-on-demand, logistica affidata "
         "a terzi, prodotti di nicchia. Ragioni sempre su margini, resi, logistica e regole delle piattaforme.")),
-    "elena": dict(nome="Elena", ruolo="AI e automazione", temp=0.9, compito=(
-        "servizi e strumenti basati su AI e automazione vendibili ovunque, sfruttando anche l'AI locale (Ollama)"),
-        sistema=(
-        "Sei Elena, ingegnera di AI e automazione. Sai cosa si può fare davvero con modelli AI locali (Ollama), "
-        "automazioni (n8n, Make, script) e strumenti no-code. Proponi servizi e prodotti basati su AI che le "
-        "persone pagano, senza promesse irrealistiche.")),
-    "matteo": dict(nome="Matteo", ruolo="Analista di mercato", temp=0.85, valuta=True, compito=(
-        "bisogni non soddisfatti e mercati poco serviti, scoperti analizzando domanda, concorrenza e prezzi"),
-        sistema=(
-        "Sei Matteo, analista di mercato. Ragioni su chi compra, quanto è grande la domanda, chi sono i "
-        "concorrenti, che prezzi praticano e cosa li distingue. Progetti test rapidi ed economici per verificare "
-        "la domanda con clienti veri (pagine di prenotazione, preordini, interviste) prima di investire.")),
     "paolo": dict(nome="Paolo", ruolo="CFO", temp=0.8, valuta=True, compito=(
         f"modelli a ricavi ricorrenti e alto margine (abbonamenti, contratti mensili, licenze) che rendono il "
         f"massimo dai {BUDGET_EURO} euro"), sistema=(
@@ -138,10 +126,11 @@ AGENTI = {
         "settimana: attività, ore, strumenti, fornitori, competenze. Smascheri le idee che sembrano semplici ma "
         "richiedono molto più tempo o lavoro di quanto si pensi.")),
     "roberto": dict(nome="Roberto", ruolo="CEO", temp=0.7, compito=(
-        "affari B2B ad alto valore: partnership, intermediazione, rivendita di servizi di terzi con il proprio "
-        "marchio (white label)"), sistema=(
+        "servizi e affari con le aziende, in Italia e all'estero: servizi erogabili da remoto, partnership, "
+        "intermediazione, rivendita di servizi di terzi con il proprio marchio (white label)"), sistema=(
         "Sei Roberto, CEO del team. Hai visione d'insieme, decidi su cosa puntare, combini le idee migliori e "
-        "trasformi le idee in piani operativi eseguibili da subito. Sei pragmatico e orientato al primo incasso.")),
+        "trasformi le idee in piani operativi eseguibili da subito. Conosci bene le piccole e medie imprese e i "
+        "servizi per cui pagano subito. Sei pragmatico e orientato al primo incasso.")),
 }
 IDEATORI = list(AGENTI)
 VALUTATORI = [k for k, a in AGENTI.items() if a.get("valuta")]
@@ -1156,6 +1145,10 @@ def nuovo_stato(modello, scadenza):
             "fase": "1 - ricerca del business", "concluso": False}
 
 
+# Ruoli accorpati nel passaggio da 13 a 10 agenti.
+AGENTI_UNITI = {"giulia": "matteo", "elena": "marco", "sara": "roberto"}
+
+
 def migra_stato(stato):
     """Aggiunge i campi nuovi alle idee salvate da versioni precedenti dello script."""
     stato.setdefault("fase", "1 - ricerca del business")
@@ -1164,6 +1157,7 @@ def migra_stato(stato):
         idea.pop("piano", None)  # i vecchi piani operativi sono sostituiti dagli studi di fattibilità
         idea.pop("piano_versione", None)
         idea.setdefault("fattibilita", None)
+        idea["autore"] = AGENTI_UNITI.get(idea["autore"], idea["autore"])
         if idea["autore"] not in AGENTI:
             idea["autore"] = "roberto"
         if idea["valutazioni"]:
