@@ -1,0 +1,230 @@
+[
+ {
+  "id": "N5",
+  "nome": "Kit Babbo Natale",
+  "punteggio": 71.0,
+  "voti": {
+   "velocita": 8,
+   "potenziale": 3,
+   "budget": 9,
+   "effort": 9,
+   "esperienza": 8,
+   "rischio": 9,
+   "domanda": 6,
+   "concorrenza": 9,
+   "acquisizione": 8,
+   "messaggio": 8,
+   "conformita": 8
+  },
+  "penalita_conformita": false
+ },
+ {
+  "id": "N4",
+  "nome": "Template e fogli in italiano",
+  "punteggio": 67.8,
+  "voti": {
+   "velocita": 5,
+   "potenziale": 6,
+   "budget": 10,
+   "effort": 9,
+   "esperienza": 7,
+   "rischio": 9,
+   "domanda": 5,
+   "concorrenza": 8,
+   "acquisizione": 6,
+   "messaggio": 6,
+   "conformita": 9
+  },
+  "penalita_conformita": false
+ },
+ {
+  "id": "N1",
+  "nome": "Libro personalizzato bambini",
+  "punteggio": 60.9,
+  "voti": {
+   "velocita": 5,
+   "potenziale": 7,
+   "budget": 6,
+   "effort": 6,
+   "esperienza": 5,
+   "rischio": 6,
+   "domanda": 9,
+   "concorrenza": 6,
+   "acquisizione": 6,
+   "messaggio": 9,
+   "conformita": 6
+  },
+  "penalita_conformita": false
+ },
+ {
+  "id": "N3",
+  "nome": "Ritratto AI animale",
+  "punteggio": 51.1,
+  "voti": {
+   "velocita": 6,
+   "potenziale": 5,
+   "budget": 8,
+   "effort": 4,
+   "esperienza": 6,
+   "rischio": 6,
+   "domanda": 7,
+   "concorrenza": 2,
+   "acquisizione": 6,
+   "messaggio": 7,
+   "conformita": 5
+  },
+  "penalita_conformita": false
+ },
+ {
+  "id": "N2",
+  "nome": "Canzone personalizzata AI",
+  "punteggio": 48.9,
+  "voti": {
+   "velocita": 8,
+   "potenziale": 6,
+   "budget": 6,
+   "effort": 3,
+   "esperienza": 7,
+   "rischio": 6,
+   "domanda": 5,
+   "concorrenza": 5,
+   "acquisizione": 4,
+   "messaggio": 6,
+   "conformita": 5
+  },
+  "penalita_conformita": false
+ },
+ {
+  "id": "A4",
+  "nome": "LUT e filtri",
+  "punteggio": 47.9,
+  "voti": {
+   "velocita": 4,
+   "potenziale": 5,
+   "budget": 7,
+   "effort": 5,
+   "esperienza": 4,
+   "rischio": 7,
+   "domanda": 5,
+   "concorrenza": 4,
+   "acquisizione": 6,
+   "messaggio": 5,
+   "conformita": 7
+  },
+  "penalita_conformita": false
+ },
+ {
+  "id": "N6",
+  "nome": "Inviti e giochi stampabili",
+  "punteggio": 47.3,
+  "voti": {
+   "velocita": 3,
+   "potenziale": 4,
+   "budget": 9,
+   "effort": 8,
+   "esperienza": 6,
+   "rischio": 7,
+   "domanda": 3,
+   "concorrenza": 4,
+   "acquisizione": 4,
+   "messaggio": 4,
+   "conformita": 7
+  },
+  "penalita_conformita": false
+ },
+ {
+  "id": "A6",
+  "nome": "Dedica una stella",
+  "punteggio": 46.1,
+  "voti": {
+   "velocita": 7,
+   "potenziale": 6,
+   "budget": 4,
+   "effort": 7,
+   "esperienza": 5,
+   "rischio": 4,
+   "domanda": 5,
+   "concorrenza": 3,
+   "acquisizione": 4,
+   "messaggio": 4,
+   "conformita": 4
+  },
+  "penalita_conformita": false
+ },
+ {
+  "id": "A5",
+  "nome": "Pianta un albero",
+  "punteggio": 40.6,
+  "voti": {
+   "velocita": 5,
+   "potenziale": 5,
+   "budget": 3,
+   "effort": 6,
+   "esperienza": 4,
+   "rischio": 4,
+   "domanda": 6,
+   "concorrenza": 3,
+   "acquisizione": 3,
+   "messaggio": 5,
+   "conformita": 5
+  },
+  "penalita_conformita": false
+ },
+ {
+  "id": "A2",
+  "nome": "Spezzoni film/discorsi",
+  "punteggio": 29.7,
+  "voti": {
+   "velocita": 4,
+   "potenziale": 4,
+   "budget": 5,
+   "effort": 2,
+   "esperienza": 6,
+   "rischio": 4,
+   "domanda": 3,
+   "concorrenza": 2,
+   "acquisizione": 4,
+   "messaggio": 4,
+   "conformita": 4
+  },
+  "penalita_conformita": false
+ },
+ {
+  "id": "A1",
+  "nome": "Influencer AI",
+  "punteggio": 16.6,
+  "voti": {
+   "velocita": 2,
+   "potenziale": 2,
+   "budget": 2,
+   "effort": 2,
+   "esperienza": 4,
+   "rischio": 3,
+   "domanda": 2,
+   "concorrenza": 4,
+   "acquisizione": 2,
+   "messaggio": 3,
+   "conformita": 4
+  },
+  "penalita_conformita": false
+ },
+ {
+  "id": "A3",
+  "nome": "Video bambini AI",
+  "punteggio": 7.9,
+  "voti": {
+   "velocita": 2,
+   "potenziale": 1,
+   "budget": 2,
+   "effort": 1,
+   "esperienza": 2,
+   "rischio": 2,
+   "domanda": 3,
+   "concorrenza": 4,
+   "acquisizione": 3,
+   "messaggio": 4,
+   "conformita": 3
+  },
+  "penalita_conformita": true
+ }
+]

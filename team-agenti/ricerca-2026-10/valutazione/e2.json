@@ -1,0 +1,124 @@
+{
+  "idee": {
+    "A1": {
+      "versione_valutata": "Personaggio virtuale dichiarato come AI fin dalla bio, in una nicchia utile (es. tutor che insegna l'inglese agli italiani), con ricavi da prodotti digitali propri (schede, mini-corsi da 9-29 €) e affiliazioni pertinenti; mai volti o voci di persone reali.",
+      "domanda": {"voto": 2, "perche": "I casi di successo (Aitana López, Emily Pellegrini) sono auto-dichiarati e legati all'effetto novità del 2023, mentre i sondaggi 2026 (Gartner 35%, Clutch 45%) mostrano fiducia in calo; per un tutor AI che vende prodotti propri la domanda è ipotetica."},
+      "concorrenza": {"voto": 4, "perche": "Barriera d'ingresso nulla e migliaia di personaggi AI generici; in italiano gli avatar AI sono meno, ma la nicchia 'inglese per italiani' è già piena di insegnanti umani con anni di pubblico."},
+      "acquisizione": {"voto": 2, "perche": "Prima di vendere bisogna costruire un pubblico da zero (8-12 ore a settimana, 4-9 mesi per 5-10k follower veri) e gli algoritmi penalizzano la produzione in serie."},
+      "messaggio": {"voto": 3, "perche": "Il percorso follower, fiducia e poi prodotto è lungo e indiretto, e 'personaggio AI' oggi allontana quasi metà del pubblico invece di convincerlo."},
+      "conformita": {"voto": 4, "perche": "Legale se dichiarato (etichette delle piattaforme, AI Act art. 50, nessun volto reale), ma restano demonetizzazione per contenuti 'non autentici', copyright debole sul personaggio (L. 132/2025) e la deriva verso i contenuti per adulti."},
+      "messaggio_in_una_frase": "Impara l'inglese cinque minuti al giorno con Giulia, la tutor virtuale (dichiaratamente AI) che parla la tua lingua.",
+      "canale_principale": "Instagram e TikTok organici (Reels con mini-lezioni), con link-in-bio verso i prodotti su Payhip"
+    },
+    "A2": {
+      "versione_valutata": "Clipper autorizzato: tagliare e diffondere clip di podcaster, formatori e brand che pagano per esserlo (Whop Content Rewards o accordi diretti con creator italiani), più materiale di pubblico dominio verificato anche in UE o CC-BY; niente spezzoni di film o discorsi non autorizzati.",
+      "domanda": {"voto": 3, "perche": "L'attenzione per le clip è enorme, ma chi paga sono solo le campagne di clipping, con budget limitati e assegnati a chi arriva prima, e i guadagni citati sono auto-dichiarati; nessuna pagina di spezzoni con ricavi stabili verificati."},
+      "concorrenza": {"voto": 2, "perche": "Una delle nicchie più sature di TikTok, Shorts e Reels: barriera zero, strumenti di taglio automatico alla portata di tutti e migliaia di partecipanti per ogni campagna Whop."},
+      "acquisizione": {"voto": 4, "perche": "Le campagne si trovano senza pubblicità e ogni clip può prendere visualizzazioni dall'algoritmo, ma Instagram (aprile 2026), Facebook e YouTube riducono la portata dei contenuti poco originali."},
+      "messaggio": {"voto": 4, "perche": "Al pubblico non si vende nulla; un messaggio esiste solo come offerta B2B ai podcaster ('taglio i tuoi video, paghi a risultato'), che è un business diverso dall'idea iniziale."},
+      "conformita": {"voto": 4, "perche": "La versione base viola il diritto d'autore (in Italia niente fair use, art. 70 interpretato in modo rigido); quella autorizzata è legale ma resta esposta a rivendicazioni Content ID, falso pubblico dominio UE e penalizzazioni per contenuti riutilizzati."},
+      "messaggio_in_una_frase": "Hai un podcast o un canale? Trasformo i tuoi video migliori in clip pronte per TikTok e Reels, e paghi solo per le visualizzazioni.",
+      "canale_principale": "Campagne Whop Content Rewards e contatto diretto con podcaster italiani; distribuzione su TikTok, Shorts e Reels"
+    },
+    "A3": {
+      "versione_valutata": "Piccolo marchio educativo con personaggio originale rifinito da un illustratore umano (es. italiano per bambini italiani all'estero), copioni umani rivisti da un educatore e AI dichiarata; YouTube solo come vetrina, ricavi da prodotti propri (storie personalizzate, schede stampabili) e contenuti per genitori.",
+      "domanda": {"voto": 3, "perche": "I bambini guardano moltissimo, ma l'RPM 'Made for Kids' mediano è 0,33 $ e YouTube Kids ammette l'AI solo da pochi canali selezionati; la domanda pagante per un marchio educativo per bambini all'estero non è dimostrata."},
+      "concorrenza": {"voto": 4, "perche": "YouTube per bambini è saturo di 'AI slop' e di marchi storici (Cocomelon, Coccole Sonore); la nicchia dell'italiano per bambini all'estero è meno servita, ma i prodotti derivati incontrano i concorrenti dei libri personalizzati."},
+      "acquisizione": {"voto": 3, "perche": "Un canale nuovo non entra nell'app YouTube Kids, i contenuti per bambini perdono commenti e schede finali, e i genitori all'estero si raggiungono solo con mesi di contenuti costanti."},
+      "messaggio": {"voto": 4, "perche": "La promessa educativa è chiara, ma 'video per bambini fatti con l'AI' è proprio ciò contro cui oltre 200 organizzazioni hanno scritto a YouTube nel 2026, quindi i genitori diffidano."},
+      "conformita": {"voto": 3, "perche": "Somma i rischi più alti: politica sui contenuti 'inautentici' che colpisce l'intero canale, regola COPPA aggiornata, sicurezza dei minori, GDPR sui dati dei bambini e forte pressione per nuove restrizioni."},
+      "messaggio_in_una_frase": "Storie e canzoni originali per far crescere tuo figlio in italiano, anche se vivete all'estero.",
+      "canale_principale": "YouTube (video lunghi come vetrina) e gruppi Facebook di famiglie italiane all'estero"
+    },
+    "A4": {
+      "versione_valutata": "LUT tecniche per dispositivi specifici (iPhone in Apple Log, DJI in D-Log M, Insta360) con guide di installazione per ogni app, più look 'Italia' (Costiera, dolce vita) per creator di viaggi e cibo; vendita su Etsy e Payhip, una LUT gratuita come esca, video prima/dopo, nessun marchio altrui nei nomi.",
+      "domanda": {"voto": 5, "perche": "Contatori Etsy pubblici reali (4.839 vendite dal 2019, 1.215 dal 2025) e un bisogno tecnico concreto creato dal log su smartphone, ma in un mercato che si sposta verso strumenti gratuiti e AI."},
+      "concorrenza": {"voto": 4, "perche": "Preset generici saturi, LUT gratuite in DaVinci e dai produttori (Apple, DJI) e pirateria facile; resta spazio solo nelle nicchie tecniche per singolo dispositivo."},
+      "acquisizione": {"voto": 6, "perche": "La ricerca su Etsy porta traffico proprio e i video prima/dopo sono un formato organico naturale; senza un minimo di presenza social, però, Payhip e Gumroad non vendono."},
+      "messaggio": {"voto": 5, "perche": "Per chi gira in log 'dal log al look finito in un clic' è chiarissimo, per gli altri è gergo, e i nomi che venderebbero da soli (Kodak, Fuji, film famosi) non si possono usare."},
+      "conformita": {"voto": 7, "perche": "Rischio basso: le LUT non sono contenuti AI e non trattano dati personali; basta evitare marchi altrui nei nomi, usare anteprime proprie, gestire il consenso al recesso e garantire che i file funzionino."},
+      "messaggio_in_una_frase": "Dal log al look da film in un clic: LUT pronte per il tuo iPhone o DJI, con guida per ogni app di montaggio.",
+      "canale_principale": "Ricerca su Etsy e video prima/dopo su TikTok, Reels e Shorts"
+    },
+    "A5": {
+      "versione_valutata": "Regalo-albero onesto e tracciabile per occasioni (nascita, memoria, bomboniera): un solo partner con tracciamento del singolo albero e link di verifica con QR code, prezzo trasparente, nessun claim CO2 o 'impatto zero', consegna istantanea o programmata, pagina B2B leggera per piccole aziende.",
+      "domanda": {"voto": 6, "perche": "Treedom dichiara 1,2 milioni di clienti privati e fa campagne a ogni ricorrenza, segno che il regalo-albero vende; i dati sono però auto-dichiarati e mancano i volumi di ricerca italiani."},
+      "concorrenza": {"voto": 3, "perche": "Treedom è il marchio italiano dominante e i fornitori stessi (Tree-Nation a 0,35-15 € ad albero) vendono direttamente al cliente, che può scoprire il margine; restano solo nicchie di occasione."},
+      "acquisizione": {"voto": 3, "perche": "Con uno scontrino di 15-18 € e un costo per cliente stimato di 20-35 € la pubblicità a freddo è in perdita, la SEO è troppo lenta per questo Natale e il B2B è vendita attiva."},
+      "messaggio": {"voto": 5, "perche": "'Regala un albero piantato a suo nome' è immediato, ma la versione onesta richiede molte precisazioni (piantato mesi dopo, niente 'green' o CO2, quota che va davvero al progetto)."},
+      "conformita": {"voto": 5, "perche": "Dal 27 settembre 2026 il d.lgs. 30/2026 vieta claim ambientali generici, neutralità basata su compensazioni e bollini auto-creati: gestibile con soli fatti verificabili, ma serve anche il permesso scritto del partner per rivendere."},
+      "messaggio_in_una_frase": "Regala un albero vero, piantato a suo nome: certificato subito e link per verificarlo, sapendo esattamente dove vanno i tuoi soldi.",
+      "canale_principale": "Rete personale e Meta Ads (Reels e Stories) a dicembre, più piccole aziende locali (B2B)"
+    },
+    "A6": {
+      "versione_valutata": "'Il tuo cielo': mappa astronomica reale del cielo di una data e un luogo, con una stella visibile a occhio nudo dedicata in modo dichiaratamente simbolico (niente 'registro' né 'compra una stella'), avvertenza visibile prima dell'acquisto, solo digitale con consegna istantanea.",
+      "domanda": {"voto": 5, "perche": "OSR e ISR sono attivi da decenni con picchi a Natale e San Valentino e le mappe del cielo sono una categoria affollata su Etsy, quindi qualcuno compra; il dato dei '2 milioni di certificati l'anno' è però inverificabile."},
+      "concorrenza": {"voto": 3, "perche": "Mercato vecchio e saturo: operatori con decenni di SEO, OSR che presidia le ricerche italiane, offerta enorme di mappe del cielo su Etsy e risultati di ricerca pieni di articoli 'è una truffa?'."},
+      "acquisizione": {"voto": 4, "perche": "Il costo per cliente stimato (20-40 €) è vicino allo scontrino e gli annunci rischiano il rifiuto per contenuti fuorvianti; aiutano Etsy (come mappa del cielo) e il potenziale virale di San Valentino."},
+      "messaggio": {"voto": 4, "perche": "La mappa del cielo si capisce subito, ma la dedica deve avere un'avvertenza visibile ('nessun valore ufficiale') che toglie magia: più si è onesti, meno sembra speciale."},
+      "conformita": {"voto": 4, "perche": "Prodotto vicino all'inganno per natura: l'IAU si dissocia, New York ha contestato ISR nel 1998 e l'EUIPO ha giudicato ingannevole un marchio 'Registry'; anche con disclaimer restano storni, recensioni 'truffa' e rifiuto degli annunci."},
+      "messaggio_in_una_frase": "Il cielo esatto della vostra notte speciale, con una stella che potete davvero trovare stasera: un regalo simbolico, pronto subito.",
+      "canale_principale": "Etsy (come mappa del cielo personalizzata) e Meta/TikTok a Natale e San Valentino"
+    },
+    "N1": {
+      "versione_valutata": "Libro illustrato in italiano a template: illustrazioni prodotte una volta sola per 6-12 avatar, il software inserisce nome e dedica; PDF a 12-15 € e copertina rigida in stampa su richiesta (Lulu o Gelato) a 29-39 €, temi di nicchia (fratellino, nonni, bilingue), niente foto dei bambini, AI dichiarata, vendita su Etsy.",
+      "domanda": {"voto": 9, "perche": "È la prova più solida delle 12: Wonderbly fatturava circa 30 milioni di sterline nel 2021 (dato di stampa), negozi Etsy reali mostrano migliaia di vendite e in Italia operano più aziende."},
+      "concorrenza": {"voto": 6, "perche": "In italiano vendono già Librio, Wonderbly, My Magic Story (sconti fino al 50%) e Framily, più la funzione gratuita di Gemini, ma nei temi di nicchia e con testi scritti bene c'è spazio."},
+      "acquisizione": {"voto": 6, "perche": "Etsy, Pinterest e gruppi di genitori portano clienti in modo organico; con la sola pubblicità invece il costo per cliente può arrivare allo scontrino (caso DreamStories)."},
+      "messaggio": {"voto": 9, "perche": "'Un libro in cui tuo figlio è il protagonista' si capisce in tre secondi ed è un regalo emotivo che non richiede di esagerare."},
+      "conformita": {"voto": 6, "perche": "Gestibile ma con più punti di attenzione: dichiarazione AI su Etsy e rischio di segnalazioni automatiche, dati di minori (solo nome e avatar), sicurezza prodotto GPSR per il libro stampato e ristampa in caso di errore."},
+      "messaggio_in_una_frase": "Un libro illustrato in cui tuo figlio è il protagonista, con il suo nome e il suo aspetto.",
+      "canale_principale": "Ricerca su Etsy, Pinterest e gruppi Facebook di genitori"
+    },
+    "N2": {
+      "versione_valutata": "Canzone AI personalizzata in italiano a 19-39 €: testo scritto con l'AI e rifinito a mano, brano generato con Suno a pagamento, pronuncia dei nomi controllata, una revisione inclusa, consegna in 24-48 ore da sito proprio con promozione sui social.",
+      "domanda": {"voto": 5, "perche": "Songfinch dichiara 375.000 canzoni e ha raccolto 21,8 milioni di dollari, ma con musicisti veri a 199 $; per le canzoni AI economiche non ci sono dati di vendita verificati."},
+      "concorrenza": {"voto": 5, "perche": "In italiano la concorrenza è media (GiftYourSong, Composong, Unacanzonexte, Fiverr), ma chiunque può farsi la canzone da solo con Suno a 10 $ al mese."},
+      "acquisizione": {"voto": 4, "perche": "Funziona quasi solo con video-reazione virali su TikTok e Reels o con pubblicità; Etsy è rischioso per i servizi e un sito proprio senza pubblico non ha traffico."},
+      "messaggio": {"voto": 6, "perche": "'Una canzone che parla di voi' è chiara ed emozionante, ma dichiarare che è fatta con l'AI ne abbassa il valore percepito e invita il cliente a farla da sé."},
+      "conformita": {"voto": 5, "perche": "Legale solo con piano Suno a pagamento; dal 3 settembre 2026 il Pro ha 20 download al mese (Premier 60), le API non ufficiali violano i termini e le cause delle major contro Suno sono ancora aperte."},
+      "messaggio_in_una_frase": "Una canzone che parla di voi, con i vostri nomi e le vostre storie, pronta in 48 ore.",
+      "canale_principale": "TikTok e Reels con video-reazione e demo audio, verso un sito proprio (Payhip o Carrd)"
+    },
+    "N3": {
+      "versione_valutata": "Ritratto AI dell'animale in una nicchia precisa (commemorativo, razze rare, calendario 2027) con file digitale o stampa Gelato, anteprima da approvare prima della stampa, AI dichiarata, nessuno stile o logo protetto.",
+      "domanda": {"voto": 7, "perche": "'Pet portrait' ha circa 27.100 ricerche al mese su Etsy (stima di terzi) con picco a novembre e un'inserzione ha quasi 6.800 vendite, anche se è dipinta a mano e non AI."},
+      "concorrenza": {"voto": 2, "perche": "Oltre 580.000 inserzioni, prezzi dell'arte AI scesi a 5-12 $ e app gratuite che fanno lo stesso effetto: è il mercato più affollato dei 12."},
+      "acquisizione": {"voto": 6, "perche": "C'è vera ricerca su Etsy e i contenuti con animali circolano bene su Pinterest e sui social, ma per emergere tra tante inserzioni servono parole chiave di nicchia."},
+      "messaggio": {"voto": 7, "perche": "Il prima/dopo del proprio animale si vende da solo, ma va dichiarato che è AI (mai 'dipinto a mano') e il cliente teme che 'non sembri il mio cane'."},
+      "conformita": {"voto": 5, "perche": "L'arte AI è la categoria Etsy più esposta a segnalazioni; servono dichiarazione AI, licenza d'uso della foto del cliente, niente stili Disney/Pixar o loghi e anteprima per evitare rimborsi."},
+      "messaggio_in_una_frase": "Il tuo cane come un ritratto d'altri tempi: lo approvi in anteprima, poi lo appendi in salotto.",
+      "canale_principale": "Ricerca su Etsy con parole chiave di nicchia e Pinterest"
+    },
+    "N4": {
+      "versione_valutata": "Catalogo di 15-25 fogli di calcolo e template in italiano adattati all'Italia (budget familiare con bollette, IMU e mutuo, budget regali di Natale, planner 2027, affitti brevi, matrimonio), venduti su Etsy e Payhip, senza strumenti fiscali.",
+      "domanda": {"voto": 5, "perche": "Su Etsy esistono negozi con migliaia di vendite di fogli di budget, ma a prezzi bassi e in inglese; in italiano la domanda non è misurata e i risultati sono molto polarizzati."},
+      "concorrenza": {"voto": 8, "perche": "In inglese è saturo, ma in italiano l'offerta è scarsa e l'adattamento al contesto italiano (bollette, IMU, mutuo, scadenze) è un vantaggio reale."},
+      "acquisizione": {"voto": 6, "perche": "Canali tutti organici e gratuiti (ricerca su Etsy, Pinterest, Google), però il bacino italiano su Etsy è piccolo e la crescita è lenta."},
+      "messaggio": {"voto": 6, "perche": "Si spiega in una frase, ma il 'perché pagare' è razionale e poco emotivo, e il cliente lo confronta con i modelli gratuiti trovati online."},
+      "conformita": {"voto": 9, "perche": "Quasi nessun rischio: nessun dato personale, nessun obbligo AI se i testi sono nostri; bastano consenso al recesso, licenza 'uso personale', file testati ed evitare strumenti fiscali."},
+      "messaggio_in_una_frase": "Il budget di casa già pronto, in italiano, con le voci vere: bollette, IMU, mutuo e regali di Natale.",
+      "canale_principale": "Ricerca su Etsy e Pinterest, con Payhip come vetrina diretta"
+    },
+    "N5": {
+      "versione_valutata": "Kit digitale da stampare in italiano (lettera di Babbo Natale con nome e buone azioni, attestato 'lista dei buoni', passaporto per il Polo Nord, etichette regalo) come template modificabile Corjl/Templett e versione personalizzata da modulo, poi esteso a Befana e Fatina dei denti.",
+      "domanda": {"voto": 6, "perche": "La categoria è dimostrata (Portable North Pole, app italiane a pagamento, lettere dalla Lapponia a 19,90 €) e il servizio nazionale di Poste Italiane non è più attivo, ma mancano dati di vendita di singoli venditori italiani."},
+      "concorrenza": {"voto": 9, "perche": "In italiano l'offerta curata è scarsa e lo spazio lasciato da Poste è libero; la concorrenza vera sono i modelli gratuiti di Canva e dei blog, battibili con un kit completo e testi migliori."},
+      "acquisizione": {"voto": 8, "perche": "Da metà novembre i genitori cercano attivamente 'lettera di Babbo Natale'; Etsy, Pinterest e gruppi di genitori bastano con un budget pubblicitario minimo, purché le inserzioni siano online entro fine ottobre."},
+      "messaggio": {"voto": 8, "perche": "'Babbo Natale risponde a tuo figlio per nome' si capisce subito, è emotivo ed economico, quindi è un acquisto d'impulso."},
+      "conformita": {"voto": 8, "perche": "Babbo Natale è di pubblico dominio; basta evitare l'immagine Coca-Cola, Disney ed Elf on the Shelf, dichiarare l'AI se usata e trattare nome ed età del bambino con informativa e cancellazione."},
+      "messaggio_in_una_frase": "Quest'anno Babbo Natale risponde a tuo figlio per nome: lettera, attestato e passaporto per il Polo Nord da stampare stasera.",
+      "canale_principale": "Ricerca su Etsy (stagionale), Pinterest e gruppi Facebook e Instagram di genitori"
+    },
+    "N6": {
+      "versione_valutata": "Catalogo di kit coordinati in italiano (invito, segnaposto, menu, ringraziamenti, invito video per WhatsApp) per battesimi, comunioni, 18 anni e lauree, più giochi stampabili (tombola, escape room per il cenone), con template Corjl/Templett e senza temi coperti da copyright.",
+      "domanda": {"voto": 3, "perche": "Le prove sono le più deboli: un solo venditore dichiara 8.000 vendite di template, un negozio di escape room ne ha 26 e mancano dati indipendenti sui volumi."},
+      "concorrenza": {"voto": 4, "perche": "Canva offre gratis centinaia di inviti in italiano, anche per WhatsApp e battesimo; i giochi stampabili in italiano sono pochi, ma la loro domanda non è dimostrata."},
+      "acquisizione": {"voto": 4, "perche": "Etsy e Pinterest sono gratis, ma chi cerca 'invito battesimo' trova prima Canva gratuito, e la stagione giusta (comunioni, matrimoni) è in primavera ed estate."},
+      "messaggio": {"voto": 4, "perche": "La frase è semplice, ma il cliente non capisce subito perché pagare quando Canva è gratis; serve l'argomento del kit coordinato o del video animato."},
+      "conformita": {"voto": 7, "perche": "Rischio basso se si evitano i temi più cercati ma protetti (Frozen, Bluey, Spider-Man), prima causa di rimozione su Etsy, e si usa solo musica con licenza negli inviti video."},
+      "messaggio_in_una_frase": "L'invito del battesimo già pronto e coordinato con menu e segnaposto: lo personalizzi in 5 minuti e lo mandi su WhatsApp.",
+      "canale_principale": "Ricerca su Etsy e Pinterest"
+    }
+  }
+}

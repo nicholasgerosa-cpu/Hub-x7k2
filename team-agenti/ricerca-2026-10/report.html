@@ -1,0 +1,317 @@
+<title>Quale business digitale avviare</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: una colonna di lettura da ~46rem; verdetto in apertura, poi classifica, finaliste, piano. Notte d'inverno: inchiostro blu, verde abete, luce ambra. */
+:root {
+  --bg: #f5f7fa;
+  --surface: #ffffff;
+  --ink: #142032;
+  --muted: #586579;
+  --line: #dbe1ea;
+  --accent: #1d6b58;
+  --accent-soft: #e2f0eb;
+  --warm: #b36b12;
+  --warm-soft: #fbf0df;
+  --bar: #e6eaf0;
+  --ok: #1d6b58;
+  --ok-bg: #e2f0eb;
+  --cond: #8a5a00;
+  --cond-bg: #fbf0df;
+  --no: #a3322a;
+  --no-bg: #f8e3e1;
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f141c; --surface: #161d28; --ink: #e6ebf2; --muted: #9ba6b6; --line: #273243;
+    --accent: #5fc2a6; --accent-soft: #17302a; --warm: #e6a64c; --warm-soft: #33261a; --bar: #232d3b;
+    --ok: #5fc2a6; --ok-bg: #17302a; --cond: #e6b54f; --cond-bg: #352a14; --no: #f08a80; --no-bg: #3a1f1d;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f141c; --surface: #161d28; --ink: #e6ebf2; --muted: #9ba6b6; --line: #273243;
+  --accent: #5fc2a6; --accent-soft: #17302a; --warm: #e6a64c; --warm-soft: #33261a; --bar: #232d3b;
+  --ok: #5fc2a6; --ok-bg: #17302a; --cond: #e6b54f; --cond-bg: #352a14; --no: #f08a80; --no-bg: #3a1f1d;
+  color-scheme: dark;
+}
+body { background: var(--bg); color: var(--ink); font: 1.0625rem/1.6 var(--font-body); }
+.wrap { max-width: 46rem; margin: 0 auto; padding-inline: 1rem; padding-block: 2.5rem 4rem; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; line-height: 1.15; margin: 0; }
+h1 { font-size: clamp(2rem, 6vw, 2.9rem); letter-spacing: -0.02em; }
+h2 { font-size: 1.5rem; margin-block: 3rem 0.9rem; }
+h3 { font-size: 1.15rem; }
+p { margin: 0 0 0.9rem; }
+a { color: var(--accent); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.eyebrow { font: 500 0.78rem/1.3 var(--font-data); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.8rem; }
+.lede { font-size: 1.15rem; color: var(--muted); margin-top: 1rem; max-width: 40rem; }
+.small { font-size: 0.9rem; color: var(--muted); }
+.num { font-family: var(--font-data); font-variant-numeric: tabular-nums; }
+
+.verdict { background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--accent); border-radius: 10px; padding: 1.4rem 1.3rem; margin-top: 2rem; }
+.verdict .who { font: 500 0.8rem var(--font-data); color: var(--accent); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.4rem; }
+.steps { list-style: none; padding: 0; margin: 1rem 0 0; display: grid; gap: 0.9rem; }
+.steps li { display: grid; grid-template-columns: 5.6rem 1fr; gap: 0.8rem; align-items: baseline; }
+.steps .when { font: 500 0.82rem var(--font-data); color: var(--warm); }
+.steps li > div { min-width: 0; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); gap: 0.7rem; margin-top: 1.3rem; }
+.tile { background: var(--bg); border-radius: 8px; padding: 0.8rem 0.9rem; }
+.tile .v { font: 600 1.35rem/1.2 var(--font-data); font-variant-numeric: tabular-nums; }
+.tile .k { font-size: 0.85rem; color: var(--muted); }
+
+.note { background: var(--warm-soft); border-radius: 8px; padding: 1rem 1.1rem; margin-top: 1.2rem; }
+.note p:last-child { margin-bottom: 0; }
+
+.rank { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.2rem; }
+.rank li { display: grid; grid-template-columns: 1.6rem 1fr; gap: 0.6rem; padding-block: 0.65rem; border-bottom: 1px solid var(--line); }
+.rank li:last-child { border-bottom: 0; }
+.rank .pos { font: 500 0.9rem var(--font-data); color: var(--muted); padding-top: 0.1rem; }
+.rank .body { min-width: 0; }
+.rank .top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.3rem 0.6rem; }
+.rank .name { font-weight: 700; }
+.tag { font: 500 0.72rem var(--font-data); padding: 0.05rem 0.45rem; border-radius: 4px; background: var(--bar); color: var(--muted); white-space: nowrap; }
+.tag.mine { background: var(--warm-soft); color: var(--warm); }
+.meter { display: grid; grid-template-columns: 1fr 2.4rem 4.6rem; align-items: center; gap: 0.6rem; margin-top: 0.35rem; }
+.track { height: 8px; background: var(--bar); border-radius: 4px; overflow: hidden; }
+.track i { display: block; height: 100%; background: var(--accent); border-radius: 4px; }
+.rank li.out .track i { background: var(--muted); opacity: 0.55; }
+.score { font: 600 0.95rem var(--font-data); text-align: right; font-variant-numeric: tabular-nums; }
+.auto { font: 0.78rem var(--font-data); color: var(--muted); white-space: nowrap; }
+.why { font-size: 0.93rem; color: var(--muted); margin: 0.3rem 0 0; }
+
+.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 38rem; font-size: 0.93rem; }
+th, td { text-align: left; vertical-align: top; padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--line); }
+tr:last-child td { border-bottom: 0; }
+thead th { font-family: var(--font-display); font-size: 0.98rem; }
+tbody th { font-weight: 400; color: var(--muted); white-space: nowrap; }
+td.n { font-family: var(--font-data); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.chip { display: inline-block; font: 600 0.75rem var(--font-body); padding: 0.1rem 0.5rem; border-radius: 999px; white-space: nowrap; }
+.chip.cond { background: var(--cond-bg); color: var(--cond); }
+.chip.ok { background: var(--ok-bg); color: var(--ok); }
+
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1rem; }
+.col { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1rem 1.1rem; min-width: 0; }
+.col h3 { margin-bottom: 0.5rem; }
+.col ul { margin: 0; padding-left: 1.15rem; }
+.col li { margin-bottom: 0.35rem; }
+.col.auto100 h3 { color: var(--ok); }
+.col.human h3 { color: var(--warm); }
+
+.timeline { list-style: none; padding: 0; margin: 0; border-left: 2px solid var(--line); }
+.timeline li { position: relative; padding: 0 0 1rem 1.1rem; display: grid; gap: 0.1rem; }
+.timeline li::before { content: ""; position: absolute; left: -6px; top: 0.45rem; width: 10px; height: 10px; border-radius: 50%; background: var(--surface); border: 2px solid var(--accent); }
+.timeline li.gate::before { background: var(--warm); border-color: var(--warm); }
+.timeline .d { font: 500 0.82rem var(--font-data); color: var(--muted); }
+.legend { display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem; }
+.legend span::before { content: ""; display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 0.4rem; vertical-align: 0.05em; border: 2px solid var(--accent); }
+.legend span.g::before { background: var(--warm); border-color: var(--warm); }
+
+ol.first { padding-left: 1.3rem; margin: 0; }
+ol.first li { margin-bottom: 0.7rem; padding-left: 0.2rem; }
+blockquote { margin: 0 0 1rem; padding: 0.8rem 1rem; border-left: 3px solid var(--accent); background: var(--surface); border-radius: 0 8px 8px 0; font-size: 1.05rem; }
+blockquote .src { display: block; font-size: 0.85rem; color: var(--muted); margin-top: 0.35rem; }
+ul.plain { padding-left: 1.15rem; margin: 0 0 1rem; }
+ul.plain li { margin-bottom: 0.4rem; }
+.team { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 0.6rem 1.2rem; font-size: 0.93rem; }
+.team div { min-width: 0; }
+.team b { display: block; }
+footer { margin-top: 3rem; padding-top: 1.2rem; border-top: 1px solid var(--line); font-size: 0.88rem; color: var(--muted); }
+footer ul { padding-left: 1.1rem; }
+@media (max-width: 30rem) {
+  .steps li { grid-template-columns: 1fr; gap: 0.15rem; }
+  .meter { grid-template-columns: 1fr 2.2rem; }
+  .meter .auto { grid-column: 1 / -1; }
+}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Team agenti · ricerca e fattibilità · 13 ottobre 2026</div>
+    <h1>Quale business digitale avviare</h1>
+    <p class="lede">Dieci ruoli, 12 idee, circa 150 ricerche web e 3 studi di fattibilità per trovare un prodotto digitale che si avvii con meno di 1.000 €, senza grande esperienza e con il massimo di automazione.</p>
+  </header>
+
+  <section class="verdict" aria-labelledby="verdetto">
+    <div class="who">Verdetto di Roberto, CEO</div>
+    <h2 id="verdetto" style="margin:0">Un piccolo marchio di prodotti digitali per famiglie italiane, in tre tempi</h2>
+    <ol class="steps">
+      <li><span class="when">Da domani</span><div><b>Kit di Babbo Natale personalizzato</b> su Etsy, a 7,90 €. Il genitore lo personalizza da solo e il file arriva in automatico: zero lavoro per ordine. È anche il test più rapido del mercato.</div></li>
+      <li><span class="when">Da fine ottobre</span><div><b>Template e fogli di calcolo in italiano</b>: budget dei regali, budget familiare e planner 2027, pronti per il picco di gennaio. È la parte più passiva: 1-1,5 ore a settimana a regime.</div></li>
+      <li><span class="when">Nel 2027</span><div><b>Libro illustrato personalizzato</b>, con i personaggi già disegnati per il kit e una catena automatica dall'ordine alla stampa. Ha la domanda più solida, ma serve tempo per farlo bene: il Natale giusto è il 2027.</div></li>
+    </ol>
+    <div class="tiles">
+      <div class="tile"><div class="v">~800 €</div><div class="k">spesa prevista fino a gennaio, il resto in riserva</div></div>
+      <div class="tile"><div class="v">~460 €</div><div class="k">perdita massima, con le regole di stop</div></div>
+      <div class="tile"><div class="v">~1.100 €</div><div class="k">utile realistico nei primi 12 mesi, circa 90 € al mese</div></div>
+      <div class="tile"><div class="v">100-125 h</div><div class="k">di lavoro iniziale tra ottobre e novembre, poi 1-4 ore a settimana</div></div>
+    </div>
+    <div class="note">
+      <p><b>Aspettative giuste.</b> Il primo anno non è uno stipendio: è un test economico che costruisce un negozio con recensioni e prodotti pronti. Il ritorno vero arriva con il Natale 2027, quando il kit riparte già posizionato e si aggiunge il libro.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="automazione">
+    <h2 id="automazione">Il 100% automatico, onestamente</h2>
+    <p>Ogni singolo ordine si automatizza al 100%: pagamento, personalizzazione, consegna. Il negozio nel suo insieme arriva all'80-85%. Nessuno dei tre studi ha trovato un modo serio di arrivare al 100% letterale, e le piattaforme penalizzano chi ci prova: è il motivo per cui i canali di contenuti AI fatti in serie sono in fondo alla classifica.</p>
+    <div class="cols">
+      <div class="col auto100">
+        <h3>Automatico al 100%</h3>
+        <ul>
+          <li>Pagamento (Etsy Payments, Payhip)</li>
+          <li>Personalizzazione: il cliente compila da solo nell'editor Corjl</li>
+          <li>Consegna del file, istantanea</li>
+          <li>Richiesta della recensione</li>
+          <li>Visibilità nella ricerca Etsy, rinnovi, saldi programmati</li>
+        </ul>
+      </div>
+      <div class="col human">
+        <h3>Resta a voi, poco</h3>
+        <ul>
+          <li>Controllo di testi e immagini AI, una volta per prodotto: un nome storpiato su un regalo è un rimborso e una recensione a una stella</li>
+          <li>Messaggi e contestazioni su Etsy, che non si possono automatizzare</li>
+          <li>Promozione nei gruppi di genitori, solo nelle 2 settimane di lancio</li>
+          <li>Tre decisioni di stop o di avanti, con soglie già fissate</li>
+        </ul>
+      </div>
+    </div>
+    <p class="small" style="margin-top:0.8rem">Nessun assistente AI deve rispondere da solo ai clienti: le risposte sbagliate generano contestazioni. L'AI prepara le bozze, voi premete invio.</p>
+  </section>
+
+  <section aria-labelledby="classifica">
+    <h2 id="classifica">La classifica delle 12 idee</h2>
+    <p class="small">Punteggio su 100 dai voti dei 7 specialisti su 11 criteri, con l'automazione come criterio principale (30% del peso). Ogni idea è valutata nella sua versione migliore e legale.</p>
+    <ol class="rank">
+      <li><span class="pos">1</span><div class="body"><div class="top"><span class="name">Kit di Babbo Natale personalizzato</span><span class="tag">idea del team</span></div><div class="meter"><div class="track"><i style="width:74%"></i></div><span class="score">74</span><span class="auto">auto 9/10</span></div><p class="why">Ogni ordine è automatico e la finestra di Natale è adesso. Lo scontrino è basso.</p></div></li>
+      <li><span class="pos">2</span><div class="body"><div class="top"><span class="name">Template e fogli di calcolo in italiano</span><span class="tag">idea del team</span></div><div class="meter"><div class="track"><i style="width:71%"></i></div><span class="score">71</span><span class="auto">auto 9/10</span></div><p class="why">La più passiva e la più sicura sul piano legale. La domanda in italiano è piccola e va misurata.</p></div></li>
+      <li><span class="pos">3</span><div class="body"><div class="top"><span class="name">Libro illustrato personalizzato</span><span class="tag">idea del team</span></div><div class="meter"><div class="track"><i style="width:60%"></i></div><span class="score">60</span><span class="auto">auto 6/10</span></div><p class="why">Domanda più solida e prezzo più alto, ma 80-115 ore di avvio e concorrenti forti già in italiano.</p></div></li>
+      <li class="out"><span class="pos">4</span><div class="body"><div class="top"><span class="name">Inviti e giochi stampabili</span><span class="tag">idea del team</span></div><div class="meter"><div class="track"><i style="width:53%"></i></div><span class="score">53</span><span class="auto">auto 8/10</span></div><p class="why">Economici e passivi, ma Canva offre inviti simili gratis: la domanda è debole.</p></div></li>
+      <li class="out"><span class="pos">5</span><div class="body"><div class="top"><span class="name">Dedica una stella</span><span class="tag mine">tua idea</span></div><div class="meter"><div class="track"><i style="width:50%"></i></div><span class="score">50</span><span class="auto">auto 7/10</span></div><p class="why">Automatizzabile e con margini alti, ma si può vendere onestamente solo come mappa del cielo con dedica simbolica: i nomi venduti non hanno alcun valore ufficiale. Mercato saturo.</p></div></li>
+      <li class="out"><span class="pos">6</span><div class="body"><div class="top"><span class="name">Ritratto AI dell'animale</span><span class="tag">idea del team</span></div><div class="meter"><div class="track"><i style="width:48%"></i></div><span class="score">48</span><span class="auto">auto 4/10</span></div><p class="why">Su Etsy circa 27.100 ricerche al mese contro oltre 580.000 inserzioni (stime di terzi).</p></div></li>
+      <li class="out"><span class="pos">7</span><div class="body"><div class="top"><span class="name">LUT e filtri</span><span class="tag mine">tua idea</span></div><div class="meter"><div class="track"><i style="width:47%"></i></div><span class="score">47</span><span class="auto">auto 5/10</span></div><p class="why">Rischio basso, ma mercato saturo e pieno di LUT gratuite. I filtri Instagram di terzi non si vendono più da gennaio 2025.</p></div></li>
+      <li class="out"><span class="pos">8</span><div class="body"><div class="top"><span class="name">Pianta un albero</span><span class="tag mine">tua idea</span></div><div class="meter"><div class="track"><i style="width:44%"></i></div><span class="score">44</span><span class="auto">auto 6/10</span></div><p class="why">L'albero costa meno di 1,5 € tramite un partner, ma un cliente trovato con la pubblicità costa 20-35 €. Dal 27 settembre 2026 frasi come "impatto zero" sono vietate.</p></div></li>
+      <li class="out"><span class="pos">9</span><div class="body"><div class="top"><span class="name">Canzone personalizzata con AI</span><span class="tag">idea del team</span></div><div class="meter"><div class="track"><i style="width:44%"></i></div><span class="score">44</span><span class="auto">auto 3/10</span></div><p class="why">È un servizio da 15-30 minuti a canzone, non un prodotto passivo, e Suno permette ai clienti di farsela da soli.</p></div></li>
+      <li class="out"><span class="pos">10</span><div class="body"><div class="top"><span class="name">Spezzoni di film e discorsi</span><span class="tag mine">tua idea</span></div><div class="meter"><div class="track"><i style="width:26%"></i></div><span class="score">26</span><span class="auto">auto 2/10</span></div><p class="why">Senza diritti viola il copyright e nessuna piattaforma la monetizza; in Italia non esiste il fair use. La versione legale è fare il clipper per conto di chi ha i diritti.</p></div></li>
+      <li class="out"><span class="pos">11</span><div class="body"><div class="top"><span class="name">Influencer AI</span><span class="tag mine">tua idea</span></div><div class="meter"><div class="track"><i style="width:15%"></i></div><span class="score">15</span><span class="auto">auto 2/10</span></div><p class="why">Domanda ipotetica, 8-12 ore a settimana per costruire un pubblico e fiducia in calo. Dal 2 agosto 2026 l'AI va dichiarata (AI Act, art. 50).</p></div></li>
+      <li class="out"><span class="pos">12</span><div class="body"><div class="top"><span class="name">Video per bambini con AI</span><span class="tag mine">tua idea</span></div><div class="meter"><div class="track"><i style="width:6%"></i></div><span class="score">6</span><span class="auto">auto 1/10</span></div><p class="why">I video per bambini rendono circa 0,33 $ ogni 1.000 visualizzazioni, e YouTube toglie la monetizzazione a tutto il canale se i contenuti AI sono fatti in serie.</p></div></li>
+    </ol>
+    <div class="note">
+      <p><b>Perché le tue idee sono finite in basso.</b> Quasi tutte puntano su contenuti AI pubblicati in serie su piattaforme che, tra il 2025 e il 2026, hanno smesso di pagarli. Funzionano meglio i prodotti venduti direttamente a un cliente, dove la consegna si automatizza davvero.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="finaliste">
+    <h2 id="finaliste">Le tre finaliste a confronto</h2>
+    <p class="small">Numeri dello scenario realistico di ciascuno studio. Sono stime, da verificare prima di spendere.</p>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr><th scope="col"></th><th scope="col">Kit di Babbo Natale</th><th scope="col">Template in italiano</th><th scope="col">Libro personalizzato</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Esito</th><td><span class="chip cond">Fattibile con condizioni</span></td><td><span class="chip cond">Fattibile con condizioni</span></td><td><span class="chip cond">Fattibile con condizioni</span></td></tr>
+          <tr><th scope="row">Prezzo</th><td>7,90 €; pacchetto inverno 14,90 €</td><td>3,90-19,90 €, scontrino medio 9 €</td><td>PDF 12,90 €; stampato 39,90 €</td></tr>
+          <tr><th scope="row">Spesa prevista</th><td class="n">422 €</td><td class="n">380 €</td><td class="n">770 €</td></tr>
+          <tr><th scope="row">Perdita massima</th><td class="n">~210 €</td><td class="n">~250 €</td><td class="n">365-480 €</td></tr>
+          <tr><th scope="row">Utile al 31/12/2026</th><td class="n">+140 €</td><td class="n">−130 €</td><td class="n">−220 €</td></tr>
+          <tr><th scope="row">Utile a 12 mesi</th><td class="n">+470 €</td><td class="n">+635 €</td><td class="n">+265 €</td></tr>
+          <tr><th scope="row">Rientro</th><td>metà dicembre 2026</td><td>fine gennaio 2027</td><td>giugno 2027</td></tr>
+          <tr><th scope="row">Ore di avvio</th><td class="n">40-50</td><td class="n">60-75</td><td class="n">80-115</td></tr>
+          <tr><th scope="row">Ore a settimana dopo</th><td>2-3 a nov-dic, quasi zero poi</td><td>1-1,5 (2-3 nei picchi)</td><td>2,5-3,5 a dic, 0,5-1,5 poi</td></tr>
+          <tr><th scope="row">Automazione</th><td>100% per ordine, ~80% del lavoro ricorrente</td><td>80-85% del lavoro ricorrente</td><td>~95% del flusso ordini, ~80% del lavoro ricorrente</td></tr>
+          <tr><th scope="row">Rischio principale</th><td>Il calendario: inserzioni online entro il 25 ottobre</td><td>Domanda italiana piccola, concorrenza dei modelli gratuiti</td><td>Wonderbly e Librio vendono già in italiano; qualità delle illustrazioni AI</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="piano">
+    <h2 id="piano">Il piano fino a gennaio</h2>
+    <div class="legend"><span>passaggio</span><span class="g">decisione con soglia</span></div>
+    <ol class="timeline">
+      <li><span class="d">mer 14 – ven 16 ott</span><span>Nome scelto, negozio Etsy aperto con una prima inserzione, prevendita del kit su Payhip e test con 40 € di pubblicità.</span></li>
+      <li><span class="d">lun 19 – mar 20 ott</span><span>8-10 genitori provano il kit.</span></li>
+      <li class="gate"><span class="d">mar 20 ott</span><span><b>Avanti o versione minima.</b> Sotto 5 prevendite e con meno di 6 genitori su 10 pronti a pagare 6 €, si resta su Etsy senza pubblicità e con al massimo 150 € di spesa.</span></li>
+      <li><span class="d">entro dom 25 ott</span><span>10-12 inserzioni del kit online. È la data che decide la stagione.</span></li>
+      <li><span class="d">lun 26 ott</span><span>Lancio pubblico del kit. Si comincia con i template: primo prodotto, il budget dei regali di Natale.</span></li>
+      <li><span class="d">mer 4 nov</span><span>Kit di Santa Lucia online.</span></li>
+      <li><span class="d">lun 9 nov</span><span>Etsy Ads attivi, 2-3 € al giorno.</span></li>
+      <li><span class="d">entro dom 15 nov</span><span>Template della prima fase online: budget familiare 2027, planner 2027, sfida di risparmio e pacchetto "Anno nuovo". Se il tempo manca, si esce con 3 prodotti.</span></li>
+      <li class="gate"><span class="d">dom 15 nov</span><span><b>Controllo del kit.</b> Sotto 10 ordini e 300 visite si spegne la pubblicità.</span></li>
+      <li><span class="d">ven 27 nov</span><span>Black Friday, -20%.</span></li>
+      <li class="gate"><span class="d">lun 30 nov</span><span><b>Controllo del kit.</b> Sotto 25 ordini si spegne la pubblicità e si salta la Befana.</span></li>
+      <li><span class="d">lun 7 dic</span><span>Kit della Befana online.</span></li>
+      <li><span class="d">mer 23 dic</span><span>Ultimo giorno di assistenza garantita, pubblicità spente.</span></li>
+      <li><span class="d">26 dic – 15 gen</span><span>Picco dei planner e dei budget per il 2027.</span></li>
+      <li class="gate"><span class="d">dom 31 gen 2027</span><span><b>Bilancio.</b> Template: sotto 30 vendite si ferma la spesa, da 60 vendite si sblocca la riserva. Si decide se partire con il libro per il Natale 2027.</span></li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="subito">
+    <h2 id="subito">Da fare questa settimana</h2>
+    <ol class="first">
+      <li><b>Scegliere il nome</b> e controllare che sia libero su Etsy, Instagram, dominio e banche dati dei marchi (TMview, UIBM). Proposte del team: <b>Casa Lucciola</b> per i prodotti per bambini, con la linea natalizia "Ufficio degli Elfi"; <b>Fogli di Casa</b> per i template.</li>
+      <li><b>Aprire il negozio Etsy</b> con una prima inserzione semplice, così parte l'anzianità del negozio, e un account Payhip come canale di riserva.</li>
+      <li><b>Fissare lo stile delle illustrazioni</b> con Midjourney (10 $ al mese) e scrivere i testi del kit con l'AI. Due persone rileggono tutto.</li>
+      <li><b>Mettere online la prevendita</b> su Payhip entro venerdì 16, con 3 immagini di prova e 40 € di pubblicità Meta.</li>
+      <li><b>Attivare i 15 giorni gratuiti di Corjl</b>, costruire il kit e verificare i prezzi reali dello strumento.</li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="messaggi">
+    <h2 id="messaggi">Come presentarli</h2>
+    <blockquote>«Quest'anno Babbo Natale risponde a tuo figlio per nome: lettera, attestato della lista dei buoni e passaporto per il Polo Nord, da personalizzare in 5 minuti e stampare stasera.»<span class="src">Valentina, per il kit</span></blockquote>
+    <blockquote>«I conti di casa in ordine in 10 minuti: fogli già pronti in italiano, con le voci vere delle famiglie italiane, da usare anche dal telefono.»<span class="src">Valentina, per i template</span></blockquote>
+  </section>
+
+  <section aria-labelledby="regole">
+    <h2 id="regole">Regole da rispettare fin dal primo giorno</h2>
+    <ul class="plain">
+      <li>Dichiarare l'uso dell'AI nelle inserzioni: lo chiedono Etsy e l'AI Act (art. 50, in vigore dal 2 agosto 2026).</li>
+      <li>Nessun personaggio o marchio protetto: niente Rudolph, Grinch, Elf on the Shelf, Disney.</li>
+      <li>"DIGITALE" nel titolo e nella prima foto, così nessuno aspetta un pacco.</li>
+      <li>Clausola sul diritto di recesso per i contenuti digitali, accettata prima del download.</li>
+      <li>Dei bambini si chiede solo il nome.</li>
+      <li>Sconti calcolati sul prezzo più basso degli ultimi 30 giorni.</li>
+      <li>Partita IVA: per ora si è scelto di non trattarla, ma quando le vendite diventano regolari va sentito un commercialista.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="verificare">
+    <h2 id="verificare">Da verificare prima di spendere</h2>
+    <p>Le pagine web non si potevano aprire direttamente: i dati vengono dagli estratti dei risultati di ricerca, e ogni dato negli studi è segnato come verificato, auto-dichiarato o stima. Questi sono i punti da controllare per primi:</p>
+    <ul class="plain">
+      <li>I prezzi reali di Corjl, con la prova gratuita.</li>
+      <li>Le commissioni di Etsy per un venditore italiano e quanto bisogna aspettare prima di poter usare Etsy Ads.</li>
+      <li>La disponibilità dei nomi.</li>
+      <li>Per il libro, nel 2027: il costo reale di stampa e spedizione in Italia con Gelato o Lulu (lo studio usa una stima di 24 € a copia).</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="team">
+    <h2 id="team">Come ha lavorato il team</h2>
+    <div class="team">
+      <div><b>Ricerca</b>Matteo, Marco e Luca hanno studiato le tue 6 idee e ne hanno trovate altre 6, con circa 100 ricerche web.</div>
+      <div><b>Valutazione</b>Paolo, Giorgio e Chiara da una parte, Matteo, Francesca, Valentina e Andrea dall'altra, su 11 criteri.</div>
+      <div><b>Fattibilità</b>Uno studio completo per ciascuna delle 3 migliori: mercato, operatività, conti, regole, comunicazione, clienti, rischi.</div>
+      <div><b>Verdetto</b>Roberto ha tirato le somme. Tutti i documenti sono nel repository, cartella team-agenti/ricerca-2026-10.</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Fonti principali citate negli studi:</p>
+    <ul>
+      <li><a href="https://metricool.com/youtube-ai-content-rules-monetization/">Metricool: le regole di YouTube sui contenuti AI</a></li>
+      <li><a href="https://hackernoon.com/youtubes-ai-slop-crackdown-cant-tell-a-directed-ai-film-from-a-bot-farm">HackerNoon: la stretta di YouTube sui contenuti AI in serie</a></li>
+      <li><a href="https://www.etsy.com/legal/creativity/">Etsy: Creativity Standards</a></li>
+      <li><a href="https://brocardi.it/codice-del-consumo/parte-iii/titolo-iii/capo-i/sezione-ii/art59.html">Codice del Consumo, art. 59 (eccezioni al recesso)</a></li>
+      <li><a href="https://help.corjl.com/article/139-difference-between-pricing-plans">Corjl: piani e prezzi</a></li>
+    </ul>
+    <p>Stime prodotte da agenti AI con ricerche web il 13 ottobre 2026. Non sono consulenza legale o fiscale.</p>
+  </footer>
+</div>

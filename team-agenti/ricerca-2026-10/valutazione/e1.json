@@ -1,0 +1,134 @@
+{"idee": {
+  "A1": {
+    "versione_valutata": "Personaggio AI dichiarato come tale, in una nicchia utile (es. tutor di inglese o ricette regionali), con ricavi da prodotti digitali propri e affiliazioni pertinenti; niente 'modella finta' né contenuti per adulti, mai volti reali.",
+    "velocita": {"voto": 2, "perche": "Le affiliazioni danno pochi euro dopo 1-3 mesi e la prima sponsorizzazione richiede 5-10k follower veri, cioè 4-9 mesi se l'account cresce."},
+    "potenziale": {"voto": 2, "perche": "Scenario realistico di 100-400 €/mese lordi a 12 mesi, con il 50-60% di probabilità di restare quasi a zero; tolti 60-100 €/mese di strumenti si è circa in pareggio."},
+    "budget": {"voto": 2, "perche": "Il piano consuma circa 965 € in 6 mesi e lascia 60-100 €/mese di abbonamenti fissi, senza margine per errori."},
+    "effort": {"voto": 2, "perche": "Servono 8-12 ore a settimana per pubblicare 1-2 volte al giorno e interagire; sotto le 5 ore la crescita si ferma."},
+    "esperienza": {"voto": 4, "perche": "Gli strumenti sono alla portata, ma coerenza del personaggio, montaggio, strategia dei contenuti e trattative con i brand sono competenze da creator."},
+    "rischio": {"voto": 3, "perche": "Fiducia in calo (35-45% diffida degli influencer AI), etichettatura AI obbligatoria, demonetizzazione dei contenuti in serie e budget speso in abbonamenti che non si recupera."},
+    "ore_settimana_dopo_avvio": "8-12",
+    "utile_mese12_realistico_euro": "0-150"
+  },
+  "A2": {
+    "versione_valutata": "Versione legale: 'clipper autorizzato' (Whop Content Rewards o accordi con podcaster e creator che pagano per essere tagliati), più materiale di pubblico dominio verificato in UE e commento trasformativo; non la ripubblicazione di film altrui.",
+    "velocita": {"voto": 4, "perche": "Con il clipping autorizzato il primo pagamento arriva in 2-6 settimane, ma solo se le visualizzazioni vengono approvate, e un account nuovo parte con poca portata."},
+    "potenziale": {"voto": 4, "perche": "Il dossier stima 150-500 €/mese lordi a 12 mesi, ma i budget delle campagne finiscono in fretta e attirano migliaia di clipper: realisticamente 30-200 € netti."},
+    "budget": {"voto": 5, "perche": "450-810 € in 6 mesi tra OpusClip, CapCut, microfono e consulenza legale: non serve pubblicità, ma sono costi fissi senza ricavi garantiti."},
+    "effort": {"voto": 2, "perche": "La versione legale richiede 8-15 ore a settimana, e più si automatizza più le piattaforme declassano i contenuti come non originali."},
+    "esperienza": {"voto": 6, "perche": "Tagliare e sottotitolare clip è da smanettoni; il commento originale e la verifica dei diritti richiedono più mestiere."},
+    "rischio": {"voto": 4, "perche": "Restano rivendicazioni Content ID, regole anti-contenuto non originale di Meta, Instagram e YouTube e la tentazione di passare a clip non autorizzate: tre avvertimenti chiudono il canale."},
+    "ore_settimana_dopo_avvio": "8-15",
+    "utile_mese12_realistico_euro": "30-200"
+  },
+  "A3": {
+    "versione_valutata": "Piccolo marchio educativo con personaggio originale rifinito da un illustratore (es. italiano per bambini italiani all'estero), YouTube come vetrina e guadagno da prodotti propri (storie, schede) o da contenuti per genitori; non il 'canale fabbrica'.",
+    "velocita": {"voto": 2, "perche": "Il canale incassa solo dopo l'ingresso nel Programma partner (4-12 mesi, molti non ci arrivano) e i prodotti propri richiedono prima un personaggio e un pubblico."},
+    "potenziale": {"voto": 1, "perche": "RPM 'Made for Kids' mediano di 0,33 $ e ricavo YouTube realistico di 0-300 € in tutto il primo anno; i prodotti propri sono di fatto l'idea N1, ma con più passaggi."},
+    "budget": {"voto": 2, "perche": "Circa 920 € in 6 mesi tra strumenti AI, illustratore e revisione pedagogica, senza entrate previste nel periodo."},
+    "effort": {"voto": 1, "perche": "Servono 8-15 ore a settimana: ogni video richiede 4-8 ore e un controllo fotogramma per fotogramma per la sicurezza dei bambini."},
+    "esperienza": {"voto": 2, "perche": "Servono illustrazione, animazione, scrittura didattica e revisione pedagogica: competenze professionali."},
+    "rischio": {"voto": 2, "perche": "È il rischio più alto delle 12: demonetizzazione dell'intero canale per contenuti inautentici, campagna contro l''AI slop' firmata da oltre 200 organizzazioni, regole COPPA e YouTube Kids chiuso ai nuovi canali AI."},
+    "ore_settimana_dopo_avvio": "8-15",
+    "utile_mese12_realistico_euro": "0-80"
+  },
+  "A4": {
+    "versione_valutata": "Nicchia tecnica: LUT per dispositivi specifici (iPhone Apple Log, DJI D-Log M) più look 'Italia', una LUT gratuita come esca per le email, vendita su Etsy e Payhip, video prima/dopo sui social; nomi senza marchi altrui.",
+    "velocita": {"voto": 4, "perche": "Su Etsy il primo euro arriva in 2-8 settimane, dopo aver creato e testato i pacchetti; senza un pubblico, Payhip e Gumroad non vendono."},
+    "potenziale": {"voto": 5, "perche": "Realistico 600-2.500 € lordi nel primo anno (50-150 €/mese a regime) su un mercato internazionale, ma saturo e pieno di LUT gratuite."},
+    "budget": {"voto": 7, "perche": "Si parte con meno di 300 € (DaVinci Resolve è gratis); il piano completo da circa 790 € include 200 € di riserva e 200 € di collaborazioni opzionali."},
+    "effort": {"voto": 5, "perche": "Consegna automatica, ma servono 3-6 ore a settimana di video prima/dopo e di assistenza sulla compatibilità tra software."},
+    "esperienza": {"voto": 4, "perche": "Fare LUT per profili log specifici richiede vere conoscenze di correzione colore, e un pubblico tecnico nota subito la qualità."},
+    "rischio": {"voto": 7, "perche": "Pochi soldi in gioco e ci si ferma senza perdite; i rischi sono pirateria, segnalazioni per marchi (Kodak, Fuji) e dipendenza da Etsy."},
+    "ore_settimana_dopo_avvio": "3-6",
+    "utile_mese12_realistico_euro": "50-150"
+  },
+  "A5": {
+    "versione_valutata": "Regalo-albero onesto e tracciabile per occasioni (nascita, memoria, bomboniera): un solo partner con tracciamento del singolo albero (Tree-Nation o Evertreen), prezzo trasparente, nessun claim CO2 o 'impatto zero', consegna istantanea, pagina B2B leggera.",
+    "velocita": {"voto": 5, "perche": "Primo euro in 2-4 settimane dalla rete personale, ma prima servono 35-50 ore di integrazione API e il permesso scritto di rivendita del partner."},
+    "potenziale": {"voto": 5, "perche": "Fatturato stimato di 3.000-6.000 € nel primo anno, ma con uno scontrino di 18 € e un costo per cliente di 20-35 € la pubblicità mangia il margine: 40-150 €/mese netti."},
+    "budget": {"voto": 3, "perche": "Usa tutti i 1.000 €, di cui 450 € di pubblicità che a quel costo per cliente rischia di non ripagarsi, più Shopify a 29-39 $/mese."},
+    "effort": {"voto": 6, "perche": "2-4 ore a settimana fuori stagione, ma 8-12 da metà novembre a Natale tra pubblicità, assistenza ed errori API."},
+    "esperienza": {"voto": 4, "perche": "Collegare Shopify, Make, API del partner e generatore di certificati è il livello più alto di smanettamento delle 12, e i testi vanno rivisti da un legale."},
+    "rischio": {"voto": 4, "perche": "Regole anti-greenwashing in vigore dal 27/9/2026, margine visibile al cliente (l'albero costa 0,35-1,5 €), dipendenza dal partner e budget pubblicitario a rischio."},
+    "ore_settimana_dopo_avvio": "2-4 (8-12 da metà novembre a Natale)",
+    "utile_mese12_realistico_euro": "40-150 (media mensile, concentrata a dicembre)"
+  },
+  "A6": {
+    "versione_valutata": "'Il tuo cielo': mappa reale del cielo per data e luogo con designazione di catalogo e dedica simbolica dichiarata come tale prima dell'acquisto; solo digitale, consegna istantanea, stella visibile a occhio nudo; mai 'registro' né 'compra una stella'.",
+    "velocita": {"voto": 7, "perche": "Nessun partner da integrare: con 25-40 ore di lavoro si è online e il primo euro arriva in 1-3 settimane, in tempo per Natale."},
+    "potenziale": {"voto": 6, "perche": "Margine del 95% prima della pubblicità e fatturato realistico di 3.000-5.000 € l'anno, ma concentrato in 6-8 settimane e legato agli annunci: 60-200 €/mese di media."},
+    "budget": {"voto": 4, "perche": "Usa tutti i 1.000 €, con 450 € di pubblicità e un costo per cliente (20-40 €) vicino al prezzo di vendita (24 €)."},
+    "effort": {"voto": 7, "perche": "Ordine, assegnazione della stella, PDF ed email sono automatici: 1-3 ore a settimana, 6-10 nei picchi di Natale e San Valentino."},
+    "esperienza": {"voto": 5, "perche": "Shopify, Make e Placid sono alla portata, ma la mappa del cielo per data e luogo richiede codice (d3-celestial) o 88 modelli preparati a mano."},
+    "rischio": {"voto": 4, "perche": "Prodotto vicino all'inganno (posizione IAU, caso di New York del 1998, marchio respinto dall'EUIPO): con un disclaimer debole si rischiano segnalazioni AGCM, storni, recensioni 'truffa' e annunci rifiutati."},
+    "ore_settimana_dopo_avvio": "1-3 (6-10 nei picchi)",
+    "utile_mese12_realistico_euro": "60-200 (media mensile, concentrata a Natale e San Valentino)"
+  },
+  "N1": {
+    "versione_valutata": "Libro illustrato a template in italiano: una storia e 6-12 avatar con tavole prodotte una sola volta, nessuna foto del bambino; PDF a 12-15 € e copertina rigida a 29-39 € stampata e spedita da Lulu o Gelato; vendita su Etsy e sito proprio, temi di nicchia.",
+    "velocita": {"voto": 5, "perche": "Servono 2-3 settimane di produzione (40-80 ore) e il primo euro arriva in 3-5 settimane; i libri stampati vanno chiusi intorno al 10-12 dicembre."},
+    "potenziale": {"voto": 7, "perche": "È la domanda più solida delle 12 (Wonderbly, circa 30 milioni di sterline di ricavi nel 2021) e vende tutto l'anno, tra compleanni e nascite: realistico 80-200 €/mese netti, con margine più alto sul PDF."},
+    "budget": {"voto": 6, "perche": "450-750 €, con 200-400 € di test pubblicitari: il caso DreamStories mostra un costo per cliente pari allo scontrino, quindi serve il traffico organico di Etsy."},
+    "effort": {"voto": 6, "perche": "3-6 ore a settimana a Natale (5-10 minuti di controllo per libro e caricamento manuale su Lulu degli ordini Etsy), circa 1 ora fuori stagione."},
+    "esperienza": {"voto": 5, "perche": "Tavole coerenti per 6-12 avatar (150-300 immagini), impaginazione per la stampa e PDF a campi variabili sono il limite superiore dello smanettamento."},
+    "rischio": {"voto": 6, "perche": "Rischi gestibili (ritardi di stampa a dicembre, ristampe, segnalazioni Etsy sull'AI, dati dei minori), ma con più soldi in gioco rispetto alle idee solo digitali."},
+    "ore_settimana_dopo_avvio": "3-6 a Natale, circa 1 fuori stagione",
+    "utile_mese12_realistico_euro": "80-200 (media mensile, picco a dicembre)"
+  },
+  "N2": {
+    "versione_valutata": "Canzone personalizzata in italiano a 19-39 €, testo scritto con l'AI e rifinito a mano, brano generato con Suno Pro, consegna in 24-48 ore con una revisione inclusa; vendita da sito proprio e social come 'file digitale personalizzato'.",
+    "velocita": {"voto": 8, "perche": "Suno Pro, un modulo e una pagina di vendita si attivano in pochi giorni, e il primo euro arriva in 1-3 settimane, anche dalla rete personale."},
+    "potenziale": {"voto": 6, "perche": "Realistico 1.500-4.000 € lordi nel primo anno con costi variabili quasi nulli (Suno a 10 $/mese), ma con concorrenti AI già attivi e clienti che possono farselo da soli."},
+    "budget": {"voto": 6, "perche": "350-530 €, quasi tutti in pubblicità con demo audio, che è l'unico modo di far sentire il prodotto; il costo per cliente non è noto."},
+    "effort": {"voto": 3, "perche": "Non è passivo: senza un'API ufficiale di Suno, ogni ordine richiede 15-30 minuti tra generazione, ascolto, pronuncia dei nomi e revisioni (5-10 ore a settimana)."},
+    "esperienza": {"voto": 7, "perche": "Gli strumenti sono facili; servono gusto per i testi in italiano e orecchio per scegliere la versione migliore."},
+    "rischio": {"voto": 6, "perche": "Pochi soldi in gioco, ma si dipende da un solo fornitore con termini che cambiano (licenza commerciale solo con abbonamento attivo, cause con le case discografiche)."},
+    "ore_settimana_dopo_avvio": "5-10",
+    "utile_mese12_realistico_euro": "70-200"
+  },
+  "N3": {
+    "versione_valutata": "Ritratti AI in una nicchia precisa (razze rare o meticci, ritratto commemorativo, calendario 2027 del proprio cane), file digitale più stampa Gelato, anteprima da approvare prima della stampa, uso dell'AI dichiarato su Etsy.",
+    "velocita": {"voto": 6, "perche": "Con le inserzioni online entro fine ottobre il primo euro arriva in 2-4 settimane, e il picco di novembre gioca a favore."},
+    "potenziale": {"voto": 5, "perche": "Domanda provata (27.100 ricerche al mese su Etsy), ma con oltre 580.000 inserzioni e prezzi dell'arte AI che scendono verso 5-12 $: 60-180 €/mese realistici."},
+    "budget": {"voto": 8, "perche": "300-410 € compresi i campioni e 200 € di pubblicità; la stampa la paga il cliente."},
+    "effort": {"voto": 4, "perche": "Ogni ordine richiede 10-20 minuti tra generazione, controllo di somiglianza e anteprima: 3-8 ore a settimana, che crescono con le vendite."},
+    "esperienza": {"voto": 6, "perche": "Generare da foto e ritoccare è da smanettoni; l'automazione completa via API (Make + Replicate) è più tecnica."},
+    "rischio": {"voto": 6, "perche": "Rimborsi per scarsa somiglianza, segnalazioni Etsy sull'AI e saturazione; i soldi in gioco restano contenuti."},
+    "ore_settimana_dopo_avvio": "3-8",
+    "utile_mese12_realistico_euro": "60-180"
+  },
+  "N4": {
+    "versione_valutata": "Catalogo di 15-25 template Google Sheets/Excel pensati per l'Italia (budget familiare, budget regali di Natale, planner 2027, matrimonio, affitti brevi), consegna istantanea su Etsy e Payhip, istruzioni in PDF e video, nessuno strumento fiscale.",
+    "velocita": {"voto": 5, "perche": "Primo euro in 2-6 settimane perché Etsy premia le inserzioni con storico; il budget regali di Natale e il planner 2027 arrivano nel periodo giusto."},
+    "potenziale": {"voto": 6, "perche": "Realistico 1.000-3.000 € lordi il primo anno, con margine vicino al 90% e catalogo che cresce: 70-200 €/mese a 12 mesi, su un mercato in italiano piccolo."},
+    "budget": {"voto": 10, "perche": "110-260 € in tutto, nessun costo per ordine e pubblicità facoltativa: è il più economico delle 12."},
+    "effort": {"voto": 9, "perche": "Consegna istantanea senza produzione per ordine: 1-3 ore a settimana tra assistenza e nuovi prodotti."},
+    "esperienza": {"voto": 7, "perche": "Servono formule ben fatte e test su Sheets, Excel e mobile, alla portata con l'aiuto di un assistente AI."},
+    "rischio": {"voto": 9, "perche": "Si rischiano poche centinaia di euro e ci si ferma senza perdite; restano solo garanzia di conformità, copie dei concorrenti e algoritmo di Etsy."},
+    "ore_settimana_dopo_avvio": "1-3",
+    "utile_mese12_realistico_euro": "70-200"
+  },
+  "N5": {
+    "versione_valutata": "Kit digitale in italiano (lettera di Babbo Natale, attestato 'lista dei buoni', passaporto per il Polo Nord, biglietto della renna, etichette) come template modificabile Corjl/Templett a 5-9 € e versione personalizzata tramite modulo a 9-15 €; poi Befana, Fatina dei denti e Pasqua.",
+    "velocita": {"voto": 8, "perche": "Online entro fine ottobre, con 2-3 settimane al primo euro e la domanda di Natale già in arrivo."},
+    "potenziale": {"voto": 3, "perche": "Scontrino di 5-15 € e stagione di 6 settimane: realistico 200-800 € fino a Natale e 400-1.500 € in un anno, con Befana e Fatina dei denti."},
+    "budget": {"voto": 9, "perche": "200-370 € in tutto, di cui 150-250 € di pubblicità a novembre-dicembre."},
+    "effort": {"voto": 9, "perche": "Con il template modificabile il cliente si personalizza il kit da solo: 1-4 ore a settimana in stagione, quasi zero nel resto dell'anno."},
+    "esperienza": {"voto": 8, "perche": "Bastano Canva o Corjl e buoni testi in italiano: è il prodotto più semplice da realizzare delle 12."},
+    "rischio": {"voto": 9, "perche": "Pochi euro in gioco e nessun problema legale serio (Babbo Natale è di pubblico dominio); il rischio vero è che le inserzioni nuove non si posizionino in tempo."},
+    "ore_settimana_dopo_avvio": "1-4 a novembre-dicembre, quasi 0 nel resto dell'anno",
+    "utile_mese12_realistico_euro": "20-80 (media mensile, quasi tutto a novembre-dicembre)"
+  },
+  "N6": {
+    "versione_valutata": "Catalogo complementare in italiano: inviti modificabili, anche video per WhatsApp con kit coordinato (segnaposto, menu, ringraziamenti), e giochi stampabili (tombola, caccia al tesoro, escape room) tramite Corjl/Templett, senza temi protetti.",
+    "velocita": {"voto": 3, "perche": "Primo euro in 3-8 settimane e stagione sfasata: comunioni, cresime e matrimoni sono in primavera-estate, mentre a Natale si vendono solo tombola e giochi."},
+    "potenziale": {"voto": 4, "perche": "Le prove di domanda sono le più deboli (un negozio di escape room con 26 vendite) e Canva offre inviti gratis: 30-120 €/mese realistici."},
+    "budget": {"voto": 9, "perche": "150-270 € in tutto, senza costi per ordine."},
+    "effort": {"voto": 8, "perche": "Consegna automatica con template modificabili: 1-3 ore a settimana, più l'aggiornamento stagionale del catalogo."},
+    "esperienza": {"voto": 6, "perche": "Per battere i modelli gratuiti di Canva serve un design davvero curato, compresi gli inviti animati."},
+    "rischio": {"voto": 7, "perche": "Pochi soldi in gioco; il rischio principale è la tentazione dei temi protetti (Frozen, Bluey), prima causa di rimozione su Etsy."},
+    "ore_settimana_dopo_avvio": "1-3",
+    "utile_mese12_realistico_euro": "30-120"
+  }
+}}
